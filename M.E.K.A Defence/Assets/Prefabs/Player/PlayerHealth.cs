@@ -41,7 +41,7 @@ public class PlayerHealth : MonoBehaviour
 
         currentHealth -= amount;
 
-        healthSlider.value = currentHealth;
+        //healthSlider.value = currentHealth;
 
         //That big "oof" plays here
         //playerAudio.Play();
@@ -62,7 +62,7 @@ public class PlayerHealth : MonoBehaviour
         //playerAudio.clip = deathClip;
         //playerAudio.Play();
 
-        playerMovement.enabled = false;
+        //playerMovement.enabled = false;
     }
 
 

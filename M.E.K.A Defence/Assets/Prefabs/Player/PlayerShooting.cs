@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
+    //Upper body Rotation
     public float turnSpeed;
 
     float angle;
@@ -14,21 +15,33 @@ public class PlayerShooting : MonoBehaviour
 
 
     //SHOOT RELATED VARIABLES
-    public int damagePerShot = 20;
-    public float timeBetweenBullets = 0.12f;
-    public float range = 100f;
 
+    //Laser variables
+
+    //mechanical
+    public int damagePerLaser = 20;
+    public float timeBetweenLasers = 0.12f;
+    public float laserRange = 100f;
     float timer;
     Ray shootRay = new Ray();
     RaycastHit shootHit;
     int shootableMask;
 
-    LineRenderer gunLine;
+    //Cosmetic
+    Light laserLight;
+    float laserDisplayTime = 0.2f;
+    LineRenderer laserLine;
+
+    Color laserColor1 = Color.cyan;
+    Color laserColor2 = new Color(0, 1, 1, 0);
 
     void Awake()
     {
         floorMask = LayerMask.GetMask("Floor");
         shootableMask = LayerMask.GetMask("Shootable");
+
+        laserLight = GetComponent<Light>();
+        laserLine = GetComponent<LineRenderer>();
 
     }
 
@@ -37,6 +50,9 @@ public class PlayerShooting : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        //Update Timer
+        timer += Time.deltaTime;
+
         Turning();
         IsLaserReady();
     }
@@ -73,16 +89,33 @@ public class PlayerShooting : MonoBehaviour
     void ShootLaser()
     {
         timer = 0f;
+
+        //LASER BEAM SOUND
+
+        laserLight.enabled = true;
+
+        laserLine.enabled = true;
+        laserLine.SetPosition(0, transform.position);
+        
+
         shootRay.origin = transform.position;
         shootRay.direction = transform.forward;
 
-        if (Physics.Raycast(shootRay, out shootHit, range, shootableMask))
+        if (Physics.Raycast(shootRay, out shootHit, laserRange, shootableMask))
 
         {
 
-      
-      
-            gunLine.SetPosition(1, shootHit.point);
+            EnemyHealth enemyHealth = shootHit.collider.GetComponent<EnemyHealth>();
+
+            if (enemyHealth != null)
+
+            {
+
+                enemyHealth.TakeDamage(damagePerLaser, shootHit.point);
+
+            }
+
+            laserLine.SetPosition(1, shootHit.point);
 
         }
 
@@ -90,7 +123,7 @@ public class PlayerShooting : MonoBehaviour
 
         {
 
-            gunLine.SetPosition(1, shootRay.origin + shootRay.direction * range);
+            laserLine.SetPosition(1, shootRay.origin + shootRay.direction * laserRange);
 
         }
     }
@@ -98,9 +131,7 @@ public class PlayerShooting : MonoBehaviour
     void IsLaserReady()
     {
 
-        timer += Time.deltaTime;
-
-        if (Input.GetButton("Fire1") && timer >= timeBetweenBullets && Time.timeScale != 0)
+        if (Input.GetButton("Fire1") && timer >= timeBetweenLasers && Time.timeScale != 0)
 
         {
 
@@ -108,5 +139,19 @@ public class PlayerShooting : MonoBehaviour
 
         }
 
+        if (timer >= timeBetweenLasers * laserDisplayTime)
+
+        {
+
+            DisableEffects();
+
+        }
+
+    }
+
+    void DisableEffects()
+    {
+        laserLine.enabled = false;
+        laserLight.enabled = false;
     }
 }

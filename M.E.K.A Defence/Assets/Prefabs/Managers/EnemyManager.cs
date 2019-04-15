@@ -21,8 +21,9 @@ public class EnemyManager : MonoBehaviour
             return;
         }
 
-        int spawnPointIndex = Random.Range(0, spawnPoints.Length);
 
+        //This spawns an enemy at one of the spawn points randomly every spawn time seconds that pass
+        int spawnPointIndex = Random.Range(0, spawnPoints.Length);
         Instantiate(enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
     }
 }

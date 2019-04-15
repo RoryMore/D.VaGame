@@ -22,6 +22,11 @@ public class PlayerShooting : MonoBehaviour
     public int damagePerLaser = 20;
     public float timeBetweenLasers = 0.12f;
     public float laserRange = 100f;
+
+    public int laserDamageModifer = 0; // Decrease is bad
+    public int laserTimeModifer = 0; //Increase is bad
+    public int laserRangeModifier = 0;
+
     float timer;
     Ray shootRay = new Ray();
     RaycastHit shootHit;
@@ -101,7 +106,7 @@ public class PlayerShooting : MonoBehaviour
         shootRay.origin = transform.position;
         shootRay.direction = transform.forward;
 
-        if (Physics.Raycast(shootRay, out shootHit, laserRange, shootableMask))
+        if (Physics.Raycast(shootRay, out shootHit, (laserRange - laserRangeModifier), shootableMask))
 
         {
 
@@ -111,7 +116,7 @@ public class PlayerShooting : MonoBehaviour
 
             {
 
-                enemyHealth.TakeDamage(damagePerLaser, shootHit.point);
+                enemyHealth.TakeDamage((damagePerLaser - laserDamageModifer), shootHit.point);
 
             }
 
@@ -123,7 +128,7 @@ public class PlayerShooting : MonoBehaviour
 
         {
 
-            laserLine.SetPosition(1, shootRay.origin + shootRay.direction * laserRange);
+            laserLine.SetPosition(1, shootRay.origin + shootRay.direction * (laserRange - laserRangeModifier));
 
         }
     }
@@ -131,7 +136,7 @@ public class PlayerShooting : MonoBehaviour
     void IsLaserReady()
     {
 
-        if (Input.GetButton("Fire1") && timer >= timeBetweenLasers && Time.timeScale != 0)
+        if (Input.GetButton("Fire1") && timer >= (timeBetweenLasers + laserTimeModifer) && Time.timeScale != 0)
 
         {
 
@@ -139,7 +144,7 @@ public class PlayerShooting : MonoBehaviour
 
         }
 
-        if (timer >= timeBetweenLasers * laserDisplayTime)
+        if (timer >= timeBetweenLasers + laserTimeModifer * laserDisplayTime)
 
         {
 

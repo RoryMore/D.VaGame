@@ -7,14 +7,16 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int startingHealth = 100;
-    public int currentHealth;
+    public float startingHealth = 100;
+    public float currentHealth;
     public Slider healthSlider;
     
     public AudioClip deathClip;
     Animator anim;
     AudioSource playerAudio;
     PlayerMovement playerMovement;
+
+    GameObject torso;
     PlayerShooting playerShooting;
 
 
@@ -29,6 +31,7 @@ public class PlayerHealth : MonoBehaviour
         anim = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
         playerMovement = GetComponent<PlayerMovement>();
+        playerShooting = GetComponentInChildren<PlayerShooting>();
         currentHealth = startingHealth;
     }
 
@@ -39,7 +42,7 @@ public class PlayerHealth : MonoBehaviour
     }
 
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         //Standard damage function
         damaged = true;
@@ -50,8 +53,52 @@ public class PlayerHealth : MonoBehaviour
         //If the hit is above our current health, deal damage to a system
         if (critHit > currentHealth)
         {
+
+
             print("critical hit!");
-            //Random.Range(0.0f, 8.0f);
+            float choice = (Mathf.Round(Random.Range(0.0f, 4.0f)));
+
+            
+
+            if (choice == 0)
+            {
+                print("Movement Speed Reduced");
+                //Updated singleton
+                PlayerModifierManager.Instance.CalculateModifier("moveSpeed", 0.5f);
+                playerMovement.moveSpeedModifier = PlayerModifierManager.Instance.GetMoveSpeed();
+            }
+            else if (choice == 1)
+            {
+                print("Turn Speed Reduced");
+                PlayerModifierManager.Instance.CalculateModifier("moveSpeed", 0.05f);
+                playerMovement.turnSpeedModifier = PlayerModifierManager.Instance.GetTurnSpeed();
+                
+            }
+            else if (choice == 2)
+            {
+                print("Laser recharge time increased");
+                PlayerModifierManager.Instance.CalculateModifier("laserTime", 0.05f);
+                playerShooting.laserTimeModifier = PlayerModifierManager.Instance.GetLaserTime();
+                
+            }
+            else if (choice == 3)
+            {
+                print("Laser range reduced");
+                PlayerModifierManager.Instance.CalculateModifier("laserRange", 10.0f);
+                playerShooting.laserRangeModifier = PlayerModifierManager.Instance.GetLaserRange();
+            }
+            else if (choice == 4)
+            {
+                print("Laser damage reduced");
+                PlayerModifierManager.Instance.CalculateModifier("laserDamage", 1.0f);
+                playerShooting.laserDamageModifier = PlayerModifierManager.Instance.GetLaserDamage();
+                    
+            }
+            else
+            {
+                print("Debug: Should not occur");
+            }
+            
 
         }
 

@@ -8,6 +8,9 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed;
     public float turnSpeed;
 
+    public float moveSpeedModifier = 0;
+    public float turnSpeedModifier = 0;
+
     float angle;
     Quaternion targetRotation;
     Vector2 horizontalInput;
@@ -51,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        transform.position += transform.forward * moveSpeed * Time.deltaTime;
+        transform.position += transform.forward * (moveSpeed - moveSpeedModifier) * Time.deltaTime;
     }
 
     void CalculateDirection()
@@ -66,6 +69,6 @@ public class PlayerMovement : MonoBehaviour
     void Rotate()
     {
         targetRotation = Quaternion.Euler(0, angle, 0);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, (turnSpeed - turnSpeedModifier));
     }
 }

@@ -61,9 +61,6 @@ public class PlayerMovement : MonoBehaviour
     {
         angle = Mathf.Atan2(horizontalInput.x, horizontalInput.y);
         angle = Mathf.Rad2Deg * angle;
-        
-
-
     }
 
     void Rotate()

@@ -1,13 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int startingHealth = 100;
-    public int currentHealth;
+    public float startingHealth = 100;
+    public float currentHealth;
     public float sinkSpeed = 2.5f;
     //public int scoreValue = 10;
     public AudioClip deathClip;
 
+    EnemyManager enemyManager;
 
     Animator anim;
     AudioSource enemyAudio;
@@ -23,7 +28,7 @@ public class EnemyHealth : MonoBehaviour
         //enemyAudio = GetComponent<AudioSource>();
        //hitParticles = GetComponentInChildren<ParticleSystem>();
         capsuleCollider = GetComponent<CapsuleCollider>();
-
+        
         currentHealth = startingHealth;
     }
 
@@ -39,7 +44,7 @@ public class EnemyHealth : MonoBehaviour
 
     //Function that is called when the player deals damage to you
     //Default condition format
-    public void TakeDamage(int amount, Vector3 hitPoint)
+    public void TakeDamage(float amount, Vector3 hitPoint)
     {
         if (isDead)
             return;
@@ -80,7 +85,12 @@ public class EnemyHealth : MonoBehaviour
         GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
         isSinking = true;
-        //ScoreManager.score += scoreValue;
+
+        //Counts enemy towards wave completion
+        //enemyManager.killCount += 1.0f;
+        enemyManager.GetComponent<EnemyManager>().killCount += 1.0f;
+        print("Its here!");
+
         //Delete the object once it sinks below the surface
         Destroy(gameObject, 2f);
     }

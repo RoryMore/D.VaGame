@@ -25,8 +25,8 @@ public class GwishinMovement : MonoBehaviour
     float deviatePointRadius             = 5.0f;
     float deviateChance                  = 0.1f;
     //Height Restriction
-    public float heightTarget           = 0.0f;
-    public float heightRangeMax         = 1.0f;
+    public float heightTarget           = 1.0f;
+    public float heightRangeMax         = 0.50f;
 
 
     //-----References
@@ -42,6 +42,7 @@ public class GwishinMovement : MonoBehaviour
     private void FixedUpdate()
     {
         ProcessMovement();
+        targetPosition = player.transform.position;
     }
 
 //-----------------------------------------------------------------------//
@@ -77,14 +78,14 @@ public class GwishinMovement : MonoBehaviour
         if (deviateChance > Random.value || deviatePosition == Vector3.zero || Vector3.Distance(targetPosition, transform.position) < Vector3.Distance(deviatePosition, targetPosition))
         { 
             deviatePosition = transform.position + ((targetPosition - transform.position).normalized * deviatePositionDistance + Random.onUnitSphere * deviatePointRadius);
-            deviatePosition.y = Mathf.Clamp(deviatePosition.y, -heightRangeMax, heightRangeMax);
+            deviatePosition.y = Mathf.Clamp(deviatePosition.y, heightTarget - heightRangeMax, heightTarget + heightRangeMax);
         }
     }
 
     private void Randomize()
     {
-        maxVelocity         *= 1 - Random.Range(-maxVelocityModifierMax, maxVelocityModifierMax);
-        accelerationRate    *= 1 - Random.Range(-accelerationRateModifierMax, accelerationRateModifierMax);
-        turnSpeed           *= 1 - Random.Range(-turnSpeedModifierMax, turnSpeedModifierMax);
+        maxVelocity         *= 1 + Random.Range(-maxVelocityModifierMax, maxVelocityModifierMax);
+        accelerationRate    *= 1 + Random.Range(-accelerationRateModifierMax, accelerationRateModifierMax);
+        turnSpeed           *= 1 + Random.Range(-turnSpeedModifierMax, turnSpeedModifierMax);
     }
 }

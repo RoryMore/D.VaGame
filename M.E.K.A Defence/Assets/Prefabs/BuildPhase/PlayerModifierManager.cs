@@ -1,30 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerModifierManager : Singleton<PlayerModifierManager>
 
 {
+
+    //Player Modifiers
     float moveSpeedModifier = 0.0f;
     float turnSpeedModifier = 0.0f;
     float laserTimeModifier = 0.0f;
     float laserRangeModifier = 0.0f;
     float laserDamageModifier = 0;
 
-
-
-    // Start is called before the first frame update
-    void Start()
+    //Menu Management Variables
+    public void Start()
     {
 
     }
+    //FUNCTIONS
+    //void 
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    //SETTER
     public void CalculateModifier(string modifier, float value)
     {
         if (modifier == "moveSpeed")
@@ -50,6 +49,8 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
 
     }
 
+
+    //GETTERS
     public float GetMoveSpeed()
     {
         return moveSpeedModifier;

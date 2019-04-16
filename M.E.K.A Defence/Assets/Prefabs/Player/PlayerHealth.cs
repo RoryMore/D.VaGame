@@ -125,6 +125,8 @@ public class PlayerHealth : MonoBehaviour
         //playerAudio.Play();
 
         //playerMovement.enabled = false;
+
+        SceneManager.LoadScene("GameOverScene");
     }
 
 

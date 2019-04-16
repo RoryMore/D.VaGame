@@ -7,6 +7,9 @@ using TMPro;
 public class PlayerModifierManager : Singleton<PlayerModifierManager>
 
 {
+    //Global Values
+    float waveCount = 0;
+
 
     //Player Modifiers
     float moveSpeedModifier = 0.0f;
@@ -21,7 +24,19 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
 
     }
     //FUNCTIONS
-    //void 
+    public void ResetModifiers()
+    {
+        //Global Values
+        waveCount = 0;
+
+        //Player Modifiers
+        moveSpeedModifier = 0.0f;
+        turnSpeedModifier = 0.0f;
+        laserTimeModifier = 0.0f;
+        laserRangeModifier = 0.0f;
+        laserDamageModifier = 0;
+
+    }
 
     //SETTER
     public void CalculateModifier(string modifier, float value)
@@ -51,6 +66,12 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
 
 
     //GETTERS
+
+     public float GetWaveCount()
+    {
+        return waveCount;
+    }
+
     public float GetMoveSpeed()
     {
         return moveSpeedModifier;
@@ -75,5 +96,7 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
     {
         return laserDamageModifier;
     }
+
+    
 
 }

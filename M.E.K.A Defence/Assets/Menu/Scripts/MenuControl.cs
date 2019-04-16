@@ -23,7 +23,10 @@ public class MenuControl : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("GameScene");
+        //SceneManager.LoadScene("GameScene");
+        //FOR TESTING
+        SceneManager.LoadScene("PlayerTestScene");
+
     }
 
     public void ShowControls()

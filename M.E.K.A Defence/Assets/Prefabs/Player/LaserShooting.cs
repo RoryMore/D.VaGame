@@ -2,26 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShooting : MonoBehaviour
+public class LaserShooting : MonoBehaviour
 {
     //SHOOT RELATED VARIABLES
-    int floorMask;
+   
     //Laser variables
 
-    //mechanical
+    //-----mechanical
     public int damagePerLaser = 20;
     public float timeBetweenLasers = 0.12f;
     public float laserRange = 100f;
     float timer;
+    //for raycast
     Ray shootRay = new Ray();
     RaycastHit shootHit;
     int shootableMask;
+    int floorMask;
 
-    //Cosmetic
+    //-----Cosmetic
     Light laserLight;
     float laserDisplayTime = 0.2f;
     LineRenderer laserLine;
-
     Color laserColor1 = Color.cyan;
     Color laserColor2 = new Color(0, 1, 1, 0);
 
@@ -56,7 +57,7 @@ public class PlayerShooting : MonoBehaviour
 
         laserLine.enabled = true;
         laserLine.SetPosition(0, transform.position);
-        
+
 
         shootRay.origin = transform.position;
         shootRay.direction = transform.forward;

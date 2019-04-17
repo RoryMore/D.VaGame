@@ -1,43 +1,84 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class AlterEnemyBehavior : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float _radius_length;
-    public float _angle_speed;
-
-    private float temp_angle;
-
-    private Vector3 _pos_new;
-
-    public Vector3 _center_pos;
-    public Transform target;
-    public bool _round_its_center = false;
+    public GameObject player;
+    private NavMeshAgent myNavMeshAgent;
+    private float checkrate;
+    private float nextCheck;
+    private float wanderRange = 20;
+    private Transform myTransform;
+    private NavMeshHit navHit;
+    private Vector3 wanderTarget;
     void Start()
     {
-        if (_round_its_center)
-        {
-            _center_pos = transform.localPosition;
-        }
-        else
-        {
-            _center_pos = target.localPosition;
-        }
+        //SceneManager.LoadSceneAsync("NavMeshTestScene");
     }
     //Keep a range distance between player, face the player, and shoot bullet at player
 
     // Update is called once per frame
+    private void OnEnable()
+    {
+        Init();
+
+    }
+    private void OnDisable()
+    {
+        
+    }
     void Update()
     {
-        _center_pos = target.localPosition;
-        temp_angle += _angle_speed * Time.deltaTime; // 
-
-        _pos_new.x = _center_pos.x + Mathf.Cos(temp_angle) * _radius_length;
-        _pos_new.y = transform.localPosition.y ;
-        _pos_new.z = _center_pos.z + Mathf.Sin(temp_angle) * _radius_length;
-
-        transform.localPosition = _pos_new;
+        if(Time.time >nextCheck)
+        {
+            nextCheck = Time.time + checkrate;
+            checkIfShouldWander();
+        }
     }
+
+    void Init()
+    {
+           myNavMeshAgent = GetComponent<NavMeshAgent>();
+   
+        
+        checkrate = Random.Range(0.3f, 0.4f);
+        myTransform = transform;
+    }
+    void checkIfShouldWander() {
+        if(Vector3.Distance(transform.position,player.transform.position) < 6.0f)
+        {
+            if(RandomWanderTarget(myTransform.position,wanderRange,out wanderTarget))
+            {
+                myNavMeshAgent.SetDestination(wanderTarget);
+                
+            }
+        }
+    }
+    bool RandomWanderTarget(Vector3 centre,float range,out Vector3 result)
+    {
+        Vector3 randomPoint = centre + Random.insideUnitSphere * wanderRange;
+        while(Vector3.Distance(player.transform.position,transform.position) < 6.0f)
+        {
+           randomPoint = centre + Random.insideUnitSphere * wanderRange;
+        }
+        if (NavMesh.SamplePosition(randomPoint, out navHit, 1.0f, NavMesh.AllAreas))
+        {
+            result = navHit.position;
+            return true;
+        }
+        else
+        {
+            result = centre;
+            return false;
+        }
+      
+    }
+    //void disableThis()
+    //{
+    //    this.enabled = false;
+    //}
 }

@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Test Scenes/PlayerTestScene.unity
     guid: 9f20781195ddb3b4586b4a0c7ba416ae
+  - enabled: 1
+    path: Assets/Scenes/NavMeshTestScene.unity
+    guid: cf4df4f7947a5914598171755224fc36
   m_configObjects: {}

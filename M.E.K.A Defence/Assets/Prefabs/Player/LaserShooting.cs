@@ -60,31 +60,29 @@ public class LaserShooting : MonoBehaviour
 
 
         shootRay.origin = transform.position;
-        shootRay.direction = transform.forward;
-        //add mosue picking so we can aim up
 
-        if (Physics.Raycast(shootRay, out shootHit, laserRange, shootableMask))
+        Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit floorHit;
 
+        if (Physics.Raycast(camRay, out floorHit, 1000f, shootableMask))
         {
-
-            EnemyHealth enemyHealth = shootHit.collider.GetComponent<EnemyHealth>();
-
-            if (enemyHealth != null)
-
-            { 
-                enemyHealth.TakeDamage(damagePerLaser, shootHit.point);
-            }
-
-            laserLine.SetPosition(1, shootHit.point);
-
+            Vector3 playerToMouse = floorHit.point - transform.position;
+            shootRay.direction = playerToMouse;
         }
 
+        if (Physics.Raycast(shootRay, out shootHit, laserRange, shootableMask))
+        { 
+            EnemyHealth enemyHealth = shootHit.collider.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
+            {
+                print("pewpew");
+                enemyHealth.TakeDamage(damagePerLaser, shootHit.point);
+            }
+            laserLine.SetPosition(1, shootHit.point);
+        }
         else
-
         {
-
             laserLine.SetPosition(1, shootRay.origin + shootRay.direction * laserRange);
-
         }
     }
 

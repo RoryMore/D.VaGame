@@ -14,7 +14,7 @@ public class PlayerAiming : MonoBehaviour
 
     private void Awake()
     {
-        floorMask = LayerMask.GetMask("Floor");
+        floorMask = LayerMask.GetMask("Shootable");
     }
     private void FixedUpdate()
     {

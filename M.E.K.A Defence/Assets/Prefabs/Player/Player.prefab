@@ -3,9 +3,8 @@
 --- !u!114 &8236486081711115424
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 100000, guid: 2c8d0142dbc513a4992ff730382fd878,
-    type: 3}
-  m_PrefabInstance: {fileID: 6183552246105014162}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236486080299354677}
   m_Enabled: 1
@@ -17,9 +16,8 @@ MonoBehaviour:
 --- !u!114 &8236486081141818736
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 100002, guid: c729dc2390a3a7e4786afa80ed411bac,
-    type: 3}
-  m_PrefabInstance: {fileID: 6248845565624942891}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236486080299354679}
   m_Enabled: 1
@@ -131,10 +129,10 @@ Light:
   m_GameObject: {fileID: 8236486080299354701}
   m_Enabled: 0
   serializedVersion: 8
-  m_Type: 1
+  m_Type: 2
   m_Color: {r: 0, g: 1, b: 0.86509275, a: 1}
-  m_Intensity: 1
-  m_Range: 43.72
+  m_Intensity: 0.1
+  m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -627,7 +625,7 @@ GameObject:
   - component: {fileID: 549959274395133946}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

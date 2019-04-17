@@ -17,7 +17,7 @@ public class GwishinMovement : MonoBehaviour
 
     //-----Movement
     //Velocity
-    Vector3 velocity                     = Vector3.zero;
+    public Vector3 velocity                     = Vector3.zero;
     public float maxVelocity             = 15.0f;
     float maxVelocityModifierMax         = 0.1f;
     //Acceleration

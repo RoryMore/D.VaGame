@@ -10,6 +10,12 @@ public class GwishinAttack : MonoBehaviour
     float FireChance = 0.01f;
     GameObject player;
     GameObject bullet;
+
+    float bulletSpeedModifier = 1.0f;
+    float bulletDamageModifier = 1.0f;
+    float fireDelayModifier = 1.0f;
+
+
     
 
     //timer
@@ -20,6 +26,10 @@ public class GwishinAttack : MonoBehaviour
     {
         player = GameObject.Find("Player");
         bullet = Resources.Load<GameObject>("EnemyBullet");
+
+        bulletDamageModifier =  (1 + (PlayerModifierManager.Instance.GetWaveCount() / 10));
+        bulletSpeedModifier = (1 +(PlayerModifierManager.Instance.GetWaveCount() / 10));
+        fireDelayModifier = (1 + (PlayerModifierManager.Instance.GetWaveCount() / 10));
     }
 
     private void Update()
@@ -33,7 +43,7 @@ public class GwishinAttack : MonoBehaviour
 
     void ProcessTimer()
     {
-        fireTimer += Time.deltaTime;
+        fireTimer += Time.deltaTime * fireDelayModifier;
     }
     bool CanFire()
     {
@@ -51,7 +61,7 @@ public class GwishinAttack : MonoBehaviour
     void CreateBullet()
     {
         EnemyBullet newBulletScript = Instantiate(bullet, transform.position, transform.rotation).GetComponent<EnemyBullet>();
-        newBulletScript.speed = GetComponent<GwishinMovement>().maxVelocity;
-        newBulletScript.damage = bulletDamage;
+        newBulletScript.speed = GetComponent<GwishinMovement>().maxVelocity * bulletSpeedModifier;
+        newBulletScript.damage = bulletDamage * bulletDamageModifier;
     }
 }

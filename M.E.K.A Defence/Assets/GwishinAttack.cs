@@ -51,7 +51,7 @@ public class GwishinAttack : MonoBehaviour
     void CreateBullet()
     {
         EnemyBullet newBulletScript = Instantiate(bullet, transform.position, transform.rotation).GetComponent<EnemyBullet>();
-        newBulletScript.speed = bulletSpeed;
+        newBulletScript.speed = GetComponent<GwishinMovement>().maxVelocity;
         newBulletScript.damage = bulletDamage;
     }
 }

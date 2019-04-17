@@ -11,7 +11,7 @@ public class BulletaltShoot : MonoBehaviour
     public float lifetime = 3;
     float timer;
     float nextfire = 0.4f;
-
+    public ParticleSystem pS;
     void Start()
     {
         
@@ -20,13 +20,16 @@ public class BulletaltShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        pS.transform.position = transform.position;
         timer += Time.deltaTime;
         if((Input.GetKeyDown(KeyCode.Space) && timer >= nextfire))
         {
+            pS.Play();
             nextfire = timer + nextfire;
             Fire();
             nextfire = nextfire - timer;
             timer = 0.0f;
+            
         }
         
     }

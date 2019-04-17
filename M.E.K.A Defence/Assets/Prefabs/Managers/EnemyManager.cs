@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -7,23 +8,43 @@ public class EnemyManager : MonoBehaviour
     public float spawnTime = 3f;
     public Transform[] spawnPoints;
 
+    public float killCount = 0.0f;
+
 
     void Start()
     {
         InvokeRepeating("Spawn", spawnTime, spawnTime);
     }
 
+    private void Awake()
+    {
+        playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
+        enemy = Resources.Load<GameObject>("SquidGwishin");
+    }
 
     void Spawn()
     {
+        //If player dies
         if (playerHealth.currentHealth <= 0f)
         {
-            return;
+            SceneManager.LoadScene("GameOverScene");
+            //return;
         }
 
+        //A magic number equation that ramps up the number of required kills between eah wave
+        if (killCount > (10.0f + (PlayerModifierManager.Instance.GetWaveCount() * 10)))
+        {
+            SceneManager.LoadScene("BuildPhaseScene");
+        }
 
-        //This spawns an enemy at one of the spawn points randomly every spawn time seconds that pass
+            //This spawns an enemy at one of the spawn points randomly every spawn time seconds that pass
         int spawnPointIndex = Random.Range(0, spawnPoints.Length);
         Instantiate(enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+    }
+
+    public void Update()
+    {
+        
+        
     }
 }

@@ -4,24 +4,19 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
-    //Upper body Rotation
-    public float turnSpeed;
-
-    float angle;
-    Quaternion targetRotation;
-
-    int floorMask;
-    float camRayLength = 100f;
-
-
     //SHOOT RELATED VARIABLES
-
+    int floorMask;
     //Laser variables
 
     //mechanical
-    public int damagePerLaser = 20;
+    public float damagePerLaser = 20.0f;
     public float timeBetweenLasers = 0.12f;
     public float laserRange = 100f;
+
+    public float laserDamageModifier = 0; // Decrease is bad
+    public float laserTimeModifier = 0.0f; //Increase is bad
+    public float laserRangeModifier = 0.0f;
+
     float timer;
     Ray shootRay = new Ray();
     RaycastHit shootHit;
@@ -52,37 +47,7 @@ public class PlayerShooting : MonoBehaviour
     {
         //Update Timer
         timer += Time.deltaTime;
-
-        Turning();
         IsLaserReady();
-    }
-
-
-
-    void Turning()
-    {
-        //Casts a ray from camera location to mouse position in the scene
-        Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit floorHit;
-
-        if (Physics.Raycast(camRay, out floorHit, camRayLength, floorMask))
-
-        {
-
-            //Set the direction of the player towards the direction of the mouse
-
-            Vector3 playerToMouse = floorHit.point - transform.position;
-
-            //Shouldn't be needed with the floor raycast but a double check to make
-
-            //Sure the player cannot turn upwards
-
-            playerToMouse.y = 0f;
-
-            targetRotation = Quaternion.LookRotation(playerToMouse);
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed);
-        }
     }
 
 
@@ -101,7 +66,7 @@ public class PlayerShooting : MonoBehaviour
         shootRay.origin = transform.position;
         shootRay.direction = transform.forward;
 
-        if (Physics.Raycast(shootRay, out shootHit, laserRange, shootableMask))
+        if (Physics.Raycast(shootRay, out shootHit, (laserRange - laserRangeModifier), shootableMask))
 
         {
 
@@ -111,7 +76,7 @@ public class PlayerShooting : MonoBehaviour
 
             {
 
-                enemyHealth.TakeDamage(damagePerLaser, shootHit.point);
+                enemyHealth.TakeDamage((damagePerLaser -laserDamageModifier), shootHit.point);
 
             }
 
@@ -123,7 +88,7 @@ public class PlayerShooting : MonoBehaviour
 
         {
 
-            laserLine.SetPosition(1, shootRay.origin + shootRay.direction * laserRange);
+            laserLine.SetPosition(1, shootRay.origin + shootRay.direction * (laserRange - laserRangeModifier));
 
         }
     }
@@ -131,7 +96,7 @@ public class PlayerShooting : MonoBehaviour
     void IsLaserReady()
     {
 
-        if (Input.GetButton("Fire1") && timer >= timeBetweenLasers && Time.timeScale != 0)
+        if (Input.GetButton("Fire1") && timer >= (timeBetweenLasers + laserTimeModifier) && Time.timeScale != 0)
 
         {
 
@@ -139,7 +104,7 @@ public class PlayerShooting : MonoBehaviour
 
         }
 
-        if (timer >= timeBetweenLasers * laserDisplayTime)
+        if (timer >= timeBetweenLasers + laserTimeModifier * laserDisplayTime)
 
         {
 

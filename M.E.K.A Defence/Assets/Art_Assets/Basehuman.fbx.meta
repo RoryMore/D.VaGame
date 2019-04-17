@@ -1,14 +1,14 @@
 fileFormatVersion: 2
-guid: 7c15dc1803f26264091ab874c089351b
+guid: b829d3dc36f8940418d1e5ebf5bfc5f1
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: lambert1
+    2100000: blinn1
     2300000: //RootNode
     3300000: //RootNode
-    4300000: pCube56
+    4300000: humanBody
   externalObjects: {}
   materials:
     importMaterials: 1

@@ -9,7 +9,7 @@ public class BuildPhaseManager : MonoBehaviour
     public void StartWave()
     {
         //CHANGE THIS TO GAME SCENE
-        SceneManager.LoadScene("PlayerTestScene");
+        SceneManager.LoadScene("ShmupScene");
     }
 
 }

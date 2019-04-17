@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8059740245507432216}
   - component: {fileID: 8059740245507432197}
   - component: {fileID: 8059740245507432199}
+  - component: {fileID: 4302579325442222960}
   m_Layer: 10
   m_Name: SquidGwishin
   m_TagString: Enemy
@@ -141,4 +142,18 @@ MonoBehaviour:
   maxVelocity: 15
   accelerationRate: 1
   turnSpeed: 0.5
+  heightTarget: 1
   heightRangeMax: 1
+  strafeArea: {fileID: 0}
+--- !u!114 &4302579325442222960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8059740246518444504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e884c052b5b3dd428455177b2bf8f27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

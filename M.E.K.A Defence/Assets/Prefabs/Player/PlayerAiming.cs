@@ -10,7 +10,7 @@ public class PlayerAiming : MonoBehaviour
 
     //for raycast
     int floorMask;
-    float camRayLength = 100f;
+    float camRayLength = 1000f;
 
     private void Awake()
     {

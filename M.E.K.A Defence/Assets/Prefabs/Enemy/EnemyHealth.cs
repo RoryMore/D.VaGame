@@ -19,7 +19,7 @@ public class EnemyHealth : MonoBehaviour
     Animator anim;
     AudioSource enemyAudio;
     ParticleSystem hitParticles;
-    CapsuleCollider capsuleCollider;
+    Collider capsuleCollider;
     bool isDead;
     bool isSinking;
 
@@ -29,7 +29,7 @@ public class EnemyHealth : MonoBehaviour
         //anim = GetComponent<Animator>();
         //enemyAudio = GetComponent<AudioSource>();
        //hitParticles = GetComponentInChildren<ParticleSystem>();
-        capsuleCollider = GetComponent<CapsuleCollider>();
+        capsuleCollider = GetComponent<Collider>();
         waveManager = GameObject.Find("WaveManager");
         enemyManager = waveManager.GetComponent<EnemyManager>();
 
@@ -74,6 +74,7 @@ public class EnemyHealth : MonoBehaviour
     {
         isDead = true;
 
+        //maybe change this to disable collider
         capsuleCollider.isTrigger = true;
         StartSinking();
 
@@ -86,7 +87,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void StartSinking()
     {
-        GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
+        //GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
         isSinking = true;
 
@@ -96,9 +97,11 @@ public class EnemyHealth : MonoBehaviour
 
         enemyManager.killCount += 1.0f;
 
-        print("Its here!");
+        //print("Its here!");
 
         //Delete the object once it sinks below the surface
-        Destroy(gameObject, 2f);
+
+        //Destroy(gameObject, 2f);
+        Destroy(gameObject);
     }
 }

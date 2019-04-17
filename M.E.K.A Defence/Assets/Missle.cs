@@ -48,7 +48,9 @@ public class Missle : MonoBehaviour
         
         if (other.gameObject.tag == "Enemy")
         {
-            Destroy(other.gameObject);
+            other.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage, other.transform.position);
+
+            //add explosiion before destroying
             Destroy(this.gameObject);
         }
     }

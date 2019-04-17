@@ -3,13 +3,14 @@ using UnityEngine.SceneManagement;
 
 public class EnemyManager : MonoBehaviour
 {
-    public PlayerHealth playerHealth;
-    public GameObject enemy;
+    PlayerHealth playerHealth;
+    GameObject enemy;
     public float spawnTime = 3f;
     public Transform[] spawnPoints;
-
     public float killCount = 0.0f;
+    Collider strafeArea;
 
+    
 
     void Start()
     {
@@ -20,6 +21,7 @@ public class EnemyManager : MonoBehaviour
     {
         playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
         enemy = Resources.Load<GameObject>("SquidGwishin");
+        strafeArea = GameObject.Find("StrafeArea").GetComponent<Collider>();
     }
 
     void Spawn()
@@ -36,12 +38,13 @@ public class EnemyManager : MonoBehaviour
         {
             SceneManager.LoadScene("BuildPhaseScene");
         }
-
-            //This spawns an enemy at one of the spawn points randomly every spawn time seconds that pass
+        //This spawns an enemy at one of the spawn points randomly every spawn time seconds that pass
         int spawnPointIndex = Random.Range(0, spawnPoints.Length);
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 2; i++)
         {
-            Instantiate(enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+            GameObject newEnemy = Instantiate(enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+            newEnemy.GetComponent<GwishinMovement>().strafeArea = strafeArea;
+            newEnemy.GetComponent<GwishinMovement>().heightTarget = strafeArea.bounds.center.y;
         }
         
     }

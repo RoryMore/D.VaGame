@@ -4,18 +4,8 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
-    //Upper body Rotation
-    public float turnSpeed;
-
-    float angle;
-    Quaternion targetRotation;
-
-    int floorMask;
-    float camRayLength = 100f;
-
-
     //SHOOT RELATED VARIABLES
-
+    int floorMask;
     //Laser variables
 
     //mechanical
@@ -57,37 +47,7 @@ public class PlayerShooting : MonoBehaviour
     {
         //Update Timer
         timer += Time.deltaTime;
-
-        Turning();
         IsLaserReady();
-    }
-
-
-
-    void Turning()
-    {
-        //Casts a ray from camera location to mouse position in the scene
-        Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit floorHit;
-
-        if (Physics.Raycast(camRay, out floorHit, camRayLength, floorMask))
-
-        {
-
-            //Set the direction of the player towards the direction of the mouse
-
-            Vector3 playerToMouse = floorHit.point - transform.position;
-
-            //Shouldn't be needed with the floor raycast but a double check to make
-
-            //Sure the player cannot turn upwards
-
-            playerToMouse.y = 0f;
-
-            targetRotation = Quaternion.LookRotation(playerToMouse);
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed);
-        }
     }
 
 

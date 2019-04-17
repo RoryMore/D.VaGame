@@ -16,6 +16,11 @@ public class EnemyManager : MonoBehaviour
         InvokeRepeating("Spawn", spawnTime, spawnTime);
     }
 
+    private void Awake()
+    {
+        playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
+        enemy = Resources.Load<GameObject>("SquidGwishin");
+    }
 
     void Spawn()
     {

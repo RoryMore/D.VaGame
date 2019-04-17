@@ -11,12 +11,18 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
     float waveCount = 0;
 
 
-    //Player Modifiers
+    //Move Modifiers
     float moveSpeedModifier = 0.0f;
     float turnSpeedModifier = 0.0f;
+
+    //Laser Modifiers
     float laserTimeModifier = 0.0f;
     float laserRangeModifier = 0.0f;
     float laserDamageModifier = 0;
+
+    //Missle Modifiers
+    float missileTimeModifier = 0.0f;
+    float 
 
     //Menu Management Variables
     public void Start()

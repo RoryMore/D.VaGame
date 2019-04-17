@@ -46,7 +46,10 @@ public class MenuControl : MonoBehaviour
         mainCanvas.SetActive(true);
     }
 
+    public void PlayCredits()
+    {
 
+    }
     public void Exit()
     {
         Application.Quit();

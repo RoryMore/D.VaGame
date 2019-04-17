@@ -11,18 +11,19 @@ public class MissleShooting : MonoBehaviour
 
     float ammoCapacity              = 5.0f;
     float currentAmmo               = 5.0f;
-    float fireRate                  = 0.25f;
+    float fireRate                  = 0.2f;
     float fireRateTimer             = 0.0f;
-    float ammoReplenishRate         = 1.0f;
+    float ammoReplenishRate         = 2.0f;
     float ammoReplenishRateTimer    = 0.0f;
 
     Vector3 targetPosition;
     GameObject misslePrefab;
-    int hitMask = 11;
+    LayerMask hitMask;
 
     private void Awake()
     {
         misslePrefab = Resources.Load<GameObject>("Missle");
+        hitMask = LayerMask.GetMask("Floor");
     }
 
     private void Update()
@@ -33,7 +34,7 @@ public class MissleShooting : MonoBehaviour
 
     void ProcessInput()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(1))
         {
             if (CanFire())
             {
@@ -58,11 +59,16 @@ public class MissleShooting : MonoBehaviour
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit floorHit;
 
-        if (Physics.Raycast(camRay, out floorHit, hitMask))
+        if (Physics.Raycast(camRay, out floorHit, 1000, hitMask))
         {
             targetPosition = floorHit.point;
-            targetPosition.y = transform.position.y;
         }
+        else
+        {
+            targetPosition = Vector3.forward * 100;
+        }
+
+        targetPosition.y = transform.position.y;
     }
     bool CanFire()
     {
@@ -70,7 +76,6 @@ public class MissleShooting : MonoBehaviour
         {
             return true;
         }
-
         return false;
     }
     void FireMissle()
@@ -82,6 +87,7 @@ public class MissleShooting : MonoBehaviour
         missleScript.turnSpeed = missleTurnSpeed;
         missleScript.damage = missleDamage;
         missleScript.targetPosition = targetPosition;
+        missleScript.heightTarget = targetPosition.y;
 
         fireRateTimer = 0;
         currentAmmo -= 1;

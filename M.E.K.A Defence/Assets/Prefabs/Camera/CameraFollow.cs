@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-   Transform target;
+    GameObject target;
     public float smoothing = 5f;
     public Vector3 offset = Vector3.zero;
     public Vector3 targetScreenPositionOffset = Vector3.zero;
@@ -12,14 +12,14 @@ public class CameraFollow : MonoBehaviour
 
     private void Awake()
     {
-        target = GameObject.Find("Player").transform;
+        target = GameObject.Find("Player");
     }
 
     void FixedUpdate()
     {
-        Vector3 targetCamPos = target.position + offset;
+        Vector3 targetCamPos = target.transform.position + offset;
         transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
-        transform.LookAt(target.position + targetScreenPositionOffset);
+        transform.LookAt(target.transform.position + targetScreenPositionOffset);
     }
 
 }

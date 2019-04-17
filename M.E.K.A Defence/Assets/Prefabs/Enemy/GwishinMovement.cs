@@ -11,7 +11,7 @@ public class GwishinMovement : MonoBehaviour
     float maxVelocityModifierMax         = 0.1f;
     //Acceleration
     Vector3 acceleration                 = Vector3.zero;
-    public float accelerationRate        = 1.0f;
+    public float accelerationRate        = 5.0f;
     float accelerationRateModifierMax    = 0.2f;
     //DesiredPositions
     Vector3 targetPosition               = Vector3.zero;
@@ -25,7 +25,7 @@ public class GwishinMovement : MonoBehaviour
     float deviatePointRadius             = 5.0f;
     float deviateChance                  = 0.1f;
     //Height Restriction
-    public float heightTarget           = 1.0f;
+    float heightTarget           = 1.0f;
     public float heightRangeMax         = 0.50f;
 
 
@@ -37,6 +37,7 @@ public class GwishinMovement : MonoBehaviour
     {
         player = GameObject.Find("Player");
         targetPosition = player.transform.position;
+        heightTarget = targetPosition.y;
         Randomize();
     }
     private void FixedUpdate()

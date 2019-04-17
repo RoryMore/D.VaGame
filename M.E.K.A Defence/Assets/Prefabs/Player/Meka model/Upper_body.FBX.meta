@@ -1,0 +1,160 @@
+fileFormatVersion: 2
+guid: 2d57f8aafb285b8428049a2c8dd7f818
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Body1
+    100002: Left_arm___machinagun1
+    100004: MechBone001
+    100006: MechBone002
+    100008: MechBone003
+    100010: MechCollarboneBone0
+    100012: MechCollarboneBone0 1
+    100014: MechCollarboneBone002
+    100016: MechCollarboneBone002 1
+    100018: MechLArm1
+    100020: MechLArm2
+    100022: MechLArmCollarbone
+    100024: MechLLeg1
+    100026: MechLLeg2
+    100028: MechLLegPalm
+    100030: MechLLegPlatform
+    100032: MechPelvis
+    100034: MechPelvisBone001
+    100036: MechPelvisBone002
+    100038: MechRArm1
+    100040: MechRArm2
+    100042: MechRArmCollarbone
+    100044: MechRibcage
+    100046: MechRLeg1
+    100048: MechRLeg2
+    100050: MechRLegPalm
+    100052: MechRLegPlatform
+    100054: MechSpine
+    100056: Right_arm_cannon1
+    100058: //RootNode
+    400000: Body1
+    400002: Left_arm___machinagun1
+    400004: MechBone001
+    400006: MechBone002
+    400008: MechBone003
+    400010: MechCollarboneBone0
+    400012: MechCollarboneBone0 1
+    400014: MechCollarboneBone002
+    400016: MechCollarboneBone002 1
+    400018: MechLArm1
+    400020: MechLArm2
+    400022: MechLArmCollarbone
+    400024: MechLLeg1
+    400026: MechLLeg2
+    400028: MechLLegPalm
+    400030: MechLLegPlatform
+    400032: MechPelvis
+    400034: MechPelvisBone001
+    400036: MechPelvisBone002
+    400038: MechRArm1
+    400040: MechRArm2
+    400042: MechRArmCollarbone
+    400044: MechRibcage
+    400046: MechRLeg1
+    400048: MechRLeg2
+    400050: MechRLegPalm
+    400052: MechRLegPlatform
+    400054: MechSpine
+    400056: Right_arm_cannon1
+    400058: //RootNode
+    2100000: lambert2
+    4300000: Left_arm___machinagun1
+    4300002: Body1
+    4300004: Right_arm_cannon1
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Body1
+    13700002: Left_arm___machinagun1
+    13700004: Right_arm_cannon1
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

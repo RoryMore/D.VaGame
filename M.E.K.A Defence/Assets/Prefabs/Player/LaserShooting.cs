@@ -61,6 +61,7 @@ public class LaserShooting : MonoBehaviour
 
         shootRay.origin = transform.position;
         shootRay.direction = transform.forward;
+        //add mosue picking so we can aim up
 
         if (Physics.Raycast(shootRay, out shootHit, laserRange, shootableMask))
 

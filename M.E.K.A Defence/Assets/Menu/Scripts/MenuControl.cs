@@ -23,9 +23,9 @@ public class MenuControl : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("ShmupScene");
+        //SceneManager.LoadScene("ShmupScene");
         //FOR TESTING
-        //SceneManager.LoadScene("PlayerTestScene");
+        SceneManager.LoadScene("EnemyTest");
 
     }
 

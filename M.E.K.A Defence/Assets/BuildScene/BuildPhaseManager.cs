@@ -19,6 +19,10 @@ public class BuildPhaseManager : MonoBehaviour
     Slider moveSpeedSlider;
     Slider turnSpeedSlider;
 
+    //Time Counting Variables
+    public Text timeLeftText;
+    private float timeLeft = 4;
+
     //Min and max are 0 and 2 respectivley, start at 1
     //Make sure increments in 0.1, multiply instead of add like you do right now you absolute nonce
     //Set the slider value to be equal to its singleton value correspondant every frame (or just get it to do it when launch goes and pass all values then EXTENSION) 
@@ -41,26 +45,134 @@ public class BuildPhaseManager : MonoBehaviour
 
         //Missile Sliders
         missileDamageSlider = GameObject.Find("MissilePodFireDamageSlider").GetComponent<Slider>();
-        missileAmmoCapacitySlider = GameObject.Find("MissilePodFireRateSlider").GetComponent<Slider>();
-        missileReplenishRate = GameObject.Find("MissilePodFireRangeSlider").GetComponent<Slider>();
+        missileAmmoCapacitySlider = GameObject.Find("MissilePodFireRangeSlider").GetComponent<Slider>();
+        missileReplenishRate = GameObject.Find("MissilePodFireRateSlider").GetComponent<Slider>(); 
 
-        //Move Sliders
-        moveSpeedSlider = GameObject.Find("WalkSpeedSlider").GetComponent<Slider>();
+         //Move Sliders
+         moveSpeedSlider = GameObject.Find("WalkSpeedSlider").GetComponent<Slider>();
         turnSpeedSlider = GameObject.Find("TurnSpeedSlider").GetComponent<Slider>();
 
+        timeLeftText = GameObject.Find("TimeLeftText").GetComponent<Text>();
+
+        UpdateAllVariables();
     }
     public void StartWave()
     {
         //CHANGE THIS TO GAME SCENE
-        SceneManager.LoadScene("ShmupScene");
+        SceneManager.LoadScene("EnemyTest");
+        //SceneManager.LoadScene("ShmupScene");
     }
 
-    private void Update()
+    private void UpdateAllVariables()
     {
-        laserDamageSlider.value = 0.5f;
-        laserFireRateSlider.value = 0.5f;
-        laserRangeSlider.value = 0.5f;
+        laserDamageSlider.value = PlayerModifierManager.Instance.GetLaserDamage();
+        laserFireRateSlider.value = PlayerModifierManager.Instance.GetLaserTime();
+        laserRangeSlider.value = PlayerModifierManager.Instance.GetLaserRange();
+
+        //Get missile values: NEEDS COMPLETING!
+        missileDamageSlider.value = PlayerModifierManager.Instance.GetMissileDamage();
+        missileAmmoCapacitySlider.value = PlayerModifierManager.Instance.GetMissileAmmoCapacity();
+        missileReplenishRate.value = PlayerModifierManager.Instance.GetMissileReplenishRate();
+
+        moveSpeedSlider.value = PlayerModifierManager.Instance.GetMoveSpeed();
+        turnSpeedSlider.value = PlayerModifierManager.Instance.GetTurnSpeed();
+
+        //Update Time
+        timeLeftText.text = "Weeks remaining until next wave: " + timeLeft.ToString();
     }
 
+    //SETTERS
+
+    public void LaserFireRateIncreased()
+    {
+        if (timeLeft > 0)
+        {
+            PlayerModifierManager.Instance.CalculateModifier("laserTime", 0.1f);
+            timeLeft -= 1.0f;
+            UpdateAllVariables();
+            
+        }
+
+
+    }
+
+    public void LaserFireRangeIncreased()
+    {
+        if (timeLeft > 0)
+        {
+            PlayerModifierManager.Instance.CalculateModifier("laserRange", 0.1f);
+            timeLeft -= 1.0f;
+            UpdateAllVariables();
+            
+        }
+
+    }
+
+    public void LaserFireDamageIncreased()
+    {
+        if (timeLeft > 0)
+        {
+            PlayerModifierManager.Instance.CalculateModifier("laserDamage", 0.1f);
+            timeLeft -= 1.0f;
+            UpdateAllVariables();
+            
+        }
+
+    }
+
+    public void MoveSpeedIncreased()
+    {
+        if (timeLeft > 0)
+        {
+            PlayerModifierManager.Instance.CalculateModifier("moveSpeed", 0.1f);
+            timeLeft -= 1.0f;
+            UpdateAllVariables();
+            
+        }
+    }
+
+    public void TurnSpeedIncreased()
+    {
+        if (timeLeft > 0)
+        {
+            PlayerModifierManager.Instance.CalculateModifier("turnSpeed", 0.1f);
+            timeLeft -= 1.0f;
+            UpdateAllVariables();
+            
+        }
+    }
+
+    public void MissileFireDamageIncreased()
+    {
+        if (timeLeft > 0)
+        {
+            PlayerModifierManager.Instance.CalculateModifier("missileDamage", 0.1f);
+            timeLeft -= 1.0f;
+            UpdateAllVariables();
+
+        }
+    }
+
+    public void MissileAmmoCapacityIncreased()
+    {
+        if (timeLeft > 0)
+        {
+            PlayerModifierManager.Instance.CalculateModifier("missileAmmo", 0.1f);
+            timeLeft -= 1.0f;
+            UpdateAllVariables();
+
+        }
+    }
+
+    public void MissileFireReloadIncreased()
+    {
+        if (timeLeft > 0)
+        {
+            PlayerModifierManager.Instance.CalculateModifier("missileTime", 0.1f);
+            timeLeft -= 1.0f;
+            UpdateAllVariables();
+
+        }
+    }
 }
 

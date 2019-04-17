@@ -6,9 +6,9 @@ public class EnemyManager : MonoBehaviour
     PlayerHealth playerHealth;
     GameObject enemy;
     public float spawnTime = 3f;
-    public Transform[] spawnPoints;
     public float killCount = 0.0f;
     Collider strafeArea;
+    Collider spawnArea;
 
     
 
@@ -22,6 +22,7 @@ public class EnemyManager : MonoBehaviour
         playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
         enemy = Resources.Load<GameObject>("SquidGwishin");
         strafeArea = GameObject.Find("StrafeArea").GetComponent<Collider>();
+        spawnArea = GetComponent<Collider>();
     }
 
     void Spawn()
@@ -39,10 +40,17 @@ public class EnemyManager : MonoBehaviour
             SceneManager.LoadScene("BuildPhaseScene");
         }
         //This spawns an enemy at one of the spawn points randomly every spawn time seconds that pass
-        int spawnPointIndex = Random.Range(0, spawnPoints.Length);
-        for (int i = 0; i < 2; i++)
+
+
+        for (int i = 0; i < Random.Range(1, PlayerModifierManager.Instance.GetWaveCount() * 5); i++)
         {
-            GameObject newEnemy = Instantiate(enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+            Vector3 spawnPosition;
+            spawnPosition.x = Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x);
+            spawnPosition.y = Random.Range(spawnArea.bounds.min.y, spawnArea.bounds.max.y);
+            spawnPosition.z = Random.Range(spawnArea.bounds.min.z, spawnArea.bounds.max.z);
+            Quaternion spawnRotation = Random.rotation;
+
+            GameObject newEnemy = Instantiate(enemy, spawnPosition, spawnRotation);
             newEnemy.GetComponent<GwishinMovement>().strafeArea = strafeArea;
             newEnemy.GetComponent<GwishinMovement>().heightTarget = strafeArea.bounds.center.y;
         }

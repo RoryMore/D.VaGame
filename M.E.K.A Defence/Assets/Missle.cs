@@ -49,6 +49,10 @@ public class Missle : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {
             other.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage, other.transform.position);
+            if (other.gameObject.GetComponent<EnemyHealth>().currentHealth < 0)
+            {
+                other.gameObject.GetComponent<EnemyHealth>().killedByMissle = true;
+            }
 
             //add explosiion before destroying
             Destroy(this.gameObject);
@@ -101,10 +105,17 @@ public class Missle : MonoBehaviour
 
     void UpdateTarget()
     {
+        
+
         if (targetObject != null)
         {
             targetPosition = targetObject.transform.position;
             heightTarget = targetObject.transform.position.y;
+
+            if (targetObject.GetComponent<EnemyHealth>().isDead == true)
+            {
+                targetObject = null;
+            }
         }
     }
 

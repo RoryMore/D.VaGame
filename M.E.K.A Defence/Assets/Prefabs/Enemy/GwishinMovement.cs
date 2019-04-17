@@ -6,7 +6,8 @@ enum EnemyState
 {
     APPROACH,
     HALT,
-    STRAFE
+    STRAFE,
+    DEAD
 }
 
 public class GwishinMovement : MonoBehaviour
@@ -29,6 +30,7 @@ public class GwishinMovement : MonoBehaviour
     //Rotation
     public float turnSpeed               = 1.0f;
     float turnSpeedModifierMax           = 0.5f;
+    Vector3 rotationVector               = Vector3.zero;
     //Deviate
     Vector3 deviatePosition              = Vector3.zero;
     float deviatePositionDistance        = 5.0f;
@@ -41,6 +43,7 @@ public class GwishinMovement : MonoBehaviour
 
     //-----References
     GameObject player;
+    EnemyHealth myHealth;
 
     //Strafe area
     public Collider strafeArea = null;
@@ -51,10 +54,12 @@ public class GwishinMovement : MonoBehaviour
         player = GameObject.Find("Player");
         targetPosition = player.transform.position;
         heightTarget = targetPosition.y;
+        myHealth = GetComponent<EnemyHealth>();
         Randomize();
     }
     private void FixedUpdate()
     {
+        if (transform.position.y < -20) Destroy(this);
         ProcessMovement();
         targetPosition = player.transform.position;
     }
@@ -87,6 +92,12 @@ public class GwishinMovement : MonoBehaviour
                     FaceTarget();
                 }
                 break;
+            case EnemyState.DEAD:
+                {
+                    Fall();
+                    Spin();
+                }
+            break;
             default:
                 {
 
@@ -192,6 +203,28 @@ public class GwishinMovement : MonoBehaviour
 
     void UpdateState()
     {
+        if (myHealth.isDead && state != EnemyState.DEAD)
+        {
+            state = EnemyState.DEAD;
+            deviatePosition = transform.position + Random.onUnitSphere * 5;
+            deviatePosition.y = -20;
+
+            if (myHealth.killedByMissle)
+            {
+                velocity.x = Random.Range(-25, 25);
+                velocity.y = Random.Range(25, 50);
+                velocity.z = Random.Range(10, 25);
+                rotationVector = Random.onUnitSphere * 250;
+            }
+            else
+            {
+                velocity.x = Random.Range(-10, 10);
+                velocity.z = Random.Range(-10, 10);
+                rotationVector = Random.onUnitSphere * 50;
+            }
+            
+
+        }
         if (Vector3.Distance(transform.position, player.transform.position) < Vector3.Distance(strafeArea.bounds.center, player.transform.position) && state == EnemyState.APPROACH)
         {
             state = EnemyState.HALT;
@@ -208,5 +241,26 @@ public class GwishinMovement : MonoBehaviour
         AccelerateToPoint();
     }
 
-    
+    void Fall()
+    {
+        acceleration = accelerationRate * (deviatePosition - transform.position).normalized;
+        velocity.y += acceleration.y;
+        
+    }
+
+    void Spin()
+    {
+        transform.Rotate(rotationVector * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+
+
+        if (other.gameObject.tag == "Enemy")
+        {
+            velocity += (transform.position - other.transform.position) * accelerationRate;
+            
+        }
+    }
 }

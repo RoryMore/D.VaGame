@@ -71,10 +71,8 @@ public class LaserShooting : MonoBehaviour
 
             if (enemyHealth != null)
 
-            {
-
+            { 
                 enemyHealth.TakeDamage(damagePerLaser, shootHit.point);
-
             }
 
             laserLine.SetPosition(1, shootHit.point);

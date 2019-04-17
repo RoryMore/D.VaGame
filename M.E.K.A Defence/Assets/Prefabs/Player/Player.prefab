@@ -3,8 +3,9 @@
 --- !u!114 &8236486081711115424
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 2c8d0142dbc513a4992ff730382fd878,
+    type: 3}
+  m_PrefabInstance: {fileID: 6183552246105014162}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236486080299354677}
   m_Enabled: 1
@@ -16,8 +17,9 @@ MonoBehaviour:
 --- !u!114 &8236486081141818736
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 100002, guid: c729dc2390a3a7e4786afa80ed411bac,
+    type: 3}
+  m_PrefabInstance: {fileID: 6248845565624942891}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236486080299354679}
   m_Enabled: 1
@@ -42,7 +44,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

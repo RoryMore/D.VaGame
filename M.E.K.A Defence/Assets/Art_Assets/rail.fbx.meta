@@ -1,26 +1,14 @@
 fileFormatVersion: 2
-guid: 020b2bfab02066e438dacc28261f281b
+guid: 38c684eb027455c4f84ca1c3e2ccede0
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Body1
-    100004: Left_arm___machinagun1
-    100006: Right_arm_cannon1
     400000: //RootNode
-    400002: Body1
-    400004: Left_arm___machinagun1
-    400006: Right_arm_cannon1
-    2100000: lambert2
-    2300000: Body1
-    2300002: Left_arm___machinagun1
-    2300004: Right_arm_cannon1
-    3300000: Body1
-    3300002: Left_arm___machinagun1
-    3300004: Right_arm_cannon1
-    4300000: Left_arm___machinagun1
-    4300002: Right_arm_cannon1
-    4300004: Body1
+    2100000: lambert1
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: pCube121
   externalObjects: {}
   materials:
     importMaterials: 1

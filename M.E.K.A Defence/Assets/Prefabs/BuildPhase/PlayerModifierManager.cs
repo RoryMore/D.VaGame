@@ -22,7 +22,8 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
 
     //Missle Modifiers
     float missileTimeModifier = 0.0f;
-    float 
+    float missileAmmoModifier = 0.0f;
+    float missileDamageModifer = 0.0f;
 
     //Menu Management Variables
     public void Start()
@@ -41,6 +42,10 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
         laserTimeModifier = 0.0f;
         laserRangeModifier = 0.0f;
         laserDamageModifier = 0;
+        missileTimeModifier = 0.0f;
+        missileAmmoModifier = 0.0f;
+        missileDamageModifer = 0.0f;
+
 
     }
 

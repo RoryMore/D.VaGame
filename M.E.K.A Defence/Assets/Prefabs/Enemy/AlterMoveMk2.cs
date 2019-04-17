@@ -7,8 +7,9 @@ public class AlterMoveMk2 : MonoBehaviour
     //var for round action
     public float _radius_length;
     public float _angle_speed;
+    public float angleDiff;
 
-    private float temp_angle;
+    public float temp_angle;
 
     private Vector3 _pos_new;
 
@@ -16,7 +17,7 @@ public class AlterMoveMk2 : MonoBehaviour
 
     public bool _round_its_center;
     public Transform player;
-    bool enableRound = false;
+    public bool enableRound = false;
     //var for seek action
     public float speed;
 
@@ -28,7 +29,7 @@ public class AlterMoveMk2 : MonoBehaviour
 
     void Awake()
     {
-
+        _radius_length = gameObject.GetComponent<SphereCollider>().radius;
         player = GameObject.Find("Player").transform;
         playerHealth = player.GetComponent<PlayerHealth>();
         enemyHealth = GetComponent<EnemyHealth>();
@@ -43,43 +44,73 @@ public class AlterMoveMk2 : MonoBehaviour
         }
     }
 
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == player.gameObject)
+        {
+            nav.enabled = false;
+            enableRound = true;
+        }
+
+    }
+
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject == player.gameObject)
+        {
+            nav.enabled = true;
+            enableRound = false;
+        }
+        }
+
     // Update is called once per frame
     void Update()
     {
-        _center_pos = player.localPosition;
+        angleDiff = Vector3.Angle(_center_pos, gameObject.transform.position);
+
+        _center_pos = player.position;
+
         temp_angle += _angle_speed * Time.deltaTime;
 
         _pos_new.x = _center_pos.x + Mathf.Cos(temp_angle) * _radius_length;
         _pos_new.y = transform.localPosition.y;
         _pos_new.z = _center_pos.z + Mathf.Sin(temp_angle) * _radius_length;
 
-        if (enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
+        if (enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0 && !enableRound)
         {
             nav.SetDestination(player.position);
         }
         else
         {
-            nav.enabled = false;
-            enableRound = false;
+            //nav.enabled = false;
+            //enableRound = false;
         }
         if(Vector3.Distance(transform.localPosition,_pos_new) <= _radius_length && enableRound == false)
         {
-            nav.enabled = false;
-            enableRound = true;
+            angleDiff = Vector3.Angle(_center_pos, gameObject.transform.position);
+            //temp_angle = angleDiff / 360;
+            //nav.enabled = false;
+            //enableRound = true;
             _pos_new = transform.position;
         }    
        
   
-        if(Vector3.Distance(transform.localPosition, _pos_new) > _radius_length)
-        {
-            nav.enabled = true;
-            enableRound = false;
-        }
+        //if(Vector3.Distance(transform.localPosition, _pos_new) > _radius_length)
+        //{
+        //    enableRound = false;
+        //}
+
 
 
         if (enableRound == true)
         {
-            transform.localPosition = _pos_new;
+            transform.RotateAround(_center_pos, Vector3.up, 20 * Time.deltaTime);
+
+            //transform.Rotate(_center_pos, temp_angle);
+
+            //transform.localPosition = _pos_new;
         }
         
     }

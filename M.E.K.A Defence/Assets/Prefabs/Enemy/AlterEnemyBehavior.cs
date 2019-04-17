@@ -61,10 +61,10 @@ public class AlterEnemyBehavior : MonoBehaviour
     bool RandomWanderTarget(Vector3 centre,float range,out Vector3 result)
     {
         Vector3 randomPoint = centre + Random.insideUnitSphere * wanderRange;
-        while(Vector3.Distance(player.transform.position,transform.position) < 6.0f)
-        {
-           randomPoint = centre + Random.insideUnitSphere * wanderRange;
-        }
+        //while(Vector3.Distance(player.transform.position,transform.position) < 6.0f)
+        //{
+        //   randomPoint = centre + Random.insideUnitSphere * wanderRange;
+        //}
         if (NavMesh.SamplePosition(randomPoint, out navHit, 1.0f, NavMesh.AllAreas))
         {
             result = navHit.position;

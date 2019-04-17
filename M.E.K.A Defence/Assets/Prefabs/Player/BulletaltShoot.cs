@@ -21,7 +21,7 @@ public class BulletaltShoot : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if(Input.GetKeyDown(KeyCode.Space) && timer >= nextfire)
+        if((Input.GetKeyDown(KeyCode.Space) && timer >= nextfire))
         {
             nextfire = timer + nextfire;
             Fire();

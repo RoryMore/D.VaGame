@@ -21,11 +21,11 @@ public class GwishinMovement : MonoBehaviour
     float turnSpeedModifierMax           = 0.5f;
     //Deviate
     Vector3 deviatePosition              = Vector3.zero;
-    float deviatePositionDistance        = 2.0f;
-    float deviatePointRadius             = 5.0f;
+    float deviatePositionDistance        = 5.0f;
+    float deviatePointRadius             = 2.0f;
     float deviateChance                  = 0.1f;
     //Height Restriction
-    float heightTarget           = 1.0f;
+    float heightTarget                  = 1.0f;
     public float heightRangeMax         = 0.50f;
 
 

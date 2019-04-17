@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BuildPhaseScene.unity
     guid: 2c6afa36de6286847af292100fb1a176
+  - enabled: 1
+    path: Assets/Art_Assets/Scenes/ShmupScene.unity
+    guid: ef1de98b54980a0458e12e2750624c52
   m_configObjects: {}

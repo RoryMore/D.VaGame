@@ -59,8 +59,8 @@ public class BuildPhaseManager : MonoBehaviour
     public void StartWave()
     {
         //CHANGE THIS TO GAME SCENE
-        SceneManager.LoadScene("EnemyTest");
-        //SceneManager.LoadScene("ShmupScene");
+        //SceneManager.LoadScene("EnemyTest");
+        SceneManager.LoadScene("ShmupScene");
     }
 
     private void UpdateAllVariables()

@@ -52,7 +52,10 @@ public class LaserShooting : MonoBehaviour
         laserTimeModifier = PlayerModifierManager.Instance.GetLaserTime();
         laserRangeModifier = PlayerModifierManager.Instance.GetLaserRange();
 
-        timeBetweenLasers = 0.1f * (laserTimeModifier - 1.0f);
+        
+        timeBetweenLasers = 1.5f  -(laserTimeModifier);
+        print(laserTimeModifier);
+
         timer += Time.deltaTime;
         IsLaserReady();
     }

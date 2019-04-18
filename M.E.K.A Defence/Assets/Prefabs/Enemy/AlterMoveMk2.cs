@@ -106,7 +106,7 @@ public class AlterMoveMk2 : MonoBehaviour
 
         if (enableRound == true)
         {
-            transform.RotateAround(_center_pos, Vector3.up, 20 * Time.deltaTime);
+            transform.RotateAround(_center_pos, Vector3.up, _angle_speed * Time.deltaTime);
 
             //transform.Rotate(_center_pos, temp_angle);
 

@@ -10,6 +10,7 @@ public class GwishinAttack : MonoBehaviour
     float FireChance = 0.01f;
     GameObject player;
     GameObject bullet;
+    GameObject trail;
 
     float bulletSpeedModifier = 1.0f;
     float bulletDamageModifier = 1.0f;
@@ -26,6 +27,7 @@ public class GwishinAttack : MonoBehaviour
     {
         player = GameObject.Find("Player");
         bullet = Resources.Load<GameObject>("EnemyBullet");
+        trail = Resources.Load<GameObject>("Trail");
 
         bulletDamageModifier =  (1 + (PlayerModifierManager.Instance.GetWaveCount() / 10));
         bulletSpeedModifier = (1 +(PlayerModifierManager.Instance.GetWaveCount() / 10));
@@ -63,5 +65,8 @@ public class GwishinAttack : MonoBehaviour
         EnemyBullet newBulletScript = Instantiate(bullet, transform.position, transform.rotation).GetComponent<EnemyBullet>();
         newBulletScript.speed = GetComponent<GwishinMovement>().maxVelocity * bulletSpeedModifier;
         newBulletScript.damage = bulletDamage * bulletDamageModifier;
+
+        //TrailScript newTrail = Instantiate(trail, newBulletScript.gameObject.transform.position, newBulletScript.gameObject.transform.rotation).GetComponent<TrailScript>();
+        //newTrail.following = newBulletScript.gameObject;
     }
 }

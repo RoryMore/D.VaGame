@@ -44,6 +44,7 @@ public class GwishinMovement : MonoBehaviour
     //-----References
     GameObject player;
     EnemyHealth myHealth;
+    Animator anim;
 
     //Strafe area
     public Collider strafeArea = null;
@@ -55,6 +56,7 @@ public class GwishinMovement : MonoBehaviour
         targetPosition = player.transform.position;
         heightTarget = targetPosition.y;
         myHealth = GetComponent<EnemyHealth>();
+        anim = GetComponent<Animator>();
         Randomize();
     }
     private void FixedUpdate()
@@ -228,6 +230,7 @@ public class GwishinMovement : MonoBehaviour
         if (Vector3.Distance(transform.position, player.transform.position) < Vector3.Distance(strafeArea.bounds.center, player.transform.position) && state == EnemyState.APPROACH)
         {
             state = EnemyState.HALT;
+            anim.SetBool("AttackMode", true);
         }
         else if (state == EnemyState.HALT && velocity == Vector3.zero)
         {

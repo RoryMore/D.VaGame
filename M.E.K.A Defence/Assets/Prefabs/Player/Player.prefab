@@ -25,6 +25,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 063c2dfc806d1a0428264d7554d9f11c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1965557433
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8236486080299354679}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 5ef84bea81841a445a84b0e714b5e46e, type: 3}
+  m_Controller: {fileID: 9100000, guid: 2597fae4e2e2eef428ce13b1a3fb84f5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!120 &8236486082113252965
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -659,7 +678,7 @@ Animator:
   m_GameObject: {fileID: 8236486082338474084}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 6cb1aafd92a54f949a88e677d5694a5b, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 58fc679d98def314486e151caefe5a2d, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1269,9 +1288,9 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 5aa17e49630654947bdbd0fb0f7206ba, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d57f8aafb285b8428049a2c8dd7f818, type: 3}
---- !u!4 &8236486080299718229 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400058, guid: 2d57f8aafb285b8428049a2c8dd7f818,
+--- !u!1 &8236486080299354677 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100058, guid: 2d57f8aafb285b8428049a2c8dd7f818,
     type: 3}
   m_PrefabInstance: {fileID: 8236486080299322607}
   m_PrefabAsset: {fileID: 0}
@@ -1287,9 +1306,9 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8236486080299322607}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8236486080299354677 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100058, guid: 2d57f8aafb285b8428049a2c8dd7f818,
+--- !u!4 &8236486080299718229 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400058, guid: 2d57f8aafb285b8428049a2c8dd7f818,
     type: 3}
   m_PrefabInstance: {fileID: 8236486080299322607}
   m_PrefabAsset: {fileID: 0}

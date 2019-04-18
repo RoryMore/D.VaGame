@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     Quaternion targetRotation;
     Vector2 horizontalInput;
     Rigidbody rB;
+    Animator anim;
 
 
 
@@ -22,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rB = GetComponent<Rigidbody>();
-        
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -38,7 +39,15 @@ public class PlayerMovement : MonoBehaviour
     {
         GetInput();
 
-        if (Mathf.Abs(horizontalInput.x) < 1 && Mathf.Abs(horizontalInput.y) < 1) return;
+        if (Mathf.Abs(horizontalInput.x) < 1 && Mathf.Abs(horizontalInput.y) < 1)
+        {
+            anim.SetBool("Walking", false);
+            return;
+        }
+        else
+        {
+            anim.SetBool("Walking", true);
+        }
         //-----movement
         CalculateDirection();
         Rotate();

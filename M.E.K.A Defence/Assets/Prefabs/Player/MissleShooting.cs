@@ -23,7 +23,7 @@ public class MissleShooting : MonoBehaviour
     private void Awake()
     {
         misslePrefab = Resources.Load<GameObject>("Missle");
-        hitMask = LayerMask.GetMask("Floor");
+        hitMask = LayerMask.GetMask("Shootable");
     }
 
     private void Update()

@@ -1,69 +1,83 @@
 fileFormatVersion: 2
-guid: 6cb1aafd92a54f949a88e677d5694a5b
+guid: cd44e90076dd0774caaaad975673b30c
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Legs
-    100004: MechBone001
-    100006: MechBone002
-    100008: MechBone003
-    100010: MechCollarboneBone0
-    100012: MechCollarboneBone0 1
-    100014: MechCollarboneBone002
-    100016: MechCollarboneBone002 1
-    100018: MechLArm1
-    100020: MechLArm2
-    100022: MechLArmCollarbone
-    100024: MechLLeg1
-    100026: MechLLeg2
-    100028: MechLLegPalm
-    100030: MechLLegPlatform
-    100032: MechPelvis
-    100034: MechPelvisBone001
-    100036: MechPelvisBone002
-    100038: MechRArm1
-    100040: MechRArm2
-    100042: MechRArmCollarbone
-    100044: MechRibcage
-    100046: MechRLeg1
-    100048: MechRLeg2
-    100050: MechRLegPalm
-    100052: MechRLegPlatform
-    100054: MechSpine
-    400000: //RootNode
-    400002: Legs
-    400004: MechBone001
-    400006: MechBone002
-    400008: MechBone003
-    400010: MechCollarboneBone0
-    400012: MechCollarboneBone0 1
-    400014: MechCollarboneBone002
-    400016: MechCollarboneBone002 1
-    400018: MechLArm1
-    400020: MechLArm2
-    400022: MechLArmCollarbone
-    400024: MechLLeg1
-    400026: MechLLeg2
-    400028: MechLLegPalm
-    400030: MechLLegPlatform
-    400032: MechPelvis
-    400034: MechPelvisBone001
-    400036: MechPelvisBone002
-    400038: MechRArm1
-    400040: MechRArm2
-    400042: MechRArmCollarbone
-    400044: MechRibcage
-    400046: MechRLeg1
-    400048: MechRLeg2
-    400050: MechRLegPalm
-    400052: MechRLegPlatform
-    400054: MechSpine
-    2100000: lambert2
-    4300000: Legs
-    7400000: Idle
+    100000: '  '
+    100002: Ball L
+    100004: Ball R
+    100006: Body L
+    100008: Body L 02
+    100010: Body R
+    100012: Body R 02
+    100014: //RootNode
+    100016: Character001
+    100018: Character002
+    100020: Character003
+    100022: Character004
+    100024: Character005
+    100026: Core
+    100028: Ear L
+    100030: Ear R
+    100032: ENEMY_UVed2
+    100034: Gun L 01
+    100036: Gun L 02
+    100038: Gun R 01
+    100040: Gun R 02
+    100042: Tail L 007
+    100044: Tail L 008
+    100046: Tail L 009
+    100048: Tail L 010
+    100050: Tail L 011
+    100052: Tail L 012
+    100054: Tail R 01
+    100056: Tail R 02
+    100058: Tail R 03
+    100060: Tail R 04
+    100062: Tail R 05
+    100064: Tail R 06
+    400000: '  '
+    400002: Ball L
+    400004: Ball R
+    400006: Body L
+    400008: Body L 02
+    400010: Body R
+    400012: Body R 02
+    400014: //RootNode
+    400016: Character001
+    400018: Character002
+    400020: Character003
+    400022: Character004
+    400024: Character005
+    400026: Core
+    400028: Ear L
+    400030: Ear R
+    400032: ENEMY_UVed2
+    400034: Gun L 01
+    400036: Gun L 02
+    400038: Gun R 01
+    400040: Gun R 02
+    400042: Tail L 007
+    400044: Tail L 008
+    400046: Tail L 009
+    400048: Tail L 010
+    400050: Tail L 011
+    400052: Tail L 012
+    400054: Tail R 01
+    400056: Tail R 02
+    400058: Tail R 03
+    400060: Tail R 04
+    400062: Tail R 05
+    400064: Tail R 06
+    2100000: HumanBody_blinn1
+    2100002: 02 - Default
+    2300000: '  '
+    3300000: '  '
+    4300000: '  '
+    4300002: ENEMY_UVed2
+    7400000: AttackMode
     9500000: //RootNode
-    13700000: Legs
+    13700000: ENEMY_UVed2
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -93,10 +107,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle
+      name: AttackMode
       takeName: Take 001
-      firstFrame: 0
-      lastFrame: 5
+      firstFrame: 41
+      lastFrame: 80
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -144,7 +158,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
+    previousCalculatedGlobalScale: 1
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60

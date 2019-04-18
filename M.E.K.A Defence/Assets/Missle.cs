@@ -34,7 +34,7 @@ public class Missle : MonoBehaviour
 
     private void Awake()
     {
-        targetPosition = transform.forward * 100.0f;
+        //targetPosition = transform.forward * 100.0f;
         Randomize();
     }
     private void FixedUpdate()

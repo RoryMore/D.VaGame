@@ -19,6 +19,9 @@ public class PlayerHealth : MonoBehaviour
     GameObject torso;
     PlayerShooting playerShooting;
 
+    LaserShooting laserShooting;
+    MissleShooting missileShooting; 
+
 
     bool isDead;
     bool damaged;
@@ -31,7 +34,12 @@ public class PlayerHealth : MonoBehaviour
         anim = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
         playerMovement = GetComponent<PlayerMovement>();
+
         playerShooting = GetComponentInChildren<PlayerShooting>();
+
+        laserShooting = GetComponentInChildren<LaserShooting>();
+        missileShooting = GetComponentInChildren<MissleShooting>();
+
         currentHealth = startingHealth;
     }
 
@@ -56,7 +64,7 @@ public class PlayerHealth : MonoBehaviour
 
 
             print("critical hit!");
-            float choice = (Mathf.Round(Random.Range(0.0f, 4.0f)));
+            float choice = (Mathf.Round(Random.Range(0.0f, 7.0f)));
 
             
 
@@ -64,42 +72,55 @@ public class PlayerHealth : MonoBehaviour
             {
                 print("Movement Speed Reduced");
                 //Updated singleton
-                PlayerModifierManager.Instance.CalculateModifier("moveSpeed", 0.5f);
+                PlayerModifierManager.Instance.CalculateModifier("moveSpeed", -0.1f);
                 playerMovement.moveSpeedModifier = PlayerModifierManager.Instance.GetMoveSpeed();
             }
             else if (choice == 1)
             {
                 print("Turn Speed Reduced");
-                PlayerModifierManager.Instance.CalculateModifier("moveSpeed", 0.05f);
+                PlayerModifierManager.Instance.CalculateModifier("moveSpeed", -0.1f);
                 playerMovement.turnSpeedModifier = PlayerModifierManager.Instance.GetTurnSpeed();
                 
             }
             else if (choice == 2)
             {
                 print("Laser recharge time increased");
-                PlayerModifierManager.Instance.CalculateModifier("laserTime", 0.05f);
-                playerShooting.laserTimeModifier = PlayerModifierManager.Instance.GetLaserTime();
+                PlayerModifierManager.Instance.CalculateModifier("laserTime", -0.1f);
+                laserShooting.laserTimeModifier = PlayerModifierManager.Instance.GetLaserTime();
                 
             }
             else if (choice == 3)
             {
                 print("Laser range reduced");
-                PlayerModifierManager.Instance.CalculateModifier("laserRange", 10.0f);
-                playerShooting.laserRangeModifier = PlayerModifierManager.Instance.GetLaserRange();
+                PlayerModifierManager.Instance.CalculateModifier("laserRange", -0.1f);
+                laserShooting.laserRangeModifier = PlayerModifierManager.Instance.GetLaserRange();
             }
             else if (choice == 4)
             {
                 print("Laser damage reduced");
-                PlayerModifierManager.Instance.CalculateModifier("laserDamage", 1.0f);
-                playerShooting.laserDamageModifier = PlayerModifierManager.Instance.GetLaserDamage();
+                PlayerModifierManager.Instance.CalculateModifier("laserDamage", -0.1f);
+                laserShooting.laserDamageModifier = PlayerModifierManager.Instance.GetLaserDamage();
                     
             }
-            else
+            else if (choice == 5)
             {
-                print("Debug: Should not occur");
+                print("Missile damage reduced");
+                PlayerModifierManager.Instance.CalculateModifier("missileDamage", -0.1f);
+                missileShooting.missileDamageModifier = PlayerModifierManager.Instance.GetMissileDamage();
+                
             }
-            
-
+            else if (choice == 6)
+            {
+                print("Missile Ammo reduced");
+                PlayerModifierManager.Instance.CalculateModifier("missileAmmo", -0.1f);
+                missileShooting.missileAmmoModifier = PlayerModifierManager.Instance.GetMissileAmmoCapacity();
+            }
+            else if (choice == 7)
+            {
+                print("Missile rate reduced");
+                PlayerModifierManager.Instance.CalculateModifier("missileTime", -0.1f);
+                missileShooting.missileReloadModifer = PlayerModifierManager.Instance.GetMissileReplenishRate();
+            }
         }
 
         //healthSlider.value = currentHealth;

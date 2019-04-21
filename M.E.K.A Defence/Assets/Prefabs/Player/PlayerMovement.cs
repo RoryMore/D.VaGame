@@ -52,6 +52,9 @@ public class PlayerMovement : MonoBehaviour
         CalculateDirection();
         Rotate();
         Move();
+
+        moveSpeedModifier = PlayerModifierManager.Instance.GetMoveSpeed();
+        turnSpeedModifier = PlayerModifierManager.Instance.GetTurnSpeed();
         //-----
     }
 
@@ -63,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        transform.position += transform.forward * (moveSpeed - moveSpeedModifier) * Time.deltaTime;
+        transform.position += transform.forward * (moveSpeed * moveSpeedModifier) * Time.deltaTime;
     }
 
     void CalculateDirection()
@@ -75,6 +78,6 @@ public class PlayerMovement : MonoBehaviour
     void Rotate()
     {
         targetRotation = Quaternion.Euler(0, angle, 0);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, (turnSpeed - turnSpeedModifier));
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, (turnSpeed * turnSpeedModifier));
     }
 }

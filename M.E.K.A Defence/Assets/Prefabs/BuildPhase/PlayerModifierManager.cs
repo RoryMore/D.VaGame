@@ -11,12 +11,19 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
     float waveCount = 0;
 
 
-    //Player Modifiers
-    float moveSpeedModifier = 0.0f;
-    float turnSpeedModifier = 0.0f;
-    float laserTimeModifier = 0.0f;
-    float laserRangeModifier = 0.0f;
-    float laserDamageModifier = 0;
+    //Move Modifiers
+    float moveSpeedModifier = 1.0f;
+    float turnSpeedModifier = 1.0f;
+
+    //Laser Modifiers
+    float laserTimeModifier = 1.0f;
+    float laserRangeModifier = 1.0f;
+    float laserDamageModifier = 1.0f;
+
+    //Missle Modifiers
+    public float missileTimeModifier = 1.0f;
+    public float missileAmmoModifier = 1.0f;
+    public float missileDamageModifer = 1.0f;
 
     //Menu Management Variables
     public void Start()
@@ -30,11 +37,17 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
         waveCount = 0;
 
         //Player Modifiers
-        moveSpeedModifier = 0.0f;
-        turnSpeedModifier = 0.0f;
-        laserTimeModifier = 0.0f;
-        laserRangeModifier = 0.0f;
-        laserDamageModifier = 0;
+        moveSpeedModifier = 1.0f;
+        turnSpeedModifier = 1.0f;
+
+        laserTimeModifier = 1.0f;
+        laserRangeModifier = 1.0f;
+        laserDamageModifier = 1.0f;
+
+        missileTimeModifier = 1.0f;
+        missileAmmoModifier = 1.0f;
+        missileDamageModifer = 1.0f;
+
 
     }
 
@@ -60,6 +73,18 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
         else if (modifier == "laserDamage")
         {
             laserDamageModifier += value;
+        }
+        else if (modifier == "missileTime")
+        {
+            missileTimeModifier += value;
+        }
+        else if (modifier == "missileAmmo")
+        {
+            missileAmmoModifier += value;
+        }
+        else if (modifier == "missileDamage")
+        {
+            missileDamageModifer += value;
         }
 
     }
@@ -97,6 +122,19 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
         return laserDamageModifier;
     }
 
+    public float GetMissileDamage()
+    {
+        return missileDamageModifer;
+    }
     
+    public float GetMissileAmmoCapacity()
+    {
+        return missileAmmoModifier;
+    }
+
+    public float GetMissileReplenishRate()
+    {
+        return missileTimeModifier;
+    }
 
 }

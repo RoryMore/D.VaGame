@@ -20,6 +20,11 @@ public class MissleShooting : MonoBehaviour
     GameObject misslePrefab;
     LayerMask hitMask;
 
+    //Modifiers
+    public float missileAmmoModifier;
+    public float missileDamageModifier;
+    public float missileReloadModifer;
+
     private void Awake()
     {
         misslePrefab = Resources.Load<GameObject>("Missle");
@@ -30,6 +35,10 @@ public class MissleShooting : MonoBehaviour
     {
         ProcessTimers();
         ProcessInput();
+
+        missileAmmoModifier = PlayerModifierManager.Instance.GetMissileAmmoCapacity();
+        missileDamageModifier = PlayerModifierManager.Instance.GetMissileDamage();
+        missileReloadModifer = PlayerModifierManager.Instance.GetMissileReplenishRate();
     }
 
     void ProcessInput()
@@ -46,9 +55,9 @@ public class MissleShooting : MonoBehaviour
     void ProcessTimers()
     {
         fireRateTimer += Time.deltaTime;
-        ammoReplenishRateTimer += Time.deltaTime;
+        ammoReplenishRateTimer += Time.deltaTime * -missileReloadModifer;
 
-        if (ammoReplenishRateTimer > ammoReplenishRate && currentAmmo < ammoCapacity)
+        if (ammoReplenishRateTimer > ammoReplenishRate && currentAmmo < ammoCapacity * missileAmmoModifier)
         {
             currentAmmo += 1;
             ammoReplenishRateTimer = 0;
@@ -85,7 +94,7 @@ public class MissleShooting : MonoBehaviour
         missleScript.accelerationRate = missleAccelerationRate;
         missleScript.maxVelocity = missleVelocityMax;
         missleScript.turnSpeed = missleTurnSpeed;
-        missleScript.damage = missleDamage;
+        missleScript.damage = missleDamage * missileDamageModifier;
         missleScript.targetPosition = targetPosition;
         missleScript.heightTarget = targetPosition.y;
 

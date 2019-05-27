@@ -43,7 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 802be79c0cefe004a94470c00cf64719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reticleSprite: {fileID: 21300000, guid: 3492caee4b32c9b468412db38bc50027, type: 3}
-  maxLength: 25
-  SmoothRate: 0.2
+  reticleSprite: {fileID: 21300000, guid: b40fb1af60e406c4f97efbe86dfa80cd, type: 3}
+  maxLength: 5
+  activatingAccelerationRate: 0.005
+  SmoothRate: 1e-10
   numberReticles: 5
+  maxIdleTime: 2

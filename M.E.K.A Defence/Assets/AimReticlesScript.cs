@@ -2,20 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+enum State
+{
+    ACTIVATING,
+    ACTIVE,
+    DEACTIVATING,
+    UNACTIVE
+}
+
 public class AimReticlesScript : MonoBehaviour
 {
     [SerializeField] Sprite reticleSprite;
-    [SerializeField] float maxLength = 10;
-    [SerializeField] float SmoothRate = 0.8f;
-    [SerializeField] float numberReticles;
+    [SerializeField] float maxLength = 5;
+    [SerializeField] float activatingAccelerationRate = 0.005f;
+    [SerializeField] float SmoothRate = 0.0001f;
+    [SerializeField] float numberReticles = 5;
+    [SerializeField] float maxIdleTime = 2f;
+    [SerializeField] GameObject attachedTo;
+    [SerializeField] Vector3 attachedToOffset;
 
-    Vector3 AimDirection;
-    float AimLength;
+    Vector3 aimDirection;
+    float aimLength;
+    float activatingAcceleration = 0f;
+    float percentActive = 0;
+    float timeSinceInput = 0;
+    
 
     Ray mouseRay;
     RaycastHit mouseHit;
 
     List<GameObject> reticles = new List<GameObject>();
+
+    State currentState = State.UNACTIVE;
 
 
     private void Start()
@@ -25,8 +43,18 @@ public class AimReticlesScript : MonoBehaviour
 
     private void Update()
     {
+        transform.position = attachedTo.transform.position + attachedToOffset;
+        CalculateTimeSinceInput();
+        UpdateState();
+        ProcessState();
+
         UpdateAimDirection();
         UpdateReticlePosition();
+    }
+
+    void DebugDrawing()
+    {
+        Debug.DrawLine(transform.position, transform.position + aimDirection * 100);
     }
 
     void UpdateAimDirection()
@@ -35,8 +63,8 @@ public class AimReticlesScript : MonoBehaviour
 
         if (Physics.Raycast(mouseRay, out mouseHit))
         {
-            AimDirection = Vector3.Normalize(mouseHit.point - Camera.main.transform.position);
-            AimLength = Vector3.Distance(transform.position, mouseHit.point);
+            aimDirection = Vector3.Normalize(mouseHit.point - Camera.main.transform.position);
+            aimLength = Vector3.Distance(transform.position, mouseHit.point);
         }
     }
 
@@ -45,7 +73,7 @@ public class AimReticlesScript : MonoBehaviour
         for (int i = 0; i < numberReticles; i++)
         {
             reticles.Add(Instantiate(new GameObject("Reticle " + i), transform));
-            reticles[i].transform.localScale = Vector3.one * (numberReticles - i);
+            
             SpriteRenderer sr = reticles[i].AddComponent<SpriteRenderer>();
             sr.sprite = reticleSprite;
         }
@@ -54,19 +82,110 @@ public class AimReticlesScript : MonoBehaviour
     void UpdateReticlePosition()
     {
         float adjustedSmoothRate;
-        float length = AimLength;
-        if (length > maxLength) length = maxLength;
-        
+        float length = aimLength;
+        if (length > maxLength * percentActive) length = maxLength * percentActive;
 
+        reticles[0].transform.LookAt(transform.position);
 
         for (int i = 1; i < reticles.Count + 1; i++)
         {
             adjustedSmoothRate = Mathf.Clamp(SmoothRate * i, 0.1f, 0.9f);
 
-            Vector3 smoothedPosition = Vector3.Lerp(reticles[i - 1].transform.position, transform.position + AimDirection * length * (i / (float)reticles.Count), adjustedSmoothRate);
+            Vector3 smoothedDirection = Vector3.Lerp(transform.forward, aimDirection, (i + 1) / ((float)reticles.Count));
+            Vector3 smoothedPosition = Vector3.Lerp(reticles[i - 1].transform.position, transform.position + smoothedDirection * length * (i / (float)reticles.Count), adjustedSmoothRate);
+
+            Debug.DrawLine(transform.position, transform.position + smoothedDirection * 100);
 
             reticles[i - 1].transform.position = smoothedPosition;
-            reticles[i - 1].transform.LookAt(transform.position);
+            reticles[i - 1].transform.rotation = reticles[0].transform.rotation;
+            reticles[i - 1].transform.localScale = Vector3.one * (numberReticles - i)/numberReticles * Mathf.Clamp(percentActive * (reticles.Count - i), 0 , 1);
+
+        }
+    }
+
+    void CalculateTimeSinceInput()
+    {
+        if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
+        {
+            timeSinceInput = 0;
+        }
+        else
+        {
+            timeSinceInput += Time.deltaTime;
+        }
+    }
+
+    void UpdateState()
+    {
+        if (timeSinceInput <= 0)                currentState = State.ACTIVATING;
+        else if (timeSinceInput > maxIdleTime) currentState = State.DEACTIVATING;
+        
+
+        switch (currentState)
+        {
+            case State.ACTIVATING:
+                {
+                    if (percentActive >= 1)
+                    {
+                        percentActive = 1;
+                        currentState = State.ACTIVE;
+                        activatingAcceleration = 0;
+                    }
+                    else
+                    {
+                        activatingAcceleration += activatingAccelerationRate;
+                    }
+                }
+                break;
+            case State.ACTIVE:
+                {
+
+                }
+                break;
+            case State.DEACTIVATING:
+                {
+                    if (percentActive <= 0)
+                    {
+                        percentActive = 0;
+                        currentState = State.UNACTIVE;
+                        activatingAcceleration = 0;
+                    }
+                    else
+                    {
+                        activatingAcceleration += activatingAccelerationRate;
+                    }
+                }
+                break;
+            case State.UNACTIVE:
+                {
+                    
+                }
+                break;
+        }
+    }
+
+    void ProcessState()
+    {
+        switch (currentState)
+        {
+            case State.ACTIVATING:
+                {
+                    percentActive +=  activatingAcceleration;
+                }
+                break;
+            case State.ACTIVE:
+                {
+                }
+                break;
+            case State.DEACTIVATING:
+                {
+                    percentActive -= activatingAcceleration;
+                }
+                break;
+            case State.UNACTIVE:
+                {
+                }
+                break;
         }
     }
 }

@@ -10,25 +10,28 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
     //Global Values
     float waveCount = 0;
 
+    //You are the worst mech. **NO-ONE** cares about your station any more than they need to. You start the game worse for wear
+    //And suffer initial damage to multiple systems
+
     //Move Modifiers
-    float moveSpeedModifier = 1.0f;
-    float turnSpeedModifier = 1.0f;
+    float moveSpeedModifier = 0.8f;
+    float turnSpeedModifier = 0.8f;
     //Visual Modifier for slider
-    float movementHealth = 0.5f;
+    float movementHealth = 0.8f;
 
     //Laser Modifiers
-    float laserTimeModifier = 1.0f;
-    float laserRangeModifier = 1.0f;
-    float laserDamageModifier = 1.0f;
+    float laserTimeModifier = 0.7f;
+    float laserRangeModifier = 0.7f;
+    float laserDamageModifier = 0.7f;
     //Visual Modifier for slider
-    float laserGunHealth = 0.5f;
+    float laserGunHealth = 0.7f;
 
     //Missle Modifiers
-    public float missileTimeModifier = 1.0f;
-    public float missileAmmoModifier = 1.0f;
-    public float missileDamageModifer = 1.0f;
+    public float missileTimeModifier = 0.3f;
+    public float missileAmmoModifier = 0.3f;
+    public float missileDamageModifer = 0.3f;
     //Visual Modifier for slider
-    float missileHealth = 0.5f;
+    float missileHealth = 0.3f;
 
     //Menu Management Variables
     public void Start()
@@ -42,22 +45,23 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
         waveCount = 0;
 
         //Player Modifiers
-        moveSpeedModifier = 1.0f;
-        turnSpeedModifier = 1.0f;
+        //Movement
+        moveSpeedModifier = 0.8f;
+        turnSpeedModifier = 0.8f;
+   
+        movementHealth = 0.8f;
+        //Laser
+        laserTimeModifier = 0.7f;
+        laserRangeModifier = 0.7f;
+        laserDamageModifier = 0.7f;
 
-        movementHealth = 1.0f;
+        laserGunHealth = 0.7f;
+        // Missile
+        missileTimeModifier = 0.3f;
+        missileAmmoModifier = 0.3f;
+        missileDamageModifer = 0.3f;
 
-        laserTimeModifier = 1.0f;
-        laserRangeModifier = 1.0f;
-        laserDamageModifier = 1.0f;
-
-        laserGunHealth = 1.0f;
-
-        missileTimeModifier = 1.0f;
-        missileAmmoModifier = 1.0f;
-        missileDamageModifer = 1.0f;
-
-        missileHealth = 1.0f;
+        missileHealth = 0.3f;
 
     }
 

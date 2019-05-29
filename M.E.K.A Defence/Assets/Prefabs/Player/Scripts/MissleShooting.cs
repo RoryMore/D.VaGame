@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class MissleShooting : MonoBehaviour
 {
@@ -25,6 +27,8 @@ public class MissleShooting : MonoBehaviour
     public float missileDamageModifier;
     public float missileReloadModifer;
 
+    [SerializeField] TextMeshProUGUI ammoCountText;
+
     private void Awake()
     {
         hitMask = LayerMask.GetMask("Shootable");
@@ -34,6 +38,11 @@ public class MissleShooting : MonoBehaviour
     {
         ProcessTimers();
         ProcessInput();
+
+        ammoCountText.text = currentAmmo.ToString() + "/" + ammoCapacity.ToString();
+
+        Vector3 smoothedPosition = Vector3.Lerp(ammoCountText.transform.position, transform.position, 0.1f);
+        ammoCountText.transform.position = Camera.main.WorldToScreenPoint(smoothedPosition);
 
         missileAmmoModifier = PlayerModifierManager.Instance.GetMissileAmmoCapacity();
         missileDamageModifier = PlayerModifierManager.Instance.GetMissileDamage();
@@ -54,7 +63,7 @@ public class MissleShooting : MonoBehaviour
     void ProcessTimers()
     {
         fireRateTimer += Time.deltaTime;
-        ammoReplenishRateTimer += Time.deltaTime * -missileReloadModifer;
+        ammoReplenishRateTimer += Time.deltaTime * missileReloadModifer;
 
         if (ammoReplenishRateTimer > ammoReplenishRate && currentAmmo < ammoCapacity * missileAmmoModifier)
         {

@@ -20,6 +20,7 @@ public class AimReticlesScript : MonoBehaviour
     [SerializeField] float maxIdleTime = 2f;
     [SerializeField] GameObject attachedTo;
     [SerializeField] Vector3 attachedToOffset;
+    [SerializeField] Color highlightColor = Color.red;
 
     Vector3 aimDirection;
     float aimLength;
@@ -61,10 +62,15 @@ public class AimReticlesScript : MonoBehaviour
     {
         mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(mouseRay, out mouseHit))
+        if (Physics.Raycast(mouseRay, out mouseHit, float.PositiveInfinity, LayerMask.GetMask("Shootable")))
         {
+            print(mouseHit.transform.gameObject.name);
             aimDirection = Vector3.Normalize(mouseHit.point - Camera.main.transform.position);
             aimLength = Vector3.Distance(transform.position, mouseHit.point);
+            if (mouseHit.transform.tag == "Enemy")
+            {
+                mouseHit.transform.GetComponent<EnemyHealth>().Highlighted = true;
+            }
         }
     }
 
@@ -94,7 +100,9 @@ public class AimReticlesScript : MonoBehaviour
             Vector3 smoothedDirection = Vector3.Lerp(transform.forward, aimDirection, (i + 1) / ((float)reticles.Count));
             Vector3 smoothedPosition = Vector3.Lerp(reticles[i - 1].transform.position, transform.position + smoothedDirection * length * (i / (float)reticles.Count), adjustedSmoothRate);
 
-            Debug.DrawLine(transform.position, transform.position + smoothedDirection * 100);
+            if(i == reticles.Count) Debug.DrawLine(transform.position, transform.position + smoothedDirection * 1000, Color.red);
+            else Debug.DrawLine(transform.position, transform.position + smoothedDirection * 1000);
+
 
             reticles[i - 1].transform.position = smoothedPosition;
             reticles[i - 1].transform.rotation = reticles[0].transform.rotation;

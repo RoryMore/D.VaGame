@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 063c2dfc806d1a0428264d7554d9f11c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  misslePrefab: {fileID: 2658880717568808885, guid: 2ec63bd5d512b524c862d0d4d7d936dd,
+    type: 3}
   missileAmmoModifier: 0
   missileDamageModifier: 0
   missileReloadModifer: 0
@@ -922,7 +924,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0506ff24b3281ac4c81b5dccf4caf521, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1402,15 +1404,15 @@ PrefabInstance:
     - target: {fileID: 13700004, guid: 2d57f8aafb285b8428049a2c8dd7f818, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 5aa17e49630654947bdbd0fb0f7206ba, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 13700002, guid: 2d57f8aafb285b8428049a2c8dd7f818, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 5aa17e49630654947bdbd0fb0f7206ba, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 13700000, guid: 2d57f8aafb285b8428049a2c8dd7f818, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 756e08c2ef155924e9a1fad2ff088133, type: 2}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d57f8aafb285b8428049a2c8dd7f818, type: 3}
 --- !u!1 &8236486080299354677 stripped

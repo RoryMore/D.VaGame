@@ -59,7 +59,7 @@ public class GwishinMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         Randomize();
     }
-    private void FixedUpdate()
+    private void Update()
     {
         if (transform.position.y < -20) Destroy(this);
         ProcessMovement();

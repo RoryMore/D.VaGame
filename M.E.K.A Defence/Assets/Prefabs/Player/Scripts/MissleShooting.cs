@@ -17,7 +17,7 @@ public class MissleShooting : MonoBehaviour
     float ammoReplenishRateTimer    = 0.0f;
 
     Vector3 targetPosition;
-    GameObject misslePrefab;
+    [SerializeField] GameObject misslePrefab;
     LayerMask hitMask;
 
     //Modifiers
@@ -27,7 +27,6 @@ public class MissleShooting : MonoBehaviour
 
     private void Awake()
     {
-        misslePrefab = Resources.Load<GameObject>("Missle");
         hitMask = LayerMask.GetMask("Shootable");
     }
 

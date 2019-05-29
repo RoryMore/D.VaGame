@@ -24,6 +24,12 @@ public class EnemyHealth : MonoBehaviour
     bool isSinking;
     public bool killedByMissle = false;
 
+    bool highlighted = false;
+    Color highlightColor = Color.red;
+    Color defaultOutline = Color.blue;
+    Outline outline;
+
+    public bool Highlighted { get => highlighted; set => highlighted = value; }
 
     void Awake()
     {

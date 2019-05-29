@@ -54,7 +54,6 @@ public class LaserShooting : MonoBehaviour
 
         
         timeBetweenLasers = 1.5f  -(laserTimeModifier);
-        print(laserTimeModifier);
 
         timer += Time.deltaTime;
         IsLaserReady();

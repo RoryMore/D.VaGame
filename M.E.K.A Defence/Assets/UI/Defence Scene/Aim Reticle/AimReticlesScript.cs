@@ -33,6 +33,7 @@ public class AimReticlesScript : MonoBehaviour
     RaycastHit mouseHit;
 
     List<GameObject> reticles = new List<GameObject>();
+    GameObject targetedEnemy = null;
 
     State currentState = State.UNACTIVE;
 
@@ -64,12 +65,23 @@ public class AimReticlesScript : MonoBehaviour
 
         if (Physics.Raycast(mouseRay, out mouseHit, float.PositiveInfinity, LayerMask.GetMask("Shootable")))
         {
-            print(mouseHit.transform.gameObject.name);
-            aimDirection = Vector3.Normalize(mouseHit.point - Camera.main.transform.position);
+           
+            aimDirection = Vector3.Normalize(mouseHit.point - transform.position);
             aimLength = Vector3.Distance(transform.position, mouseHit.point);
             if (mouseHit.transform.tag == "Enemy")
             {
-                mouseHit.transform.GetComponent<EnemyHealth>().Highlighted = true;
+                if (mouseHit.transform.gameObject != targetedEnemy && targetedEnemy)
+                {
+                    targetedEnemy.GetComponent<EnemyHealth>().Highlighted = false;
+                }
+                targetedEnemy = mouseHit.transform.gameObject;
+                targetedEnemy.GetComponent<EnemyHealth>().Highlighted = true;
+            }
+            else if (targetedEnemy)
+            {
+                    targetedEnemy.GetComponent<EnemyHealth>().Highlighted = false;
+                    targetedEnemy = null;
+                
             }
         }
     }
@@ -97,17 +109,15 @@ public class AimReticlesScript : MonoBehaviour
         {
             adjustedSmoothRate = Mathf.Clamp(SmoothRate * i, 0.1f, 0.9f);
 
-            Vector3 smoothedDirection = Vector3.Lerp(transform.forward, aimDirection, (i + 1) / ((float)reticles.Count));
-            Vector3 smoothedPosition = Vector3.Lerp(reticles[i - 1].transform.position, transform.position + smoothedDirection * length * (i / (float)reticles.Count), adjustedSmoothRate);
+            Vector3 smoothedDirection = Vector3.Lerp(transform.forward, aimDirection, ((float)i) / ((float)reticles.Count));
+            Vector3 smoothedPosition = Vector3.Lerp(reticles[i - 1].transform.position, transform.position + smoothedDirection * length * ((float)i / (float)reticles.Count), adjustedSmoothRate);
 
             if(i == reticles.Count) Debug.DrawLine(transform.position, transform.position + smoothedDirection * 1000, Color.red);
             else Debug.DrawLine(transform.position, transform.position + smoothedDirection * 1000);
 
-
             reticles[i - 1].transform.position = smoothedPosition;
             reticles[i - 1].transform.rotation = reticles[0].transform.rotation;
-            reticles[i - 1].transform.localScale = Vector3.one * (numberReticles - i)/numberReticles * Mathf.Clamp(percentActive * (reticles.Count - i), 0 , 1);
-
+            reticles[i - 1].transform.localScale = Vector3.one * (float)(numberReticles - i)/(float)numberReticles * Mathf.Clamp(percentActive * (reticles.Count - i), 0 , 1);
         }
     }
 

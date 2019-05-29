@@ -79,7 +79,7 @@ public class BuildPhaseManager : MonoBehaviour
         if (timeLeft == 0 || PlayerModifierManager.Instance.GetLaserGunHealth() == 1.0f && PlayerModifierManager.Instance.GetMissileHealth() == 1.0f && PlayerModifierManager.Instance.GetMovementHealth() == 1.0f)
         {
             //Play Game function
-            SceneManager.LoadScene("ShmupScene");
+            SceneManager.LoadScene("Defence Scene");
         }
 
     }
@@ -194,6 +194,17 @@ public class BuildPhaseManager : MonoBehaviour
 
             PlayerModifierManager.Instance.CalculateModifier("missileHealth", -0.1f);
             timeLeft += 1.0f;
+            UpdateAllVariables();
+        }
+
+    }
+
+    public void GetDashUpgrade()
+    {
+        if (timeLeft == 4 && PlayerModifierManager.Instance.GetMovementHealth() == 1.0f)
+        {
+            PlayerModifierManager.Instance.UpgradeDash();
+            timeLeft -= 4.0f;
             UpdateAllVariables();
         }
 

@@ -33,7 +33,10 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
     //Visual Modifier for slider
     float missileHealth = 0.3f;
 
-    //Menu Management Variables
+
+    //Upgrade Variables. Bools and ints to determine if you have certain upgrades and what level, if applicable
+    bool hasDash = false;
+
     public void Start()
     {
 
@@ -62,6 +65,8 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
         missileDamageModifer = 0.3f;
 
         missileHealth = 0.3f;
+
+        bool hasDash = false;
 
     }
 
@@ -114,6 +119,11 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
             missileHealth += value;
         }
 
+    }
+
+    public void UpgradeDash()
+    {
+        hasDash = true;
     }
 
 
@@ -177,6 +187,11 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
     public float GetMissileHealth()
     {
         return missileHealth;
+    }
+
+    public bool GetHasDash()
+    {
+        return hasDash;
     }
 
 }

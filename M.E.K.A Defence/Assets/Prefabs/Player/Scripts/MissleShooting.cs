@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+// press ctrl + alt + m then ctrl + h to open unity API
+
 public class MissleShooting : MonoBehaviour
 {
     float missleDamage              = 60.0f;
@@ -19,7 +21,7 @@ public class MissleShooting : MonoBehaviour
     float ammoReplenishRateTimer    = 0.0f;
 
     Vector3 targetPosition;
-    [SerializeField] GameObject misslePrefab;
+    [SerializeField] GameObject misslePrefab = null;
     LayerMask hitMask;
 
     //Modifiers
@@ -42,7 +44,7 @@ public class MissleShooting : MonoBehaviour
         ammoCountText.text = currentAmmo.ToString() + "/" + ammoCapacity.ToString();
 
         Vector3 smoothedPosition = Vector3.Lerp(ammoCountText.transform.position, transform.position, 0.1f);
-        ammoCountText.transform.position = Camera.main.WorldToScreenPoint(smoothedPosition);
+        ammoCountText.transform.position = smoothedPosition;
 
         missileAmmoModifier = PlayerModifierManager.Instance.GetMissileAmmoCapacity();
         missileDamageModifier = PlayerModifierManager.Instance.GetMissileDamage();

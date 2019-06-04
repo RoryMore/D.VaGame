@@ -20,7 +20,6 @@ public class Weapon : MonoBehaviour
     [SerializeField] Vector3 offsetUI = Vector3.zero;
 
     WeaponUI weaponUI = null;
-    int currentAmmo = 0;
     float smoothRate = 0.1f;
     bool canFire = true;
 
@@ -30,15 +29,13 @@ public class Weapon : MonoBehaviour
 
     protected WeaponStats Stats { get => stats; set => stats = value; }
     protected KeyCode UseKey { get => useKey; set => useKey = value; }
-    protected int CurrentAmmo { get => currentAmmo; set => currentAmmo = value; }
     internal MouseButton UseButton { get => useButton; set => useButton = value; }
     protected bool CanFire { get => canFire; set => canFire = value; }
+    protected WeaponUI WeaponUI { get => weaponUI; set => weaponUI = value; }
 
     private void Start()
     {
         SetupUI();
-
-        currentAmmo = stats.AmmoCapacity;
 
         StartCoroutine(WeaponCooldown());
         StartCoroutine(AmmoReplenish());
@@ -46,6 +43,7 @@ public class Weapon : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
         UpdateUI();
     }
 
@@ -55,11 +53,12 @@ public class Weapon : MonoBehaviour
     {
         while (true)
         {
-                if (currentAmmo > 0)
-                {
-                    canFire = true;
-                }
-            yield return new WaitForSeconds(stats.FireRate);
+            if (canFire == false && stats.CurrentAmmo > 0)
+            {
+                canFire = true;
+                yield return new WaitForSeconds(stats.FireRate);
+            }
+            yield return new WaitForEndOfFrame();
         }
     }
 
@@ -67,14 +66,14 @@ public class Weapon : MonoBehaviour
     {
         while (true)
         {
-            if (currentAmmo < stats.AmmoCapacity)
+            if (stats.CurrentAmmo < stats.AmmoCapacity)
             {
-                currentAmmo += stats.ReplenishAmount;
-                if (currentAmmo > stats.AmmoCapacity)
+                stats.CurrentAmmo += stats.ReplenishAmount;
+                if (stats.CurrentAmmo > stats.AmmoCapacity)
                 {
-                    currentAmmo = stats.AmmoCapacity;
+                    stats.CurrentAmmo = stats.AmmoCapacity;
                 }
-                weaponUI.UpdateUICounter(currentAmmo);
+                weaponUI.UpdateUICounter(stats.CurrentAmmo);
             }
             yield return new WaitForSeconds(stats.ReplenishRate);
         }
@@ -114,7 +113,7 @@ public class Weapon : MonoBehaviour
 
     void UpdateUIText()
     {
-        ammoText.text = currentAmmo + "/" + stats.AmmoCapacity;
+        ammoText.text = stats.CurrentAmmo + "/" + stats.AmmoCapacity;
     }
 
 

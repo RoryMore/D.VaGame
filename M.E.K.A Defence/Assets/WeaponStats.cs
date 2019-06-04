@@ -10,6 +10,8 @@ public class WeaponStats : ScriptableObject
     [SerializeField]
     [Tooltip("The maximum ammo capacity of this weapon")]
     int ammoCpacity = 10;
+    int currentAmmo = 0;
+    
 
     [SerializeField]
     [Tooltip("The number of seconds it takes to replenish ammunition")]
@@ -18,14 +20,6 @@ public class WeaponStats : ScriptableObject
     [SerializeField]
     [Tooltip("how much ammo is replenished per tick of replenish rate")]
     int replenishAmount = 2;
-
-    //----------//
-
-    [Header("Damage")]
-
-    [SerializeField]
-    [Tooltip("How much damage this weapon does per bullet")]
-    float damage = 10f;
 
     //----------//
 
@@ -45,10 +39,27 @@ public class WeaponStats : ScriptableObject
 
     //----------//
 
+    [Header("Range")]
+
+    [SerializeField]
+    [Tooltip("How far this weapon can fire")]
+    float range = 30.0f;
+
+    //----------//
+
     [Header("Bullet")]
+
     [SerializeField]
     [Tooltip("The gameobject that will be created when the weapon is fired")]
     GameObject bullet = null;
+
+    [SerializeField]
+    [Tooltip("How much damage this weapon does per bullet")]
+    float bulletDamage = 10f;
+
+    [SerializeField]
+    [Tooltip("How fast each bullet travels")]
+    float bulletSpeed;
 
     public float FireRate { get => fireRate; set => fireRate = value; }
     public float ReplenishRate { get => replenishRate; set => replenishRate = value; }
@@ -56,4 +67,13 @@ public class WeaponStats : ScriptableObject
     public int AmmoCapacity { get => ammoCpacity; set => ammoCpacity = value; }
     public GameObject Bullet { get => bullet; set => bullet = value; }
     public float ChargeTime { get => chargeTime; set => chargeTime = value; }
+    public float Range { get => range; set => range = value; }
+    public int CurrentAmmo { get => currentAmmo; set => currentAmmo = value; }
+    public float BulletSpeed { get => bulletSpeed; set => bulletSpeed = value; }
+    public float BulletDamage { get => bulletDamage; set => bulletDamage = value; }
+
+    private void Awake()
+    {
+        currentAmmo = AmmoCapacity;
+    }
 }

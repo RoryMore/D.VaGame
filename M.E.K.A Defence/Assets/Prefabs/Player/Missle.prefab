@@ -105,14 +105,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7995226abdaf23d468b8ab835282f0c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVelocity: 15
-  accelerationRate: 1
+  maxVelocity: 30
+  accelerationRate: 10
   targetPosition: {x: 0, y: 0, z: 0}
   targetObject: {fileID: 0}
-  turnSpeed: 1
+  turnSpeed: 2
   heightTarget: 1
-  heightRangeMax: 0.25
-  damage: 60
+  heightRangeMax: 2
+  damage: 100
 --- !u!1 &5185612848431576328
 GameObject:
   m_ObjectHideFlags: 0

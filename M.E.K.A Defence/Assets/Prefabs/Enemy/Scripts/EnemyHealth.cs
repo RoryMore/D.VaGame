@@ -12,7 +12,6 @@ public class EnemyHealth : MonoBehaviour
     //public int scoreValue = 10;
     public AudioClip deathClip;
 
-
     GameObject waveManager;
     EnemyManager enemyManager;
 
@@ -39,6 +38,7 @@ public class EnemyHealth : MonoBehaviour
         capsuleCollider = GetComponent<Collider>();
         waveManager = GameObject.Find("WaveManager");
         enemyManager = waveManager.GetComponent<EnemyManager>();
+        outline = GetComponent<Outline>();
 
         currentHealth = startingHealth;
     }
@@ -46,6 +46,15 @@ public class EnemyHealth : MonoBehaviour
 
     void Update()
     {
+        if (highlighted)
+        {
+            outline.OutlineColor = highlightColor;
+        }
+        else
+        {
+            outline.OutlineColor = defaultOutline;
+        }
+
         if (isSinking)
         {
             //Sinks into the water! Splash Effect?

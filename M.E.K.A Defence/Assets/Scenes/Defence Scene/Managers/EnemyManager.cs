@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class EnemyManager : MonoBehaviour
 {
     PlayerHealth playerHealth;
-    [SerializeField] GameObject enemy;
+    [SerializeField] GameObject enemy = null;
     public float spawnTime = 3f;
     public float killCount = 0.0f;
     Collider strafeArea;

@@ -7,27 +7,27 @@ public class Missle : MonoBehaviour
     //-----Movement
     //Velocity
     Vector3 velocity = Vector3.zero;
-    public float maxVelocity = 15.0f;
-    float maxVelocityModifierMax = 0.1f;
+    public float maxVelocity = 30.0f;
+    float maxVelocityModifierMax = 0.0f;
     //Acceleration
     Vector3 acceleration = Vector3.zero;
-    public float accelerationRate = 1.0f;
-    float accelerationRateModifierMax = 0.2f;
+    public float accelerationRate = 10f;
+    float accelerationRateModifierMax = 0.0f;
     //DesiredPositions
     public Vector3 targetPosition = Vector3.zero;
     public GameObject targetObject = null;
 
     //Rotation
-    public float turnSpeed = 1.0f;
-    float turnSpeedModifierMax = 0.5f;
+    public float turnSpeed = 2.0f;
+    float turnSpeedModifierMax = 0.0f;
     //Deviate
     Vector3 deviatePosition = Vector3.zero;
-    float deviatePositionDistance = 2.0f;
-    float deviatePointRadius = 1.0f;
-    float deviateChance = 0.1f;
+    float deviatePositionDistance = 5.0f;
+    float deviatePointRadius = 3f;
+    float deviateChance = 0.5f;
     //Height Restriction
     public float heightTarget = 1.0f;
-    public float heightRangeMax = 0.25f;
+    public float heightRangeMax = 2f;
 
     public float damage = 60.0f;
 
@@ -90,7 +90,7 @@ public class Missle : MonoBehaviour
     //-----Deviate
     private void Deviate()
     {
-        if (deviateChance > Random.value || deviatePosition == Vector3.zero || Vector3.Distance(targetPosition, transform.position) < Vector3.Distance(deviatePosition, targetPosition))
+        if (deviateChance > Random.value  || Vector3.Distance(targetPosition, transform.position) < Vector3.Distance(deviatePosition, targetPosition))
         {
             deviatePosition = transform.position + ((targetPosition - transform.position).normalized * deviatePositionDistance + Random.onUnitSphere * deviatePointRadius);
             deviatePosition.y = Mathf.Clamp(deviatePosition.y, heightTarget - heightRangeMax, heightTarget + heightRangeMax);

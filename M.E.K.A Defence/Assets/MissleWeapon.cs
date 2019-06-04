@@ -5,10 +5,12 @@ using UnityEngine;
 public class MissleWeapon : Weapon
 {
     List<GameObject> confirmedTargets = new List<GameObject>();
-    bool firing = false;
+
     Scanner scanner;
 
     IEnumerator aquiringTargets;
+
+    bool firing = false;
 
     private void Awake()
     {
@@ -37,13 +39,13 @@ public class MissleWeapon : Weapon
                 if (confirmedTargets.Count > 0)
                 {
                     //----- Start Firing
-                    StartCoroutine(Firing());
+                    StartCoroutine(FiringMissles());
                 }
             }
         }
     }
 
-    IEnumerator Firing()
+    IEnumerator FiringMissles()
     {
         firing = true;
 
@@ -78,36 +80,6 @@ public class MissleWeapon : Weapon
             yield return new WaitForSeconds(frequency);
             remainingTime -= frequency;
         }
-    }
-
-    bool PlayerActivatesInput()
-    {
-        //----- If the player presses the use key
-        if (Input.GetKeyDown(UseKey))             return true;
-
-        //----- If there is no mouse button
-        if (UseButton == MouseButton.None)        return false;
-
-        //----- if the player presses the mouse button
-        if (Input.GetMouseButton((int)UseButton)) return true;
-
-        //-----there is no input so return false
-                                                  return false;
-    }
-
-    bool PlayerDeactivatesInput()
-    {
-        //----- If the player lets go of the use key
-        if (Input.GetKeyUp(UseKey))                 return true;
-
-        //----- If there isnt a mouse button 
-        if (UseButton == MouseButton.None)          return false;
-
-        //----- if the player lets go of the Mouse button
-        if (Input.GetMouseButtonUp((int)UseButton)) return true;
-
-        //-----there is no input so return false
-                                                    return false;
     }
 
     GameObject GetTarget()

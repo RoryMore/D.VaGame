@@ -21,6 +21,7 @@ public class Weapon : MonoBehaviour
 
     WeaponUI weaponUI = null;
     float smoothRate = 0.1f;
+
     bool canFire = true;
 
     //-----UI - -
@@ -116,6 +117,53 @@ public class Weapon : MonoBehaviour
         ammoText.text = stats.CurrentAmmo + "/" + stats.AmmoCapacity;
     }
 
+    //----- Player Inputs -----//
 
+    protected bool PlayerActivatesInput()
+    {
+        //----- If the player presses the use key
+        if (Input.GetKeyDown(UseKey)) return true;
+
+        //----- If there is no mouse button
+        if (UseButton == MouseButton.None) return false;
+
+        //----- if the player presses the mouse button
+        if (Input.GetMouseButtonDown((int)UseButton)) return true;
+
+        //-----there is no input so return false
+        return false;
+    }
+
+    protected bool PlayerDeactivatesInput()
+    {
+        //----- If the player lets go of the use key
+        if (Input.GetKeyUp(UseKey)) return true;
+
+        //----- If there isnt a mouse button 
+        if (UseButton == MouseButton.None) return false;
+
+        //----- if the player lets go of the Mouse button
+        if (Input.GetMouseButtonUp((int)UseButton)) return true;
+
+        //-----there is no input so return false
+        return false;
+    }
+
+    protected bool PlayerHoldsInput()
+    {
+        //----- If the player lets go of the use key
+        if (Input.GetKey(UseKey)) return true;
+
+        //----- If there isnt a mouse button 
+        if (UseButton == MouseButton.None) return false;
+
+        //----- if the player lets go of the Mouse button
+        if (Input.GetMouseButton((int)UseButton)) return true;
+
+        //-----there is no input so return false
+        return false;
+    }
+
+    //----- ------------- -----//
 
 }

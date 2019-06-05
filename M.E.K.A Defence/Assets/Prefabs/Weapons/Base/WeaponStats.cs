@@ -9,7 +9,7 @@ public class WeaponStats : ScriptableObject
 
     [SerializeField]
     [Tooltip("The maximum ammo capacity of this weapon")]
-    int ammoCpacity = 10;
+    int ammoCapacity = 10;
     int currentAmmo = 0;
     
 
@@ -30,10 +30,6 @@ public class WeaponStats : ScriptableObject
     float fireRate = 2f;
 
     [SerializeField]
-    [Tooltip("Can the gun be fired by holding down the button")]
-    bool holdToFire;
-
-    [SerializeField]
     [Tooltip("How long the weapon must charge before firing")]
     float chargeTime = 0f;
 
@@ -44,6 +40,10 @@ public class WeaponStats : ScriptableObject
     [SerializeField]
     [Tooltip("How far this weapon can fire")]
     float range = 30.0f;
+
+    [SerializeField]
+    [Tooltip("How accurate this gun is")]
+    float accurracy = 1.0f;
 
     //----------//
 
@@ -64,16 +64,12 @@ public class WeaponStats : ScriptableObject
     public float FireRate { get => fireRate; set => fireRate = value; }
     public float ReplenishRate { get => replenishRate; set => replenishRate = value; }
     public int ReplenishAmount { get => replenishAmount; set => replenishAmount = value; }
-    public int AmmoCapacity { get => ammoCpacity; set => ammoCpacity = value; }
+    public int AmmoCapacity { get => ammoCapacity; set => ammoCapacity = value; }
     public GameObject Bullet { get => bullet; set => bullet = value; }
     public float ChargeTime { get => chargeTime; set => chargeTime = value; }
     public float Range { get => range; set => range = value; }
     public int CurrentAmmo { get => currentAmmo; set => currentAmmo = value; }
     public float BulletSpeed { get => bulletSpeed; set => bulletSpeed = value; }
     public float BulletDamage { get => bulletDamage; set => bulletDamage = value; }
-
-    private void Awake()
-    {
-        currentAmmo = AmmoCapacity;
-    }
+    public float Accurracy { get => accurracy; set => accurracy = value; }
 }

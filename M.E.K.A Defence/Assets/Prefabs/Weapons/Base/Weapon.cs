@@ -37,6 +37,7 @@ public class Weapon : MonoBehaviour
     private void Start()
     {
         SetupUI();
+        stats.CurrentAmmo = stats.AmmoCapacity;
 
         StartCoroutine(WeaponCooldown());
         StartCoroutine(AmmoReplenish());

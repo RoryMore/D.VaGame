@@ -45,7 +45,6 @@ public class Missle : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
         if (other.gameObject.tag == "Enemy")
         {
             other.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage, other.transform.position);
@@ -106,8 +105,6 @@ public class Missle : MonoBehaviour
 
     void UpdateTarget()
     {
-        
-
         if (targetObject != null)
         {
             targetPosition = targetObject.transform.position;
@@ -119,6 +116,4 @@ public class Missle : MonoBehaviour
             }
         }
     }
-
-
 }

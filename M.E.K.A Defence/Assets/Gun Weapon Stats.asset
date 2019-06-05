@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a9640371234f0642aaccc9344dfc290, type: 3}
-  m_Name: Laser Weapon Stats
+  m_Name: Gun Weapon Stats
   m_EditorClassIdentifier: 
-  ammoCapacity: 100
-  replenishRate: 0.1
-  replenishAmount: 1
+  ammoCapacity: 10
+  replenishRate: 3
+  replenishAmount: 2
   fireRate: 2
   chargeTime: 0
   range: 30
-  bullet: {fileID: 8172057217865428411, guid: 676e82a976c5e5d4b83d405af36d76fd, type: 3}
-  bulletDamage: 5
-  bulletSpeed: 100
+  accurracy: 1
+  bullet: {fileID: 0}
+  bulletDamage: 10
+  bulletSpeed: 0

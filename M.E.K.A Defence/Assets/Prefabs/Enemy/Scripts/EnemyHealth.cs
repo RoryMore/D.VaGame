@@ -12,7 +12,6 @@ public class EnemyHealth : MonoBehaviour
     //public int scoreValue = 10;
     public AudioClip deathClip;
 
-
     GameObject waveManager;
     EnemyManager enemyManager;
 

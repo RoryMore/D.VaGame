@@ -12,14 +12,14 @@ enum State
 
 public class AimReticlesScript : MonoBehaviour
 {
-    [SerializeField] Sprite reticleSprite;
+    [SerializeField] Sprite reticleSprite = null;
     [SerializeField] float maxLength = 5;
     [SerializeField] float activatingAccelerationRate = 0.005f;
     [SerializeField] float SmoothRate = 0.0001f;
     [SerializeField] float numberReticles = 5;
     [SerializeField] float maxIdleTime = 2f;
-    [SerializeField] GameObject attachedTo;
-    [SerializeField] Vector3 attachedToOffset;
+    [SerializeField] GameObject attachedTo = null;
+    [SerializeField] Vector3 attachedToOffset = Vector3.zero;
     [SerializeField] Color highlightColor = Color.red;
 
     Vector3 aimDirection;

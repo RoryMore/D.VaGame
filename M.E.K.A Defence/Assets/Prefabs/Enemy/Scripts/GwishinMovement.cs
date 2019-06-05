@@ -12,8 +12,11 @@ enum EnemyState
 
 public class GwishinMovement : MonoBehaviour
 {
+    [SerializeField] GameObject targetedReticle = null;
+
     //-----State
     EnemyState state = EnemyState.APPROACH;
+
 
     //-----Movement
     //Velocity
@@ -46,9 +49,14 @@ public class GwishinMovement : MonoBehaviour
     EnemyHealth myHealth;
     Animator anim;
 
+    float distanceFromPlayer = 0;
+    int timesTargeted = 0;
+
     //Strafe area
     public Collider strafeArea = null;
 
+    public float DistanceFromPlayer { get => distanceFromPlayer; set => distanceFromPlayer = value; }
+    public int TimesTargeted { get => timesTargeted; set => timesTargeted = value; }
 
     private void Awake()
     {
@@ -64,6 +72,7 @@ public class GwishinMovement : MonoBehaviour
         if (transform.position.y < -20) Destroy(this);
         ProcessMovement();
         targetPosition = player.transform.position;
+        distanceFromPlayer = Vector3.Distance(transform.position, player.transform.position);
     }
 
 //-----------------------------------------------------------------------//
@@ -258,12 +267,17 @@ public class GwishinMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
-
         if (other.gameObject.tag == "Enemy")
         {
             velocity += (transform.position - other.transform.position) * accelerationRate;
             
         }
+    }
+
+    public void AddTargetedReticle()
+    {
+        GameObject reticle = Instantiate(targetedReticle, transform);
+        reticle.transform.localScale = Vector3.one * 150 * (timesTargeted/2.0f);
+        reticle.transform.LookAt(Camera.main.transform);
     }
 }

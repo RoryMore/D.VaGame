@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1451438630472525502}
   - component: {fileID: 554989326475916699}
   - component: {fileID: -4719769824226181778}
-  - component: {fileID: 1357291753620889059}
   - component: {fileID: 721919016756664056}
   - component: {fileID: 319711456325628246}
   - component: {fileID: 3242969324155956641}
@@ -120,19 +119,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &1357291753620889059
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 871549547972268642}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 7
-  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &721919016756664056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,6 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e605478729b119499e3482f94cd0525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetedReticle: {fileID: 214333856040570704, guid: d63543e77cb6e2f4bac4faa5e775134e,
+    type: 3}
   velocity: {x: 0, y: 0, z: 0}
   maxVelocity: 15
   accelerationRate: 1

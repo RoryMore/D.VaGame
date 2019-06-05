@@ -50,7 +50,7 @@ public class MissleWeapon : Weapon
         firing = true;
 
         //----- While there are still targets and we have ammo
-        while (Stats.CurrentAmmo > 0 && confirmedTargets.Count > 0)
+        while (Stats.CurrentAmmo > 0)
         {
             GameObject targetForNextMissle = confirmedTargets[0];
 
@@ -63,7 +63,7 @@ public class MissleWeapon : Weapon
             targetForNextMissle.GetComponent<GwishinMovement>().TimesTargeted = 0;
             confirmedTargets.RemoveAt(0);
 
-            Stats.CurrentAmmo--;
+            
             print("Firing Missle");
             yield return new WaitForSeconds(0.125f);
         }
@@ -74,9 +74,10 @@ public class MissleWeapon : Weapon
     {
         float remainingTime = maxTime;
 
-        while (remainingTime > 0 && confirmedTargets.Count < Stats.CurrentAmmo)
+        while (remainingTime > 0)
         {
             confirmedTargets.Add(GetTarget());
+            Stats.CurrentAmmo--;
             yield return new WaitForSeconds(frequency);
             remainingTime -= frequency;
         }

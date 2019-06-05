@@ -7,6 +7,14 @@ using TMPro;
 public class PlayerModifierManager : Singleton<PlayerModifierManager>
 
 {
+    WeaponStats missleWeaponStats = null;
+    WeaponStats laserWeaponStats = null;
+
+
+    public WeaponStats MissleWeaponStats { get => missleWeaponStats; set => missleWeaponStats = value; }
+    public WeaponStats LaserWeaponStats { get => laserWeaponStats; set => laserWeaponStats = value; }
+
+
     //Global Values
     float waveCount = 0;
 
@@ -37,10 +45,13 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
     //Upgrade Variables. Bools and ints to determine if you have certain upgrades and what level, if applicable
     bool hasDash = false;
 
+
+
     public void Start()
     {
 
     }
+
     //FUNCTIONS
     public void ResetModifiers()
     {
@@ -53,6 +64,7 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
         turnSpeedModifier = 0.8f;
    
         movementHealth = 0.8f;
+
         //Laser
         laserTimeModifier = 0.7f;
         laserRangeModifier = 0.7f;
@@ -67,6 +79,23 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
         missileHealth = 0.3f;
 
         bool hasDash = false;
+
+    }
+
+    public void UpdateWeaponStats()
+    {
+
+        //Laser
+        LaserWeaponStats.ReplenishRate = LaserWeaponStats.ReplenishRateBase * laserTimeModifier;
+        LaserWeaponStats.Range = 30 * laserRangeModifier;
+        LaserWeaponStats.BulletDamage = 10 * laserDamageModifier;
+        //Machine Gun (we really need to do this....)
+
+        // Missile
+        MissleWeaponStats.AmmoCapacity = (int)(MissleWeaponStats.AmmoCapacityBase * missileAmmoModifier);
+        MissleWeaponStats.ReplenishRate = MissleWeaponStats.ReplenishRateBase * missileTimeModifier;
+        MissleWeaponStats.BulletDamage = MissleWeaponStats.BulletDamageBase * missileDamageModifer;
+
 
     }
 
@@ -193,5 +222,6 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
     {
         return hasDash;
     }
+
 
 }

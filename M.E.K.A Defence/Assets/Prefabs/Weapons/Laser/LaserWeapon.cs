@@ -20,4 +20,9 @@ public class LaserWeapon : Weapon
     {
         Instantiate(Stats.Bullet, transform.position, transform.rotation);
     }
+
+    void Awake()
+    {
+        this.Stats = PlayerModifierManager.Instance.LaserWeaponStats ;
+    }
 }

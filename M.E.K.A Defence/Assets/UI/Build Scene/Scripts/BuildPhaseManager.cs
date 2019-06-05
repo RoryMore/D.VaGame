@@ -79,6 +79,9 @@ public class BuildPhaseManager : MonoBehaviour
         if (timeLeft == 0 || PlayerModifierManager.Instance.GetLaserGunHealth() == 1.0f && PlayerModifierManager.Instance.GetMissileHealth() == 1.0f && PlayerModifierManager.Instance.GetMovementHealth() == 1.0f)
         {
             //Play Game function
+
+            PlayerModifierManager.Instance.UpdateWeaponStats();
+
             SceneManager.LoadScene("Defence Scene");
         }
 

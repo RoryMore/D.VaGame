@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a9640371234f0642aaccc9344dfc290, type: 3}
   m_Name: Gun Weapon Stats
   m_EditorClassIdentifier: 
-  ammoCapacity: 10
-  replenishRate: 3
+  ammoCapacity: 12
+  replenishRate: 1
   replenishAmount: 2
-  fireRate: 2
+  fireRate: 0.05
   chargeTime: 0
-  range: 30
-  accurracy: 1
-  bullet: {fileID: 0}
-  bulletDamage: 10
-  bulletSpeed: 0
+  range: 100
+  accurracy: 3.5
+  bullet: {fileID: 152112873969718449, guid: edf7373301e30fc4e9b0a647aa03602d, type: 3}
+  bulletDamage: 15
+  bulletSpeed: 125

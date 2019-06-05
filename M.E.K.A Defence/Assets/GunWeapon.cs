@@ -50,6 +50,7 @@ public class GunWeapon : Weapon
         {
             targetPosition = hitInfo.point;
             Debug.DrawLine(transform.position, hitInfo.point);
+            
         }
         else
         {

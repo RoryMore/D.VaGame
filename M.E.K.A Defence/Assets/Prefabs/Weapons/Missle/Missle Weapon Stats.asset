@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a9640371234f0642aaccc9344dfc290, type: 3}
   m_Name: Missle Weapon Stats
   m_EditorClassIdentifier: 
-  ammoCpacity: 15
+  ammoCapacity: 10
   replenishRate: 5
   replenishAmount: 2
-  fireRate: 1
-  holdToFire: 0
+  fireRate: 0.35
   chargeTime: 10
   range: 25
+  accurracy: 1
   bullet: {fileID: 2658880717568808885, guid: 2ec63bd5d512b524c862d0d4d7d936dd, type: 3}
-  bulletDamage: 10
+  bulletDamage: 100
   bulletSpeed: 30

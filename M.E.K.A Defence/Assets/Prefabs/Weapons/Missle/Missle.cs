@@ -18,7 +18,6 @@ public class Missle : MonoBehaviour
     public GameObject targetObject = null;
 
     //Rotation
-    public float turnSpeed = 2.0f;
     float turnSpeedModifierMax = 0.0f;
     //Deviate
     Vector3 deviatePosition = Vector3.zero;
@@ -83,7 +82,7 @@ public class Missle : MonoBehaviour
         Vector3 desiredDirection = deviatePosition - transform.position;
         //Vector3 desiredDirection = targetPosition;
         Quaternion lookAtDirection = Quaternion.LookRotation(desiredDirection);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookAtDirection, turnSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookAtDirection, 0.1f);
     }
 
     //-----Deviate
@@ -100,7 +99,7 @@ public class Missle : MonoBehaviour
     {
         maxVelocity *= 1 + Random.Range(-maxVelocityModifierMax, maxVelocityModifierMax);
         accelerationRate *= 1 + Random.Range(-accelerationRateModifierMax, accelerationRateModifierMax);
-        turnSpeed *= 1 + Random.Range(-turnSpeedModifierMax, turnSpeedModifierMax);
+
     }
 
     void UpdateTarget()

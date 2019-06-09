@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerAiming : MonoBehaviour
 {
+    [SerializeField] Transform lowerHalf;
     public float turnSpeed;
     float angle;
     Quaternion targetRotation;
@@ -18,6 +19,7 @@ public class PlayerAiming : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        transform.position = lowerHalf.position;
         GetTargetRotation();
         Turn();
     }
@@ -27,22 +29,27 @@ public class PlayerAiming : MonoBehaviour
         //Casts a ray from camera location to mouse position in the scene
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit floorHit;
+        Vector3 playerToMouse;
 
         if (Physics.Raycast(camRay, out floorHit, camRayLength, floorMask))
         {
 
             //Set the direction of the player towards the direction of the mouse
 
-            Vector3 playerToMouse = floorHit.point - transform.position;
+            playerToMouse = floorHit.point - transform.position;
 
             //Shouldn't be needed with the floor raycast but a double check to make
 
             //Sure the player cannot turn upwards
 
-            playerToMouse.y = 0f;
+            
 
-            targetRotation = Quaternion.LookRotation(playerToMouse);
+            
         }
+        else playerToMouse = transform.position + camRay.direction.normalized * 1000;
+
+        playerToMouse.y = 0f;
+        targetRotation = Quaternion.LookRotation(playerToMouse);
     }
 
     void Turn()

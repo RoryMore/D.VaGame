@@ -103,7 +103,6 @@ public class MissleShooting : MonoBehaviour
         Missle missleScript = missle.GetComponent<Missle>();
         missleScript.accelerationRate = missleAccelerationRate;
         missleScript.maxVelocity = missleVelocityMax;
-        missleScript.turnSpeed = missleTurnSpeed;
         missleScript.damage = missleDamage * missileDamageModifier;
         missleScript.targetPosition = targetPosition;
         missleScript.heightTarget = targetPosition.y;

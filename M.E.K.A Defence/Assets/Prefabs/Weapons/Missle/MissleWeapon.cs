@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MissleWeapon : Weapon
 {
+
     List<GameObject> confirmedTargets = new List<GameObject>();
 
     Scanner scanner;
@@ -50,12 +51,12 @@ public class MissleWeapon : Weapon
         firing = true;
 
         //----- While there are still targets and we have ammo
-        while (Stats.CurrentAmmo > 0)
+        while (Stats.CurrentAmmo > 0 && confirmedTargets.Count > 0)
         {
             GameObject targetForNextMissle = confirmedTargets[0];
 
             //Create a missle at this position that's pointing upwards, then get the script that controls it.
-            Missle nextMissle = Instantiate(Stats.Bullet, transform.position, Quaternion.LookRotation(Vector3.up)).GetComponent<Missle>();
+            Missle nextMissle = Instantiate(Stats.Bullet, transform.position, Quaternion.LookRotation(Vector3.up + transform.forward)).GetComponent<Missle>();
 
             nextMissle.maxVelocity = Stats.BulletSpeed;
             nextMissle.damage = Stats.BulletDamage;
@@ -74,7 +75,7 @@ public class MissleWeapon : Weapon
     {
         float remainingTime = maxTime;
 
-        while (remainingTime > 0)
+        while (remainingTime > 0 && Stats.CurrentAmmo > 0)
         {
             confirmedTargets.Add(GetTarget());
             Stats.CurrentAmmo--;

@@ -117,7 +117,7 @@ public class AimReticlesScript : MonoBehaviour
 
             reticles[i - 1].transform.position = smoothedPosition;
             reticles[i - 1].transform.rotation = reticles[0].transform.rotation;
-            reticles[i - 1].transform.localScale = Vector3.one * (float)(numberReticles - i)/(float)numberReticles * Mathf.Clamp(percentActive * (reticles.Count - i), 0 , 1);
+            reticles[i - 1].transform.localScale = Vector3.one * 5 * (float)(numberReticles - i)/(float)numberReticles * Mathf.Clamp(percentActive * (reticles.Count - i), 0 , 1);
         }
     }
 

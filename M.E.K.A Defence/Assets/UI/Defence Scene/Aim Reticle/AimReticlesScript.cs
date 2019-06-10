@@ -65,8 +65,9 @@ public class AimReticlesScript : MonoBehaviour
 
         if (Physics.Raycast(mouseRay, out mouseHit, float.PositiveInfinity, LayerMask.GetMask("Shootable")))
         {
-           
-            aimDirection = Vector3.Normalize(mouseHit.point - transform.position);
+
+            //aimDirection = Vector3.Normalize(mouseHit.point - transform.position);
+
             aimLength = Vector3.Distance(transform.position, mouseHit.point);
             if (mouseHit.transform.tag == "Enemy")
             {
@@ -79,11 +80,13 @@ public class AimReticlesScript : MonoBehaviour
             }
             else if (targetedEnemy)
             {
-                    targetedEnemy.GetComponent<EnemyHealth>().Highlighted = false;
-                    targetedEnemy = null;
-                
+                targetedEnemy.GetComponent<EnemyHealth>().Highlighted = false;
+                targetedEnemy = null;
             }
         }
+        else aimLength = maxLength;
+
+        aimDirection = mouseRay.direction;
     }
 
     void CreateReticleParts()

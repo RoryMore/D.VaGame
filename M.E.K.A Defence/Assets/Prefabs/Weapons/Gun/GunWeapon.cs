@@ -34,7 +34,7 @@ public class GunWeapon : Weapon
             GunBullet newBullet = Instantiate(Stats.Bullet, transform.position, transform.rotation).GetComponent<GunBullet>();
             newBullet.transform.LookAt(targetPosition + Random.onUnitSphere * Stats.Accurracy);
             newBullet.SetupBullet(Stats.BulletSpeed, Stats.BulletDamage);
-            Stats.CurrentAmmo--;
+            ReduceCurrentAmmo(1);
             yield return new WaitForSeconds(frequency);
         }
         print("WOW");

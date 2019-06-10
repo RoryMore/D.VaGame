@@ -68,7 +68,7 @@ public class Weapon : MonoBehaviour
     {
         while (true)
         {
-            if (stats.CurrentAmmo < stats.AmmoCapacity)
+            if (stats.CurrentAmmo < stats.AmmoCapacity && canFire)
             {
                 stats.CurrentAmmo += stats.ReplenishAmount;
                 if (stats.CurrentAmmo > stats.AmmoCapacity)
@@ -116,6 +116,12 @@ public class Weapon : MonoBehaviour
     void UpdateUIText()
     {
         ammoText.text = stats.CurrentAmmo + "/" + stats.AmmoCapacity;
+    }
+
+    protected void ReduceCurrentAmmo(int ammoRemoved)
+    {
+        stats.CurrentAmmo -= ammoRemoved;
+        weaponUI.UpdateUICounter(stats.CurrentAmmo);
     }
 
     //----- Player Inputs -----//

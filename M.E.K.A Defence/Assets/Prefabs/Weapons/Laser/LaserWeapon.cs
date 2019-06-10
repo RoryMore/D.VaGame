@@ -39,7 +39,7 @@ public class LaserWeapon : Weapon
     {
         if (currentLaser == null) return;
 
-        Stats.CurrentAmmo -= 1;
+        ReduceCurrentAmmo(1);
 
         Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 

@@ -69,4 +69,9 @@ public class LaserWeapon : Weapon
             currentLaser.LineColor = Color.Lerp(currentLaser.LineColor, focusedColour, 0.05f);
         }
     }
+
+    void Awake()
+    {
+        this.Stats = PlayerModifierManager.Instance.LaserWeaponStats ;
+    }
 }

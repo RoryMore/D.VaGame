@@ -7,29 +7,51 @@ using TMPro;
 public class PlayerModifierManager : Singleton<PlayerModifierManager>
 
 {
+    WeaponStats missleWeaponStats = null;
+    WeaponStats laserWeaponStats = null;
+
+
+    public WeaponStats MissleWeaponStats { get => missleWeaponStats; set => missleWeaponStats = value; }
+    public WeaponStats LaserWeaponStats { get => laserWeaponStats; set => laserWeaponStats = value; }
+
+
     //Global Values
     float waveCount = 0;
 
+    //You are the worst mech. **NO-ONE** cares about your station any more than they need to. You start the game worse for wear
+    //And suffer initial damage to multiple systems
 
     //Move Modifiers
-    float moveSpeedModifier = 1.0f;
-    float turnSpeedModifier = 1.0f;
+    float moveSpeedModifier = 0.8f;
+    float turnSpeedModifier = 0.8f;
+    //Visual Modifier for slider
+    float movementHealth = 0.8f;
 
     //Laser Modifiers
-    float laserTimeModifier = 1.0f;
-    float laserRangeModifier = 1.0f;
-    float laserDamageModifier = 1.0f;
+    float laserTimeModifier = 0.7f;
+    float laserRangeModifier = 0.7f;
+    float laserDamageModifier = 0.7f;
+    //Visual Modifier for slider
+    float laserGunHealth = 0.7f;
 
     //Missle Modifiers
-    public float missileTimeModifier = 1.0f;
-    public float missileAmmoModifier = 1.0f;
-    public float missileDamageModifer = 1.0f;
+    public float missileTimeModifier = 0.3f;
+    public float missileAmmoModifier = 0.3f;
+    public float missileDamageModifer = 0.3f;
+    //Visual Modifier for slider
+    float missileHealth = 0.3f;
 
-    //Menu Management Variables
+
+    //Upgrade Variables. Bools and ints to determine if you have certain upgrades and what level, if applicable
+    bool hasDash = false;
+
+
+
     public void Start()
     {
 
     }
+
     //FUNCTIONS
     public void ResetModifiers()
     {
@@ -37,16 +59,42 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
         waveCount = 0;
 
         //Player Modifiers
-        moveSpeedModifier = 1.0f;
-        turnSpeedModifier = 1.0f;
+        //Movement
+        moveSpeedModifier = 0.8f;
+        turnSpeedModifier = 0.8f;
+   
+        movementHealth = 0.8f;
 
-        laserTimeModifier = 1.0f;
-        laserRangeModifier = 1.0f;
-        laserDamageModifier = 1.0f;
+        //Laser
+        laserTimeModifier = 0.7f;
+        laserRangeModifier = 0.7f;
+        laserDamageModifier = 0.7f;
 
-        missileTimeModifier = 1.0f;
-        missileAmmoModifier = 1.0f;
-        missileDamageModifer = 1.0f;
+        laserGunHealth = 0.7f;
+        // Missile
+        missileTimeModifier = 0.3f;
+        missileAmmoModifier = 0.3f;
+        missileDamageModifer = 0.3f;
+
+        missileHealth = 0.3f;
+
+        bool hasDash = false;
+
+    }
+
+    public void UpdateWeaponStats()
+    {
+
+        //Laser
+        LaserWeaponStats.ReplenishRate = LaserWeaponStats.ReplenishRateBase * laserTimeModifier;
+        LaserWeaponStats.Range = 30 * laserRangeModifier;
+        LaserWeaponStats.BulletDamage = 10 * laserDamageModifier;
+        //Machine Gun (we really need to do this....)
+
+        // Missile
+        MissleWeaponStats.AmmoCapacity = (int)(MissleWeaponStats.AmmoCapacityBase * missileAmmoModifier);
+        MissleWeaponStats.ReplenishRate = MissleWeaponStats.ReplenishRateBase * missileTimeModifier;
+        MissleWeaponStats.BulletDamage = MissleWeaponStats.BulletDamageBase * missileDamageModifer;
 
 
     }
@@ -86,7 +134,25 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
         {
             missileDamageModifer += value;
         }
+        //Visual values. Used Exclusivley for the sliders
+        else if (modifier == "movementHealth")
+        {
+            movementHealth += value;
+        }
+        else if (modifier == "laserGunHealth")
+        {
+            laserGunHealth += value;
+        }
+        else if (modifier == "missileHealth")
+        {
+            missileHealth += value;
+        }
 
+    }
+
+    public void UpgradeDash()
+    {
+        hasDash = true;
     }
 
 
@@ -136,5 +202,26 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
     {
         return missileTimeModifier;
     }
+
+    public float GetMovementHealth()
+    {
+        return movementHealth;
+    }
+
+    public float GetLaserGunHealth()
+    {
+        return laserGunHealth;
+    }
+
+    public float GetMissileHealth()
+    {
+        return missileHealth;
+    }
+
+    public bool GetHasDash()
+    {
+        return hasDash;
+    }
+
 
 }

@@ -9,13 +9,15 @@ public class WeaponStats : ScriptableObject
 
     [SerializeField]
     [Tooltip("The maximum ammo capacity of this weapon")]
+    int ammoCapacityBase = 10;
     int ammoCapacity = 10;
     int currentAmmo = 0;
-    
+
 
     [SerializeField]
     [Tooltip("The number of seconds it takes to replenish ammunition")]
-    float replenishRate = 3f;
+    float replenishRateBase = 3f;
+    float replenishRate = 3f;       //actual used stat
 
     [SerializeField]
     [Tooltip("how much ammo is replenished per tick of replenish rate")]
@@ -39,6 +41,7 @@ public class WeaponStats : ScriptableObject
 
     [SerializeField]
     [Tooltip("How far this weapon can fire")]
+    float rangeBase = 30.0f;
     float range = 30.0f;
 
     [SerializeField]
@@ -55,6 +58,7 @@ public class WeaponStats : ScriptableObject
 
     [SerializeField]
     [Tooltip("How much damage this weapon does per bullet")]
+    float bulletDamageBase = 10f;
     float bulletDamage = 10f;
 
     [SerializeField]
@@ -83,7 +87,13 @@ public class WeaponStats : ScriptableObject
     public int CurrentAmmo { get => currentAmmo; set => currentAmmo = value; }
     public float BulletSpeed { get => bulletSpeed; set => bulletSpeed = value; }
     public float BulletDamage { get => bulletDamage; set => bulletDamage = value; }
-    public float Accurracy { get => accurracy; set => accurracy = value; }
-    public WeaponSounds Sounds { get => sounds; set => sounds = value; }
-    public float BulletDamageRadius { get => bulletDamageRadius; set => bulletDamageRadius = value; }
+    public float ReplenishRateBase { get => replenishRateBase; set => replenishRateBase = value; }
+    public int AmmoCapacityBase { get => ammoCapacityBase; set => ammoCapacityBase = value; }
+    public float RangeBase { get => rangeBase; set => rangeBase = value; }
+    public float BulletDamageBase { get => bulletDamageBase; set => bulletDamageBase = value; }
+
+    private void Awake()
+    {
+        currentAmmo = AmmoCapacity;
+    }
 }

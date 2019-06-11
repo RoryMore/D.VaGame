@@ -81,7 +81,7 @@ public class MissleWeapon : Weapon
     IEnumerator AquiringTargets( float frequency)
     {
         CanFire = false;
-        while (Stats.CurrentAmmo > 0)
+        while (Stats.CurrentAmmo > 0 && scanner.ObjectsInRange.Count > 0)
         {
             confirmedTargets.Add(GetTarget());
             ReduceCurrentAmmo(1);

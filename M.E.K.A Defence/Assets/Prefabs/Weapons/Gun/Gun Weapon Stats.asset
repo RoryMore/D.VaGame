@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gun Weapon Stats
   m_EditorClassIdentifier: 
   ammoCapacity: 12
-  replenishRate: 1
+  replenishRate: 0.25
   replenishAmount: 2
   fireRate: 0.05
   chargeTime: 0
@@ -21,4 +21,6 @@ MonoBehaviour:
   accurracy: 3.5
   bullet: {fileID: 152112873969718449, guid: edf7373301e30fc4e9b0a647aa03602d, type: 3}
   bulletDamage: 15
+  bulletDamageRadius: 0
   bulletSpeed: 125
+  sounds: {fileID: 0}

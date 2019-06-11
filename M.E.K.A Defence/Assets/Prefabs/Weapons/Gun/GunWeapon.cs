@@ -6,7 +6,6 @@ public class GunWeapon : Weapon
 {
     IEnumerator startFiring;
     Vector3 targetPosition;
-    bool firing = false;
 
     private void Awake()
     {
@@ -15,7 +14,7 @@ public class GunWeapon : Weapon
 
     private void Update()
     {
-        if (PlayerActivatesInput() && !firing)
+        if (PlayerActivatesInput() && !Firing)
         {
             print("fwoop");
             StopCoroutine(startFiring);
@@ -28,7 +27,8 @@ public class GunWeapon : Weapon
 
     IEnumerator StartFiring(float frequency, int numberOfShots)
     {
-        firing = true;
+        Firing = true;
+        CanFire = false;
         for (int i = 0; i < numberOfShots; i++)
         {
             GunBullet newBullet = Instantiate(Stats.Bullet, transform.position, transform.rotation).GetComponent<GunBullet>();
@@ -38,7 +38,8 @@ public class GunWeapon : Weapon
             yield return new WaitForSeconds(frequency);
         }
         print("WOW");
-        firing = false;
+        Firing = false;
+        CanFire = true;
     }
 
     void UpdateTarget()

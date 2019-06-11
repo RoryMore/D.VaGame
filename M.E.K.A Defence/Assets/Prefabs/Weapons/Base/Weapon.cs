@@ -24,6 +24,7 @@ public class Weapon : MonoBehaviour
 
     bool canFire = true;
     bool charging = false;
+    bool firing = false;
 
     // ----- Sound ----- //
     AudioSource source;
@@ -39,6 +40,7 @@ public class Weapon : MonoBehaviour
     protected WeaponUI WeaponUI { get => weaponUI; set => weaponUI = value; }
     public AudioSource Source { get => source; set => source = value; }
     public bool Charging { get => charging; set => charging = value; }
+    public bool Firing { get => firing; set => firing = value; }
 
     private void Start()
     {
@@ -61,7 +63,7 @@ public class Weapon : MonoBehaviour
     {
         while (true)
         {
-            if (canFire == false && stats.CurrentAmmo > 0 && !charging)
+            if (canFire == false && stats.CurrentAmmo > 0 && !charging && !firing)
             {
                 canFire = true;
                 yield return new WaitForSeconds(stats.FireRate);

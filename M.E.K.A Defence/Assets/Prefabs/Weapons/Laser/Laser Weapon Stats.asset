@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a9640371234f0642aaccc9344dfc290, type: 3}
   m_Name: Laser Weapon Stats
   m_EditorClassIdentifier: 
-  ammoCapacity: 1000
-  replenishRate: 0.1
-  replenishAmount: 2
+  ammoCapacityBase: 1000
+  replenishRateBase: 0.25
+  replenishAmount: 1
   fireRate: 0.1
   chargeTime: 0
-  range: 100
+  rangeBase: 30
   accurracy: 1
   bullet: {fileID: 8172057217865428411, guid: 676e82a976c5e5d4b83d405af36d76fd, type: 3}
-  bulletDamage: 5
+  bulletDamageBase: 2
+  bulletDamageRadius: 0
   bulletSpeed: 100
+  sounds: {fileID: 0}

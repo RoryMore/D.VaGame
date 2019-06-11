@@ -72,6 +72,6 @@ public class LaserWeapon : Weapon
 
     void Awake()
     {
-        this.Stats = PlayerModifierManager.Instance.LaserWeaponStats ;
+        //this.Stats = PlayerModifierManager.Instance.LaserWeaponStats ;
     }
 }

@@ -91,6 +91,9 @@ public class WeaponStats : ScriptableObject
     public int AmmoCapacityBase { get => ammoCapacityBase; set => ammoCapacityBase = value; }
     public float RangeBase { get => rangeBase; set => rangeBase = value; }
     public float BulletDamageBase { get => bulletDamageBase; set => bulletDamageBase = value; }
+    public WeaponSounds Sounds { get => sounds; set => sounds = value; }
+    public float BulletDamageRadius { get => bulletDamageRadius; set => bulletDamageRadius = value; }
+    public float Accurracy { get => accurracy; set => accurracy = value; }
 
     private void Awake()
     {

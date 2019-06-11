@@ -58,8 +58,20 @@ public class WeaponStats : ScriptableObject
     float bulletDamage = 10f;
 
     [SerializeField]
+    [Tooltip("The radius of the bullets damage effect (explosion radius)")]
+    float bulletDamageRadius = 0f;
+
+    [SerializeField]
     [Tooltip("How fast each bullet travels")]
     float bulletSpeed;
+
+
+    // ----- Sound ----- //
+    [Header("Sound")]
+
+    [SerializeField]
+    [Tooltip("The sounds this weapon will play")]
+    WeaponSounds sounds;
 
     public float FireRate { get => fireRate; set => fireRate = value; }
     public float ReplenishRate { get => replenishRate; set => replenishRate = value; }
@@ -72,4 +84,6 @@ public class WeaponStats : ScriptableObject
     public float BulletSpeed { get => bulletSpeed; set => bulletSpeed = value; }
     public float BulletDamage { get => bulletDamage; set => bulletDamage = value; }
     public float Accurracy { get => accurracy; set => accurracy = value; }
+    public WeaponSounds Sounds { get => sounds; set => sounds = value; }
+    public float BulletDamageRadius { get => bulletDamageRadius; set => bulletDamageRadius = value; }
 }

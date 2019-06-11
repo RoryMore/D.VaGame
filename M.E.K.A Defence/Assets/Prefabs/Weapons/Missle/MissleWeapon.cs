@@ -17,14 +17,13 @@ public class MissleWeapon : Weapon
     {
         scanner = GetComponentInChildren<Scanner>();
         scanner.SetupScanner("Enemy", Stats.Range);
-        aquiringTargets = AquiringTargets(Stats.ChargeTime, Stats.FireRate);
+        aquiringTargets = AquiringTargets(Stats.FireRate);
+
+
     }
 
     private void Update()
     {
-        print(scanner.ObjectsInRange.Count + " Objects");
-        print(confirmedTargets.Count + " Targets");
-
         if (PlayerActivatesInput() && !firing)
         {
             //----- Start Adding Targets
@@ -49,6 +48,12 @@ public class MissleWeapon : Weapon
     IEnumerator FiringMissles()
     {
         firing = true;
+        StartCoroutine(WeaponCharge(Stats.ChargeTime));
+
+        while (Charging)
+        {
+            yield return new WaitForEndOfFrame();
+        }
 
         //----- While there are still targets and we have ammo
         while (confirmedTargets.Count > 0)
@@ -58,9 +63,10 @@ public class MissleWeapon : Weapon
             //Create a missle at this position that's pointing upwards, then get the script that controls it.
             Missle nextMissle = Instantiate(Stats.Bullet, transform.position, Quaternion.LookRotation(Vector3.up + transform.forward)).GetComponent<Missle>();
 
-            nextMissle.maxVelocity = Stats.BulletSpeed;
-            nextMissle.damage = Stats.BulletDamage;
+            nextMissle.MaxVelocity = Stats.BulletSpeed;
+            nextMissle.Damage = Stats.BulletDamage;
             nextMissle.targetObject = targetForNextMissle;
+            nextMissle.DamageRadius = Stats.BulletDamageRadius;
             targetForNextMissle.GetComponent<GwishinMovement>().TimesTargeted = 0;
             confirmedTargets.RemoveAt(0);
 
@@ -72,16 +78,14 @@ public class MissleWeapon : Weapon
         firing = false;
     }
 
-    IEnumerator AquiringTargets(float maxTime, float frequency)
+    IEnumerator AquiringTargets( float frequency)
     {
-        float remainingTime = maxTime;
         CanFire = false;
-        while (remainingTime > 0 && Stats.CurrentAmmo > 0)
+        while (Stats.CurrentAmmo > 0)
         {
             confirmedTargets.Add(GetTarget());
             ReduceCurrentAmmo(1);
             yield return new WaitForSeconds(frequency);
-            remainingTime -= frequency;
         }
         CanFire = true;
     }

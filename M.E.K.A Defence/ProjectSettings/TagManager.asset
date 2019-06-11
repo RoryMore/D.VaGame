@@ -4,10 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Controls
+  - Shootable
+  - Undefined
   - Enemy
-  - Missle
-  - EnemyBullet
   layers:
   - Default
   - TransparentFX
@@ -17,10 +16,10 @@ TagManager:
   - UI
   - 
   - 
-  - PostProcessing
+  - Lighting
+  - Ground
+  - Postprocessing
   - 
-  - Shootable
-  - Floor
   - 
   - 
   - 
@@ -42,6 +41,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Fire
+    uniqueID: 3804908061
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

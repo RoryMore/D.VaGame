@@ -20,7 +20,6 @@ public class PlayerHealth : MonoBehaviour
     PlayerShooting playerShooting;
 
     LaserShooting laserShooting;
-    MissleShooting missileShooting; 
 
 
     bool isDead;
@@ -38,7 +37,6 @@ public class PlayerHealth : MonoBehaviour
         playerShooting = GetComponentInChildren<PlayerShooting>();
 
         laserShooting = GetComponentInChildren<LaserShooting>();
-        missileShooting = GetComponentInChildren<MissleShooting>();
 
         currentHealth = startingHealth;
     }
@@ -106,20 +104,17 @@ public class PlayerHealth : MonoBehaviour
             {
                 print("Missile damage reduced");
                 PlayerModifierManager.Instance.CalculateModifier("missileDamage", -0.1f);
-                missileShooting.missileDamageModifier = PlayerModifierManager.Instance.GetMissileDamage();
                 
             }
             else if (choice == 6)
             {
                 print("Missile Ammo reduced");
                 PlayerModifierManager.Instance.CalculateModifier("missileAmmo", -0.1f);
-                missileShooting.missileAmmoModifier = PlayerModifierManager.Instance.GetMissileAmmoCapacity();
             }
             else if (choice == 7)
             {
                 print("Missile rate reduced");
                 PlayerModifierManager.Instance.CalculateModifier("missileTime", -0.1f);
-                missileShooting.missileReloadModifer = PlayerModifierManager.Instance.GetMissileReplenishRate();
             }
         }
 

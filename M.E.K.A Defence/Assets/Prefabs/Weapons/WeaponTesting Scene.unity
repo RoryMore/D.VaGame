@@ -311,6 +311,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 871549547972268642, guid: a92e70e987eb94349aebebd1ac4bd12c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 4198204134519529585, guid: a92e70e987eb94349aebebd1ac4bd12c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -384,6 +389,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 871549547972268642, guid: a92e70e987eb94349aebebd1ac4bd12c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 4198204134519529585, guid: a92e70e987eb94349aebebd1ac4bd12c,
         type: 3}
@@ -459,6 +469,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 871549547972268642, guid: a92e70e987eb94349aebebd1ac4bd12c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 4198204134519529585, guid: a92e70e987eb94349aebebd1ac4bd12c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -532,6 +547,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 871549547972268642, guid: a92e70e987eb94349aebebd1ac4bd12c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 4198204134519529585, guid: a92e70e987eb94349aebebd1ac4bd12c,
         type: 3}
@@ -728,6 +748,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 871549547972268642, guid: a92e70e987eb94349aebebd1ac4bd12c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 4198204134519529585, guid: a92e70e987eb94349aebebd1ac4bd12c,
         type: 3}

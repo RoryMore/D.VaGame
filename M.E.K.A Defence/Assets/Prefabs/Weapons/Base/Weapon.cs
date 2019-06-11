@@ -23,6 +23,10 @@ public class Weapon : MonoBehaviour
     float smoothRate = 0.1f;
 
     bool canFire = true;
+    bool charging = false;
+
+    // ----- Sound ----- //
+    AudioSource source;
 
     //-----UI - -
     Vector3 originalUIDirection;
@@ -33,10 +37,13 @@ public class Weapon : MonoBehaviour
     internal MouseButton UseButton { get => useButton; set => useButton = value; }
     protected bool CanFire { get => canFire; set => canFire = value; }
     protected WeaponUI WeaponUI { get => weaponUI; set => weaponUI = value; }
+    public AudioSource Source { get => source; set => source = value; }
+    public bool Charging { get => charging; set => charging = value; }
 
     private void Start()
     {
         SetupUI();
+        source = gameObject.AddComponent<AudioSource>();
         stats.CurrentAmmo = stats.AmmoCapacity;
 
         StartCoroutine(WeaponCooldown());
@@ -45,7 +52,6 @@ public class Weapon : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
         UpdateUI();
     }
 
@@ -55,7 +61,7 @@ public class Weapon : MonoBehaviour
     {
         while (true)
         {
-            if (canFire == false && stats.CurrentAmmo > 0)
+            if (canFire == false && stats.CurrentAmmo > 0 && !charging)
             {
                 canFire = true;
                 yield return new WaitForSeconds(stats.FireRate);
@@ -76,9 +82,35 @@ public class Weapon : MonoBehaviour
                     stats.CurrentAmmo = stats.AmmoCapacity;
                 }
                 weaponUI.UpdateUICounter(stats.CurrentAmmo);
+                yield return new WaitForSeconds(stats.ReplenishRate);
             }
-            yield return new WaitForSeconds(stats.ReplenishRate);
+            yield return new WaitForEndOfFrame();
         }
+    }
+
+    protected IEnumerator WeaponCharge(float chargeTime)
+    {
+        charging = true;
+        canFire = false;
+        if (stats.Sounds.ChargingClip)
+        {
+            float clipLength = stats.Sounds.ChargingClip.length;
+            
+            if (clipLength < chargeTime)
+            {
+                yield return new WaitForSeconds(chargeTime - clipLength);
+            }
+            source.clip = stats.Sounds.ChargingClip;
+            source.Play();
+            yield return new WaitForSeconds(clipLength);
+        }
+        else
+        {
+            yield return new WaitForSeconds(chargeTime);
+        }
+        charging = false;
+        canFire = true;
+
     }
 
     void SetupUI()

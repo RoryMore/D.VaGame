@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MissleWeapon : Weapon
 {
+
     List<GameObject> confirmedTargets = new List<GameObject>();
 
     Scanner scanner;
@@ -16,14 +17,12 @@ public class MissleWeapon : Weapon
     {
         scanner = GetComponentInChildren<Scanner>();
         scanner.SetupScanner("Enemy", Stats.Range);
-        aquiringTargets = AquiringTargets(Stats.ChargeTime, Stats.FireRate);
+        //this.Stats = PlayerModifierManager.Instance.MissleWeaponStats;
+        aquiringTargets = AquiringTargets(Stats.FireRate);
     }
 
     private void Update()
     {
-        print(scanner.ObjectsInRange.Count + " Objects");
-        print(confirmedTargets.Count + " Targets");
-
         if (PlayerActivatesInput() && !firing)
         {
             //----- Start Adding Targets
@@ -48,38 +47,46 @@ public class MissleWeapon : Weapon
     IEnumerator FiringMissles()
     {
         firing = true;
+        StartCoroutine(WeaponCharge(Stats.ChargeTime));
+
+        while (Charging)
+        {
+            yield return new WaitForEndOfFrame();
+        }
 
         //----- While there are still targets and we have ammo
-        while (Stats.CurrentAmmo > 0 && confirmedTargets.Count > 0)
+        while (confirmedTargets.Count > 0)
         {
             GameObject targetForNextMissle = confirmedTargets[0];
 
             //Create a missle at this position that's pointing upwards, then get the script that controls it.
-            Missle nextMissle = Instantiate(Stats.Bullet, transform.position, Quaternion.LookRotation(Vector3.up)).GetComponent<Missle>();
+            Missle nextMissle = Instantiate(Stats.Bullet, transform.position, Quaternion.LookRotation(Vector3.up + transform.forward)).GetComponent<Missle>();
 
-            nextMissle.maxVelocity = Stats.BulletSpeed;
-            nextMissle.damage = Stats.BulletDamage;
+            nextMissle.MaxVelocity = Stats.BulletSpeed;
+            nextMissle.Damage = Stats.BulletDamage;
             nextMissle.targetObject = targetForNextMissle;
+            nextMissle.DamageRadius = Stats.BulletDamageRadius;
             targetForNextMissle.GetComponent<GwishinMovement>().TimesTargeted = 0;
             confirmedTargets.RemoveAt(0);
 
-            Stats.CurrentAmmo--;
+            
             print("Firing Missle");
+            print(confirmedTargets.Count);
             yield return new WaitForSeconds(0.125f);
         }
         firing = false;
     }
 
-    IEnumerator AquiringTargets(float maxTime, float frequency)
+    IEnumerator AquiringTargets( float frequency)
     {
-        float remainingTime = maxTime;
-
-        while (remainingTime > 0 && confirmedTargets.Count < Stats.CurrentAmmo)
+        CanFire = false;
+        while (Stats.CurrentAmmo > 0 && scanner.ObjectsInRange.Count > 0)
         {
             confirmedTargets.Add(GetTarget());
+            ReduceCurrentAmmo(1);
             yield return new WaitForSeconds(frequency);
-            remainingTime -= frequency;
         }
+        CanFire = true;
     }
 
     GameObject GetTarget()

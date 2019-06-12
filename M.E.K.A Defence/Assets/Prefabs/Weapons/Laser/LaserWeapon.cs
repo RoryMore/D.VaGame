@@ -14,7 +14,7 @@ public class LaserWeapon : Weapon
 
     private void Update()
     {
-        if (PlayerActivatesInput() && Stats.CurrentAmmo > 0)
+        if (PlayerActivatesInput() && Stats.CurrentAmmo > 0 && currentLaser == null)
         {
             FireLaser();
         }
@@ -29,9 +29,9 @@ public class LaserWeapon : Weapon
 
     void FireLaser()
     {
-        currentLaser = Instantiate(Stats.Bullet, transform.position, transform.rotation).GetComponent<VolumetricLineBehavior>();
-        currentLaser.StartPos = transform.position;
-        currentLaser.EndPos = transform.position;
+        currentLaser = Instantiate(Stats.Bullet, transform).GetComponent<VolumetricLineBehavior>();
+        currentLaser.StartPos = Vector3.zero;
+        currentLaser.EndPos = Vector3.zero;
         currentLaser.LineColor = startColour;
     }
 
@@ -39,22 +39,25 @@ public class LaserWeapon : Weapon
     {
         if (currentLaser == null) return;
 
-        Stats.CurrentAmmo -= 1;
+        ReduceCurrentAmmo(1);
 
         Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(mouseRay, out laserHit, Stats.Range, LayerMask.GetMask("Shootable")))
         {
-            targetPosition = laserHit.point;
+            targetPosition = laserHit.point - transform.position;
             if (laserHit.collider.tag == "Enemy" && CanFire)
             {
                 laserHit.collider.GetComponent<EnemyHealth>().TakeDamage(Stats.BulletDamage, laserHit.point);
                 CanFire = false;
             }
         }
-        else targetPosition = transform.position + mouseRay.direction.normalized * Stats.Range;
+        else targetPosition = mouseRay.direction.normalized * Stats.Range;
 
         currentLaser.EndPos = Vector3.Lerp(currentLaser.EndPos, targetPosition, aimSpeed);
+        currentLaser.StartPos = Vector3.zero;
+        currentLaser.transform.position = transform.position;
+        transform.rotation = Quaternion.identity;
 
         
         if (Input.GetAxis("Mouse X") != 0 && Input.GetAxis("Mouse Y") != 0)
@@ -65,5 +68,10 @@ public class LaserWeapon : Weapon
         {
             currentLaser.LineColor = Color.Lerp(currentLaser.LineColor, focusedColour, 0.05f);
         }
+    }
+
+    void Awake()
+    {
+        //this.Stats = PlayerModifierManager.Instance.LaserWeaponStats ;
     }
 }

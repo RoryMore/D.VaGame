@@ -23,6 +23,11 @@ public class Weapon : MonoBehaviour
     float smoothRate = 0.1f;
 
     bool canFire = true;
+    bool charging = false;
+    bool firing = false;
+
+    // ----- Sound ----- //
+    AudioSource source;
 
     //-----UI - -
     Vector3 originalUIDirection;
@@ -33,10 +38,14 @@ public class Weapon : MonoBehaviour
     internal MouseButton UseButton { get => useButton; set => useButton = value; }
     protected bool CanFire { get => canFire; set => canFire = value; }
     protected WeaponUI WeaponUI { get => weaponUI; set => weaponUI = value; }
+    public AudioSource Source { get => source; set => source = value; }
+    public bool Charging { get => charging; set => charging = value; }
+    public bool Firing { get => firing; set => firing = value; }
 
     private void Start()
     {
         SetupUI();
+        source = gameObject.AddComponent<AudioSource>();
         stats.CurrentAmmo = stats.AmmoCapacity;
 
         StartCoroutine(WeaponCooldown());
@@ -45,7 +54,6 @@ public class Weapon : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
         UpdateUI();
     }
 
@@ -55,7 +63,7 @@ public class Weapon : MonoBehaviour
     {
         while (true)
         {
-            if (canFire == false && stats.CurrentAmmo > 0)
+            if (canFire == false && stats.CurrentAmmo > 0 && !charging && !firing)
             {
                 canFire = true;
                 yield return new WaitForSeconds(stats.FireRate);
@@ -68,7 +76,7 @@ public class Weapon : MonoBehaviour
     {
         while (true)
         {
-            if (stats.CurrentAmmo < stats.AmmoCapacity)
+            if (stats.CurrentAmmo < stats.AmmoCapacity && canFire)
             {
                 stats.CurrentAmmo += stats.ReplenishAmount;
                 if (stats.CurrentAmmo > stats.AmmoCapacity)
@@ -76,9 +84,35 @@ public class Weapon : MonoBehaviour
                     stats.CurrentAmmo = stats.AmmoCapacity;
                 }
                 weaponUI.UpdateUICounter(stats.CurrentAmmo);
+                yield return new WaitForSeconds(stats.ReplenishRate);
             }
-            yield return new WaitForSeconds(stats.ReplenishRate);
+            yield return new WaitForEndOfFrame();
         }
+    }
+
+    protected IEnumerator WeaponCharge(float chargeTime)
+    {
+        charging = true;
+        canFire = false;
+        if (stats.Sounds.ChargingClip)
+        {
+            float clipLength = stats.Sounds.ChargingClip.length;
+            
+            if (clipLength < chargeTime)
+            {
+                yield return new WaitForSeconds(chargeTime - clipLength);
+            }
+            source.clip = stats.Sounds.ChargingClip;
+            source.Play();
+            yield return new WaitForSeconds(clipLength);
+        }
+        else
+        {
+            yield return new WaitForSeconds(chargeTime);
+        }
+        charging = false;
+        canFire = true;
+
     }
 
     void SetupUI()
@@ -116,6 +150,12 @@ public class Weapon : MonoBehaviour
     void UpdateUIText()
     {
         ammoText.text = stats.CurrentAmmo + "/" + stats.AmmoCapacity;
+    }
+
+    protected void ReduceCurrentAmmo(int ammoRemoved)
+    {
+        stats.CurrentAmmo -= ammoRemoved;
+        weaponUI.UpdateUICounter(stats.CurrentAmmo);
     }
 
     //----- Player Inputs -----//

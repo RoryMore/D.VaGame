@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Missle Weapon Stats
   m_EditorClassIdentifier: 
   ammoCapacityBase: 10
-  replenishRateBase: 3
+  replenishRateBase: 1
   replenishAmount: 2
   fireRate: 0.35
   chargeTime: 0

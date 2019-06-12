@@ -1,17 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MissleWeapon : Weapon
 {
-
     List<GameObject> confirmedTargets = new List<GameObject>();
+    [SerializeField] Sprite reticle;
 
     Scanner scanner;
 
     IEnumerator aquiringTargets;
-
-    bool firing = false;
 
     private void Awake()
     {
@@ -23,14 +22,17 @@ public class MissleWeapon : Weapon
 
     private void Update()
     {
-        if (PlayerActivatesInput() && !firing)
+        print(PlayerActivatesInput());
+        if (PlayerActivatesInput()  && !Firing && !Charging && !Aquiring)
         {
             //----- Start Adding Targets
+            Aquiring = true;
             StartCoroutine(aquiringTargets);
         }
         else if (PlayerDeactivatesInput())
         {
             //----- Stop Adding Targets
+            Aquiring = false;
             StopCoroutine(aquiringTargets);
 
             {
@@ -46,7 +48,7 @@ public class MissleWeapon : Weapon
 
     IEnumerator FiringMissles()
     {
-        firing = true;
+        Firing = true;
         StartCoroutine(WeaponCharge(Stats.ChargeTime));
 
         while (Charging)
@@ -66,27 +68,26 @@ public class MissleWeapon : Weapon
             nextMissle.Damage = Stats.BulletDamage;
             nextMissle.targetObject = targetForNextMissle;
             nextMissle.DamageRadius = Stats.BulletDamageRadius;
-            targetForNextMissle.GetComponent<GwishinMovement>().TimesTargeted = 0;
+            //targetForNextMissle.GetComponent<GwishinMovement>().TimesTargeted = 0;
             confirmedTargets.RemoveAt(0);
 
             
-            print("Firing Missle");
             print(confirmedTargets.Count);
             yield return new WaitForSeconds(0.125f);
         }
-        firing = false;
+        Firing = false;
+        print("Firing Complete");
     }
 
-    IEnumerator AquiringTargets( float frequency)
+    IEnumerator AquiringTargets(float frequency)
     {
-        CanFire = false;
+
         while (Stats.CurrentAmmo > 0 && scanner.ObjectsInRange.Count > 0)
         {
             confirmedTargets.Add(GetTarget());
             ReduceCurrentAmmo(1);
             yield return new WaitForSeconds(frequency);
         }
-        CanFire = true;
     }
 
     GameObject GetTarget()

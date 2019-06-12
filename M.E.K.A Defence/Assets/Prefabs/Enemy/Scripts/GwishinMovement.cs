@@ -13,6 +13,8 @@ enum EnemyState
 public class GwishinMovement : MonoBehaviour
 {
     [SerializeField] GameObject targetedReticle = null;
+    List<GameObject> reticles = new List<GameObject>();
+    Transform canvasTransform;
 
     //-----State
     EnemyState state = EnemyState.APPROACH;
@@ -60,6 +62,7 @@ public class GwishinMovement : MonoBehaviour
 
     private void Awake()
     {
+        canvasTransform = GameObject.Find("Main Canvas").GetComponent<Canvas>().transform;
         player = GameObject.Find("Player");
         targetPosition = player.transform.position;
         heightTarget = targetPosition.y;
@@ -276,8 +279,23 @@ public class GwishinMovement : MonoBehaviour
 
     public void AddTargetedReticle()
     {
-        GameObject reticle = Instantiate(targetedReticle, transform);
-        reticle.transform.localScale = Vector3.one * 150 * (timesTargeted/2.0f);
-        reticle.transform.LookAt(Camera.main.transform);
+        GameObject reticle = Instantiate(targetedReticle, transform.position, transform.rotation);
+        reticle.transform.localScale *= 2;
+        reticle.GetComponent<EnemyTargetedReticle>().Following = this.gameObject;
+        //reticle.transform.position = Camera.main.WorldToScreenPoint(transform.position);
+        reticles.Add(reticle);
+
+    }
+
+    public void RemoveTargeted()
+    {
+        print(reticles.Count);
+            if (reticles.Count > 0)
+            {
+                GameObject toDestroy = reticles[reticles.Count - 1];
+                reticles.RemoveAt(reticles.Count -1);
+                Destroy(toDestroy.gameObject);
+            }
+            timesTargeted--;
     }
 }

@@ -28,7 +28,6 @@ public class GunWeapon : Weapon
     IEnumerator StartFiring(float frequency, int numberOfShots)
     {
         Firing = true;
-        CanFire = false;
         for (int i = 0; i < numberOfShots; i++)
         {
             GunBullet newBullet = Instantiate(Stats.Bullet, transform.position, transform.rotation).GetComponent<GunBullet>();
@@ -39,7 +38,6 @@ public class GunWeapon : Weapon
         }
         print("WOW");
         Firing = false;
-        CanFire = true;
     }
 
     void UpdateTarget()

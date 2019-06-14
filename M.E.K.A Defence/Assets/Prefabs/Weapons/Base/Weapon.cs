@@ -57,6 +57,11 @@ public class Weapon : MonoBehaviour
     private void FixedUpdate()
     {
         UpdateUI();
+
+        if (PlayerActivatesInput())
+        {
+            weaponUI.Activated = true;
+        }
     }
 
 

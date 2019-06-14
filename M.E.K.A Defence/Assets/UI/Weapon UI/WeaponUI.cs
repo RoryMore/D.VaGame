@@ -9,18 +9,51 @@ public class WeaponUI : MonoBehaviour
     [SerializeField] Sprite fullAmmoContainer = null;
     [SerializeField] Sprite emptyAmmoContainer = null;
     [SerializeField] GameObject ammoCounter = null;
-    
 
+    Animator anim = null;
     List<Image> ammoCounters = new List<Image>();
     WeaponStats stats;
 
     bool setup = false;
     int currentAmmo;
 
+    [SerializeField] float maxIdleTime = 2f;
+    float timeSinceInput = 0;
+    bool activated = false;
+
     Vector3 originalPosition;
+
+    public bool Activated { get => activated; set => activated = value; }
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     private void Update()
     {
+        CalculateTimeSinceInput();
+
+        print(stats.CurrentAmmo + " / " + stats.AmmoCapacity);
+        if (timeSinceInput > maxIdleTime && stats.CurrentAmmo == stats.AmmoCapacity)
+        {
+            anim.SetBool("online", false);
+            activated = false;
+        }
+        else if (timeSinceInput <= 0) anim.SetBool("online", true);
+    }
+
+    void CalculateTimeSinceInput()
+    {
+        if (activated)
+        {
+            timeSinceInput = 0;
+        }
+        else
+        {
+            timeSinceInput += Time.deltaTime;
+            
+        }
     }
 
     public void UpdateUICounter(int newCurrentAmmo)
@@ -37,6 +70,7 @@ public class WeaponUI : MonoBehaviour
 
     public void SetupUI(WeaponStats stats)
     {
+
         this.stats = stats;
 
         for (int i = 0; i < stats.AmmoCapacity; i++)

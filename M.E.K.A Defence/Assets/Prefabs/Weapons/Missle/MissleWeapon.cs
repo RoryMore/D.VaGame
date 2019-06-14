@@ -17,7 +17,6 @@ public class MissleWeapon : Weapon
         scanner = GetComponentInChildren<Scanner>();
         scanner.SetupScanner("Enemy", Stats.Range);
         //this.Stats = PlayerModifierManager.Instance.MissleWeaponStats;
-        aquiringTargets = AquiringTargets(Stats.FireRate);
     }
 
     private void Update()
@@ -27,6 +26,7 @@ public class MissleWeapon : Weapon
         {
             //----- Start Adding Targets
             Aquiring = true;
+            aquiringTargets = AquiringTargets(Stats.FireRate);
             StartCoroutine(aquiringTargets);
         }
         else if (PlayerDeactivatesInput())
@@ -81,12 +81,11 @@ public class MissleWeapon : Weapon
 
     IEnumerator AquiringTargets(float frequency)
     {
-
         while (Stats.CurrentAmmo > 0 && scanner.ObjectsInRange.Count > 0)
         {
             confirmedTargets.Add(GetTarget());
             ReduceCurrentAmmo(1);
-            yield return new WaitForSeconds(frequency);
+            yield return new WaitForSeconds(Random.Range(frequency * 0.5f, frequency));
         }
     }
 

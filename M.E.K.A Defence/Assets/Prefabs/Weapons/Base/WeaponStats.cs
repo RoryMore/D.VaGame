@@ -97,6 +97,7 @@ public class WeaponStats : ScriptableObject
 
     private void Awake()
     {
-        currentAmmo = AmmoCapacity;
+        currentAmmo = AmmoCapacityBase;
+        AmmoCapacity = AmmoCapacityBase;
     }
 }

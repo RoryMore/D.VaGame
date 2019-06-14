@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a9640371234f0642aaccc9344dfc290, type: 3}
   m_Name: Missle Weapon Stats
   m_EditorClassIdentifier: 
-  ammoCapacityBase: 10
+  ammoCapacityBase: 100
   replenishRateBase: 1
   replenishAmount: 2
   fireRate: 0.35

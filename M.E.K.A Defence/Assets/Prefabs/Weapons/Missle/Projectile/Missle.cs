@@ -81,9 +81,12 @@ public class Missle : MonoBehaviour
         if (dead) return;
         if (other.gameObject.tag == "Enemy")
         {
+            //Deal Damage
             other.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage, other.transform.position);
             other.gameObject.GetComponent<GwishinMovement>().RemoveTargeted();
+            //apply force to target
             other.gameObject.GetComponent<GwishinMovement>().velocity += (other.transform.position - transform.position).normalized * damage * 2;
+
             if (other.gameObject.GetComponent<EnemyHealth>().currentHealth < 0)
             {
                 other.gameObject.GetComponent<EnemyHealth>().killedByMissle = true;

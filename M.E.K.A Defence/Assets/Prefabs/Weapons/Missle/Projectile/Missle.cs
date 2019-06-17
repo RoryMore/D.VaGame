@@ -163,7 +163,7 @@ public class Missle : MonoBehaviour
             targetPosition = targetObject.transform.position;
             heightTarget = targetObject.transform.position.y;
 
-            if (targetObject.GetComponent<EnemyHealth>().isDead == true)
+            if (targetObject.GetComponent<EnemyHealth>().dead == true)
             {
                 targetObject = null;
             }

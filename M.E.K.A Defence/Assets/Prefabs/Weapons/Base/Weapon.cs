@@ -61,6 +61,7 @@ public class Weapon : MonoBehaviour
         if (PlayerActivatesInput())
         {
             weaponUI.Activated = true;
+
         }
     }
 

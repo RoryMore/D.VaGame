@@ -21,7 +21,6 @@ public class MissleWeapon : Weapon
 
     private void Update()
     {
-        print(PlayerActivatesInput());
         if (PlayerActivatesInput()  && !Firing && !Charging && !Aquiring)
         {
             //----- Start Adding Targets

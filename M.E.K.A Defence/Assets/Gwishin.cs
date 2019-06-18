@@ -63,6 +63,7 @@ public class Gwishin : MonoBehaviour
     Vector3 targetPosition = Vector3.zero;
     GameObject player = null;
     EnemyHealth health = null;
+    EnemyManager manager = null;
     bool firingLaser = false;
 
     List<TrailRenderer> trails = new List<TrailRenderer>();
@@ -80,6 +81,8 @@ public class Gwishin : MonoBehaviour
     public int TimesTargeted { get => timesTargeted; set => timesTargeted = value; }
     public float DistanceFromPlayer { get => distanceFromPlayer; set => distanceFromPlayer = value; }
     public Vector3 Velocity { get => velocity; set => velocity = value; }
+    public EnemyManager Manager { get => manager; set => manager = value; }
+    internal EnemyState CurrentState { get => currentState; set => currentState = value; }
 
     private void Awake()
     {
@@ -253,9 +256,9 @@ public class Gwishin : MonoBehaviour
     }
     private void SetRandomStrafePosition()
     {
-        targetPosition.x = Random.Range(player.transform.position.x - strafeDistance * 1.5f, player.transform.position.x + strafeDistance * 1.5f);
+        targetPosition.x = Random.Range(player.transform.position.x - strafeDistance, player.transform.position.x + strafeDistance);
         targetPosition.y = Random.Range(player.transform.position.y + 25, player.transform.position.y + 50);
-        targetPosition.z = Random.Range(player.transform.position.z + strafeDistance * 0.5f, player.transform.position.z + strafeDistance * 2);
+        targetPosition.z = Random.Range(player.transform.position.z + strafeDistance * 0.1f, player.transform.position.z + strafeDistance);
     }
     public void Die()
     {
@@ -264,11 +267,11 @@ public class Gwishin : MonoBehaviour
         targetPosition = transform.position + Random.onUnitSphere * 10;
         targetPosition.y = -20;
 
-        if (true)
-        {//health.killedByMissle
-            velocity.x = Random.Range(-50, 50);
-            velocity.y = Random.Range(25, 50);
-            velocity.z = Random.Range(10, 50);
+        if (health.killedByMissle)
+        {
+            velocity.x = Random.Range(-25, 25);
+            velocity.y = Random.Range(10, 25);
+            velocity.z = Random.Range(10, 25);
             rotationVector = Random.onUnitSphere * 250;
         }
         else

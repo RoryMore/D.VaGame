@@ -7,6 +7,7 @@ public class GunBullet : MonoBehaviour
     float speed;
     float damage;
     float lifeTime = 10;
+    [SerializeField] GameObject hitParticle = null;
 
     public void SetupBullet(float speed, float damage)
     {
@@ -14,12 +15,6 @@ public class GunBullet : MonoBehaviour
         this.damage = damage;
     }
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         transform.position += transform.forward * speed * Time.deltaTime;
@@ -33,13 +28,16 @@ public class GunBullet : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {
             other.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage, other.transform.position);
-            other.gameObject.GetComponent<Gwishin>().Velocity += (other.transform.position - transform.position).normalized * damage * 2;
-            if (other.gameObject.GetComponent<EnemyHealth>().currentHealth < 0)
-            {
-                other.gameObject.GetComponent<EnemyHealth>().killedByMissle = true;
-            }
+            other.gameObject.GetComponent<Gwishin>().Velocity += (transform.position - other.transform.position).normalized * damage;
         }
 
-        Destroy(this.gameObject);
+        if (other.gameObject.tag != "Player")
+        {
+            print(other.gameObject.name);
+            Instantiate(hitParticle, transform.position, Random.rotation);
+            Destroy(this.gameObject);
+        }
+
+        
     }
 }

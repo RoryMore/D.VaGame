@@ -70,11 +70,11 @@ public class MissleWeapon : Weapon
             yield return new WaitForSeconds(0.125f);
         }
         Firing = false;
-        print("Firing Complete");
     }
 
     IEnumerator AquiringTargets(float frequency)
     {
+        scanner.RemoveInvalidObjects();
         while (Stats.CurrentAmmo > 0 && scanner.ObjectsInRange.Count > 0)
         {
             confirmedTargets.Add(GetTarget());
@@ -82,10 +82,10 @@ public class MissleWeapon : Weapon
             yield return new WaitForSeconds(Random.Range(frequency * 0.5f, frequency));
         }
     }
-
     GameObject GetTarget()
     {
         int maxTargetedAmount = 1;
+        scanner.RemoveInvalidObjects();
         List<GameObject> possibleTargets = scanner.ObjectsInRange;
         possibleTargets.Sort(SortByDistance);
 
@@ -94,7 +94,7 @@ public class MissleWeapon : Weapon
             for (int i = possibleTargets.Count - 1; i >= 0; i--)
             {
                 Gwishin targetsScript = possibleTargets[i].GetComponent<Gwishin>();
-                if (targetsScript.TimesTargeted < maxTargetedAmount)
+                if (targetsScript.TimesTargeted < maxTargetedAmount && targetsScript.CurrentState != EnemyState.DEAD)
                 {
                     targetsScript.AddTargetedReticle();
                     targetsScript.TimesTargeted++;

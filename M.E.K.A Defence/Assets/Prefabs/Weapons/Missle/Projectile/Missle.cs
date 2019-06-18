@@ -26,7 +26,7 @@ public class Missle : MonoBehaviour
     float deviateChance = 0.5f;
     //Height Restriction
     float heightTarget = 1.0f;
-    float heightRangeMax = 2f;
+    float heightRangeMax = 10f;
 
     float damage = 60.0f;
     float damageRadius = 5f;
@@ -62,6 +62,8 @@ public class Missle : MonoBehaviour
 
         // Create Steam
         Instantiate(steamEffect, transform.position, transform.rotation);
+
+        StartCoroutine(Death());
     }
     private void FixedUpdate()
     {
@@ -82,15 +84,14 @@ public class Missle : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {
             //Deal Damage
-            other.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage, other.transform.position);
-            other.gameObject.GetComponent<Gwishin>().RemoveTargeted();
-            //apply force to target
-            other.gameObject.GetComponent<Gwishin>().Velocity += (other.transform.position - transform.position).normalized * damage * 2;
-
-            if (other.gameObject.GetComponent<EnemyHealth>().currentHealth < 0)
+            if (other.gameObject.GetComponent<EnemyHealth>().currentHealth - damage <= 0)
             {
                 other.gameObject.GetComponent<EnemyHealth>().killedByMissle = true;
             }
+            other.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage, other.transform.position);
+            other.gameObject.GetComponent<Gwishin>().RemoveTargeted();
+
+
 
             //Create Explosion
             GameObject explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
@@ -100,13 +101,6 @@ public class Missle : MonoBehaviour
             source.clip = explodeClips[n];
             source.Play();
 
-            //Affect Enemies
-            Collider[] colliders = Physics.OverlapSphere(transform.position, damageRadius);
-            foreach (Collider nearbyObject in colliders)
-            {
-                //TODO Apply FOrce to enemies RigidBody
-                //Deal Damage to enemy
-            }
             dead = true;
             Destroy(GetComponent<MeshRenderer>());
             Destroy(GetComponent<SphereCollider>());
@@ -168,5 +162,11 @@ public class Missle : MonoBehaviour
                 targetObject = null;
             }
         }
+    }
+
+    IEnumerator Death()
+    {
+        yield return new WaitForSeconds(30);
+        Destroy(this.gameObject);
     }
 }

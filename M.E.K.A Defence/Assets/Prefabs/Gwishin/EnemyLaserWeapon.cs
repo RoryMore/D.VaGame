@@ -11,12 +11,16 @@ public class EnemyLaserWeapon : Weapon
     IEnumerator cool;
     bool dead = false;
     bool cooldownComplete = true;
+    EnemyManager manager = null;
+    Animator anim;
 
     public bool Dead { get => dead; set => dead = value; }
     private void Awake()
     {
         player = GameObject.Find("Player");
         movement = GetComponent<Gwishin>();
+        manager = GameObject.Find("EnemyManager").GetComponent<EnemyManager>();
+        anim = GetComponent<Animator>();
     }
     private void Update()
     {
@@ -24,9 +28,11 @@ public class EnemyLaserWeapon : Weapon
 
         bool ammoIsFull = Stats.CurrentAmmo == Stats.AmmoCapacityBase;
         bool playerInRange = Vector3.Distance(player.transform.position, transform.position) < Stats.Range;
+        bool thereArentTooManyOtherEnemiesFiring = manager.EnemiesFiring < manager.MaxEnemiesFiring;
 
-        if (CanFire && ammoIsFull && playerInRange && !Firing && cooldownComplete)
+        if (CanFire && ammoIsFull && playerInRange && !Firing && cooldownComplete && thereArentTooManyOtherEnemiesFiring)
         {
+            manager.EnemiesFiring++;
             firing = FireLasers(Stats.FireRate, Stats.AmmoCapacity);
             StartCoroutine(firing);
         }
@@ -37,6 +43,7 @@ public class EnemyLaserWeapon : Weapon
         Firing = true;
         StartCoroutine(WeaponCharge(Stats.ChargeTime));
         movement.FiringLaser = true;
+        anim.SetTrigger("StartAttack");
 
         while (Charging)
         {
@@ -59,6 +66,8 @@ public class EnemyLaserWeapon : Weapon
 
         cool = Cooldown();
         StartCoroutine(cool);
+        manager.EnemiesFiring--;
+        anim.SetTrigger("EndAttack");
     }
 
     IEnumerator Cooldown()

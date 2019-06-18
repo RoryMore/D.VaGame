@@ -49,7 +49,8 @@ public class GunWeapon : Weapon
         }
         else
         {
-            targetPosition = transform.position + mouseRay.direction.normalized * Stats.Range;
+            targetPosition = mouseRay.origin + mouseRay.direction.normalized * Stats.Range;
+            
         }
     }
 }

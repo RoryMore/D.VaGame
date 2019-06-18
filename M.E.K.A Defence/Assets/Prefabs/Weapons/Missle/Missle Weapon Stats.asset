@@ -17,7 +17,7 @@ MonoBehaviour:
   replenishAmount: 2
   fireRate: 0.35
   chargeTime: 0
-  rangeBase: 30
+  rangeBase: 500
   accurracy: 1
   bullet: {fileID: 2658880717568808885, guid: 2ec63bd5d512b524c862d0d4d7d936dd, type: 3}
   bulletDamageBase: 100

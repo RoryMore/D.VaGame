@@ -33,8 +33,6 @@ public class WeaponUI : MonoBehaviour
     private void Update()
     {
         CalculateTimeSinceInput();
-
-        print(stats.CurrentAmmo + " / " + stats.AmmoCapacity);
         if (timeSinceInput > maxIdleTime && stats.CurrentAmmo == stats.AmmoCapacity)
         {
             anim.SetBool("online", false);

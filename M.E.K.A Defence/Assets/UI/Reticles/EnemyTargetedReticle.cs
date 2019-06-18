@@ -20,6 +20,11 @@ public class EnemyTargetedReticle : MonoBehaviour
 
     private void Update()
     {
+        if (following == null)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
         Vector3 targetPosition = following.transform.position;
         transform.position = Vector3.Lerp(transform.position, targetPosition, 0.8f);
     }

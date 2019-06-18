@@ -67,11 +67,19 @@ public class Gwishin : MonoBehaviour
 
     List<TrailRenderer> trails = new List<TrailRenderer>();
 
+    [SerializeField] GameObject targetedReticle = null;
+    List<GameObject> reticles = new List<GameObject>();
+    int timesTargeted = 0;
+    float distanceFromPlayer = 0;
+
     //distances
     float strafeDistance = 200.0f;
     float approachDistance = 500.0f;
 
     public bool FiringLaser { get => firingLaser; set => firingLaser = value; }
+    public int TimesTargeted { get => timesTargeted; set => timesTargeted = value; }
+    public float DistanceFromPlayer { get => distanceFromPlayer; set => distanceFromPlayer = value; }
+    public Vector3 Velocity { get => velocity; set => velocity = value; }
 
     private void Awake()
     {
@@ -87,15 +95,12 @@ public class Gwishin : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown("a"))
-        {
-            print("meow");
-            Die();
-        }
-
+        distanceFromPlayer = Vector3.Distance(transform.position, player.transform.position);
         if (firingLaser && currentState != EnemyState.DEAD) return;
         UpdateState();
         ProcessState();
+
+
     }
     private void OnTriggerStay(Collider other)
     {
@@ -281,5 +286,25 @@ public class Gwishin : MonoBehaviour
     private void Spin()
     {
         transform.Rotate(rotationVector * Time.deltaTime);
+    }
+
+    public void AddTargetedReticle()
+    {
+        GameObject reticle = Instantiate(targetedReticle, transform.position, transform.rotation);
+        reticle.transform.localScale *= 2;
+        reticle.GetComponent<EnemyTargetedReticle>().Following = this.gameObject;
+        //reticle.transform.position = Camera.main.WorldToScreenPoint(transform.position);
+        reticles.Add(reticle);
+
+    }
+    public void RemoveTargeted()
+    {
+        if (reticles.Count > 0)
+        {
+            GameObject toDestroy = reticles[reticles.Count - 1];
+            reticles.RemoveAt(reticles.Count - 1);
+            Destroy(toDestroy.gameObject);
+        }
+        timesTargeted--;
     }
 }

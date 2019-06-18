@@ -16,7 +16,6 @@ public class GunWeapon : Weapon
     {
         if (PlayerActivatesInput() && !Firing)
         {
-            print("fwoop");
             StopCoroutine(startFiring);
             startFiring = StartFiring(Stats.FireRate, Stats.CurrentAmmo);
             StartCoroutine(startFiring);

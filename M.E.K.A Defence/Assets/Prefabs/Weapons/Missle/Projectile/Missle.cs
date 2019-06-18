@@ -83,9 +83,9 @@ public class Missle : MonoBehaviour
         {
             //Deal Damage
             other.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage, other.transform.position);
-            other.gameObject.GetComponent<GwishinMovement>().RemoveTargeted();
+            other.gameObject.GetComponent<Gwishin>().RemoveTargeted();
             //apply force to target
-            other.gameObject.GetComponent<GwishinMovement>().velocity += (other.transform.position - transform.position).normalized * damage * 2;
+            other.gameObject.GetComponent<Gwishin>().Velocity += (other.transform.position - transform.position).normalized * damage * 2;
 
             if (other.gameObject.GetComponent<EnemyHealth>().currentHealth < 0)
             {

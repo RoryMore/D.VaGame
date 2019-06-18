@@ -66,11 +66,7 @@ public class MissleWeapon : Weapon
             nextMissle.Damage = Stats.BulletDamage;
             nextMissle.targetObject = targetForNextMissle;
             nextMissle.DamageRadius = Stats.BulletDamageRadius;
-            //targetForNextMissle.GetComponent<GwishinMovement>().TimesTargeted = 0;
             confirmedTargets.RemoveAt(0);
-
-            
-            print(confirmedTargets.Count);
             yield return new WaitForSeconds(0.125f);
         }
         Firing = false;
@@ -97,7 +93,7 @@ public class MissleWeapon : Weapon
         {
             for (int i = possibleTargets.Count - 1; i >= 0; i--)
             {
-                GwishinMovement targetsScript = possibleTargets[i].GetComponent<GwishinMovement>();
+                Gwishin targetsScript = possibleTargets[i].GetComponent<Gwishin>();
                 if (targetsScript.TimesTargeted < maxTargetedAmount)
                 {
                     targetsScript.AddTargetedReticle();
@@ -111,6 +107,6 @@ public class MissleWeapon : Weapon
 
     static int SortByDistance(GameObject targetA, GameObject targetB)
     {
-        return targetA.GetComponent<GwishinMovement>().DistanceFromPlayer.CompareTo(targetB.GetComponent<GwishinMovement>().DistanceFromPlayer);
+        return targetA.GetComponent<Gwishin>().DistanceFromPlayer.CompareTo(targetB.GetComponent<Gwishin>().DistanceFromPlayer);
     }
 }

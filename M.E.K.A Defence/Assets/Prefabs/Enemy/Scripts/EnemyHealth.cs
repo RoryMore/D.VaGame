@@ -16,7 +16,6 @@ public class EnemyHealth : MonoBehaviour
     bool highlighted = false;
     Color highlightColor = Color.red;
     Color defaultOutline = Color.blue;
-    Outline outline;
 
     public bool Highlighted { get => highlighted; set => highlighted = value; }
 
@@ -24,7 +23,6 @@ public class EnemyHealth : MonoBehaviour
     {
 //        waveManager = GameObject.Find("WaveManager");
 //        enemyManager = waveManager.GetComponent<EnemyManager>();
-        outline = GetComponent<Outline>();
 
         currentHealth = startingHealth;
     }
@@ -32,14 +30,6 @@ public class EnemyHealth : MonoBehaviour
 
     void Update()
     {
-        if (highlighted)
-        {
-            outline.OutlineColor = highlightColor;
-        }
-        else
-        {
-            outline.OutlineColor = defaultOutline;
-        }
     }
 
     //Function that is called when the player deals damage to you

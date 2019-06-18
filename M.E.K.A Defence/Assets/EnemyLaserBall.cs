@@ -42,6 +42,6 @@ public class EnemyLaserBall : MonoBehaviour
             other.GetComponent<PlayerHealth>().TakeDamage(damage);
         }
 
-        Destroy(this.gameObject);
+        if(other.tag != "Enemy") Destroy(this.gameObject);
     }
 }

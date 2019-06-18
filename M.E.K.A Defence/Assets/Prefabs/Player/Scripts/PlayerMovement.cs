@@ -47,12 +47,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (Mathf.Abs(horizontalInput.x) < 1 && Mathf.Abs(horizontalInput.y) < 1)
         {
-            anim.SetBool("Walking", false);
+            //anim.SetBool("Walking", false);
             return;
         }
         else
         {
-            anim.SetBool("Walking", true);
+            //anim.SetBool("Walking", true);
         }
         //-----movement
         CalculateDirection();
@@ -70,8 +70,8 @@ public class PlayerMovement : MonoBehaviour
 
     void GetInput()
     {
-        horizontalInput.x = -Input.GetAxisRaw("Horizontal");
-        horizontalInput.y = -Input.GetAxisRaw("Vertical");
+        horizontalInput.x = Input.GetAxisRaw("Horizontal");
+        horizontalInput.y = Input.GetAxisRaw("Vertical");
     }
 
     void Move()

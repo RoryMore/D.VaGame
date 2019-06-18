@@ -33,7 +33,7 @@ public class GunBullet : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {
             other.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage, other.transform.position);
-            other.gameObject.GetComponent<GwishinMovement>().velocity += (other.transform.position - transform.position).normalized * damage * 2;
+            other.gameObject.GetComponent<Gwishin>().Velocity += (other.transform.position - transform.position).normalized * damage * 2;
             if (other.gameObject.GetComponent<EnemyHealth>().currentHealth < 0)
             {
                 other.gameObject.GetComponent<EnemyHealth>().killedByMissle = true;

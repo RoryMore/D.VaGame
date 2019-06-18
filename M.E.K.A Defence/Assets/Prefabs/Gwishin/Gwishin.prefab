@@ -629,6 +629,7 @@ GameObject:
   - component: {fileID: 4875329695110187979}
   - component: {fileID: 4875329695110187976}
   - component: {fileID: 498134316431219722}
+  - component: {fileID: 3854967380915135113}
   m_Layer: 0
   m_Name: Gwishin
   m_TagString: Enemy
@@ -643,9 +644,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3497409670476342166}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 2058.7, y: 294.01, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 8965629727768327489}
   - {fileID: 1769973750132983725}
@@ -654,7 +655,7 @@ Transform:
   - {fileID: 2086839793715388685}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7518778862084324607
 Animator:
   serializedVersion: 3
@@ -730,6 +731,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1dc977950161894c9d7dec8e94cdac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetedReticle: {fileID: 895080929954462907, guid: 5ff5c8109f14dae4f8ed815713260ad5,
+    type: 3}
 --- !u!114 &498134316431219722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -747,6 +750,22 @@ MonoBehaviour:
   useButton: -1
   UI: {fileID: 0}
   offsetUI: {x: 0, y: 0, z: 0}
+--- !u!114 &3854967380915135113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3497409670476342166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 496a2bf4bc467a4489a7c37609cece2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 100
+  currentHealth: 0
+  dead: 0
+  killedByMissle: 0
 --- !u!1 &3832321943090037801
 GameObject:
   m_ObjectHideFlags: 0

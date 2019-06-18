@@ -35,7 +35,6 @@ public class EnemyLaserWeapon : Weapon
     IEnumerator FireLasers(float frequency, float numberOfShots)
     {
         Firing = true;
-        print(frequency);
         StartCoroutine(WeaponCharge(Stats.ChargeTime));
         movement.FiringLaser = true;
 

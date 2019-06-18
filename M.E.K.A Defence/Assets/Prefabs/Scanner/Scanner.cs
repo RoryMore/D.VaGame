@@ -24,20 +24,24 @@ public class Scanner : MonoBehaviour
     public void SetupScanner(string tagToScanFor, float radius)
     {
         // Add it to the existing string values
+
+
+
+        tagsToScanFor = new List<string>();
         tagsToScanFor.Add(tagToScanFor);
 
+        scanArea = gameObject.AddComponent<SphereCollider>();
+
+        scanArea.isTrigger = true;
         scanSize = radius;
         scanArea.radius = radius;
     }
 
     private void Awake()
     {
-        scanArea = gameObject.AddComponent<SphereCollider>();
+        
 
-        scanArea.radius = scanSize;
-        scanArea.isTrigger = true;
 
-        tagsToScanFor = new List<string>();
     }
 
     public GameObject GetClosestTargetInRange()

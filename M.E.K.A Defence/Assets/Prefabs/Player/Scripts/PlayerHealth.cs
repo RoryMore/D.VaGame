@@ -20,7 +20,6 @@ public class PlayerHealth : MonoBehaviour
     PlayerShooting playerShooting;
 
     LaserShooting laserShooting;
-    MissleShooting missileShooting;
 
     //Audio
     AudioSource playerAudio;
@@ -49,7 +48,6 @@ public class PlayerHealth : MonoBehaviour
         playerShooting = GetComponentInChildren<PlayerShooting>();
 
         laserShooting = GetComponentInChildren<LaserShooting>();
-        missileShooting = GetComponentInChildren<MissleShooting>();
 
         currentHealth = startingHealth;
     }
@@ -106,21 +104,17 @@ public class PlayerHealth : MonoBehaviour
             {
                 print("Missile amount, damage and refresh rate increased");
                 PlayerModifierManager.Instance.CalculateModifier("missileDamage", -0.1f);
+                
+            }
+            else if (choice == 6)
+            {
+                print("Missile Ammo reduced");
                 PlayerModifierManager.Instance.CalculateModifier("missileAmmo", -0.1f);
-                PlayerModifierManager.Instance.CalculateModifier("missileTime", -0.1f);
-                missileShooting.missileDamageModifier = PlayerModifierManager.Instance.GetMissileDamage();
-                missileShooting.missileAmmoModifier = PlayerModifierManager.Instance.GetMissileAmmoCapacity();
-                missileShooting.missileReloadModifer = PlayerModifierManager.Instance.GetMissileReplenishRate();
-
-                playerAudio.clip = criticalDamage;
-                playerAudio.Play();
-
-
             }
             else if (choice == 3)
             {
-                print("Machinegun damage and ammo count reduced, reload time increased");
-
+                print("Missile rate reduced");
+                PlayerModifierManager.Instance.CalculateModifier("missileTime", -0.1f);
             }
         }
 

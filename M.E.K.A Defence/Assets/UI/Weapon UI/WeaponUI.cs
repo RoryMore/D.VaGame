@@ -9,6 +9,8 @@ public class WeaponUI : MonoBehaviour
     [SerializeField] Sprite fullAmmoContainer = null;
     [SerializeField] Sprite emptyAmmoContainer = null;
     [SerializeField] GameObject ammoCounter = null;
+    [SerializeField] Sprite imageToSet = null;
+    [SerializeField] GameObject image = null;
 
     Animator anim = null;
     List<Image> ammoCounters = new List<Image>();
@@ -19,37 +21,29 @@ public class WeaponUI : MonoBehaviour
 
     [SerializeField] float maxIdleTime = 2f;
     float timeSinceInput = 0;
-    bool activated = false;
 
     Vector3 originalPosition;
 
-    public bool Activated { get => activated; set => activated = value; }
+    public float TimeSinceInput { get => timeSinceInput; set => timeSinceInput = value; }
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        image.GetComponent<Image>().sprite = imageToSet;
     }
 
     private void Update()
     {
         CalculateTimeSinceInput();
-
-        print(stats.CurrentAmmo + " / " + stats.AmmoCapacity);
-        if (timeSinceInput > maxIdleTime && stats.CurrentAmmo == stats.AmmoCapacity)
+        if (timeSinceInput > maxIdleTime && stats.CurrentAmmo >= stats.AmmoCapacity)
         {
             anim.SetBool("online", false);
-            activated = false;
         }
-        else if (timeSinceInput <= 0) anim.SetBool("online", true);
+        else anim.SetBool("online", true);
     }
 
     void CalculateTimeSinceInput()
     {
-        if (activated)
-        {
-            timeSinceInput = 0;
-        }
-        else
         {
             timeSinceInput += Time.deltaTime;
             

@@ -100,5 +100,6 @@ public class WeaponStats : ScriptableObject
         currentAmmo = AmmoCapacityBase;
         AmmoCapacity = AmmoCapacityBase;
         Range = rangeBase;
+        bulletDamage = BulletDamageBase;
     }
 }

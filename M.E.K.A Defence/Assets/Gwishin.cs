@@ -63,15 +63,26 @@ public class Gwishin : MonoBehaviour
     Vector3 targetPosition = Vector3.zero;
     GameObject player = null;
     EnemyHealth health = null;
+    EnemyManager manager = null;
     bool firingLaser = false;
 
     List<TrailRenderer> trails = new List<TrailRenderer>();
+
+    [SerializeField] GameObject targetedReticle = null;
+    List<GameObject> reticles = new List<GameObject>();
+    int timesTargeted = 0;
+    float distanceFromPlayer = 0;
 
     //distances
     float strafeDistance = 200.0f;
     float approachDistance = 500.0f;
 
     public bool FiringLaser { get => firingLaser; set => firingLaser = value; }
+    public int TimesTargeted { get => timesTargeted; set => timesTargeted = value; }
+    public float DistanceFromPlayer { get => distanceFromPlayer; set => distanceFromPlayer = value; }
+    public Vector3 Velocity { get => velocity; set => velocity = value; }
+    public EnemyManager Manager { get => manager; set => manager = value; }
+    internal EnemyState CurrentState { get => currentState; set => currentState = value; }
 
     private void Awake()
     {
@@ -87,15 +98,12 @@ public class Gwishin : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown("a"))
-        {
-            print("meow");
-            Die();
-        }
-
+        distanceFromPlayer = Vector3.Distance(transform.position, player.transform.position);
         if (firingLaser && currentState != EnemyState.DEAD) return;
         UpdateState();
         ProcessState();
+
+
     }
     private void OnTriggerStay(Collider other)
     {
@@ -248,9 +256,9 @@ public class Gwishin : MonoBehaviour
     }
     private void SetRandomStrafePosition()
     {
-        targetPosition.x = Random.Range(player.transform.position.x - strafeDistance * 1.5f, player.transform.position.x + strafeDistance * 1.5f);
+        targetPosition.x = Random.Range(player.transform.position.x - strafeDistance, player.transform.position.x + strafeDistance);
         targetPosition.y = Random.Range(player.transform.position.y + 25, player.transform.position.y + 50);
-        targetPosition.z = Random.Range(player.transform.position.z + strafeDistance * 0.5f, player.transform.position.z + strafeDistance * 2);
+        targetPosition.z = Random.Range(player.transform.position.z + strafeDistance * 0.1f, player.transform.position.z + strafeDistance);
     }
     public void Die()
     {
@@ -259,11 +267,11 @@ public class Gwishin : MonoBehaviour
         targetPosition = transform.position + Random.onUnitSphere * 10;
         targetPosition.y = -20;
 
-        if (true)
-        {//health.killedByMissle
-            velocity.x = Random.Range(-50, 50);
-            velocity.y = Random.Range(25, 50);
-            velocity.z = Random.Range(10, 50);
+        if (health.killedByMissle)
+        {
+            velocity.x = Random.Range(-25, 25);
+            velocity.y = Random.Range(10, 25);
+            velocity.z = Random.Range(10, 25);
             rotationVector = Random.onUnitSphere * 250;
         }
         else
@@ -281,5 +289,25 @@ public class Gwishin : MonoBehaviour
     private void Spin()
     {
         transform.Rotate(rotationVector * Time.deltaTime);
+    }
+
+    public void AddTargetedReticle()
+    {
+        GameObject reticle = Instantiate(targetedReticle, transform.position, transform.rotation);
+        reticle.transform.localScale *= 2;
+        reticle.GetComponent<EnemyTargetedReticle>().Following = this.gameObject;
+        //reticle.transform.position = Camera.main.WorldToScreenPoint(transform.position);
+        reticles.Add(reticle);
+
+    }
+    public void RemoveTargeted()
+    {
+        if (reticles.Count > 0)
+        {
+            GameObject toDestroy = reticles[reticles.Count - 1];
+            reticles.RemoveAt(reticles.Count - 1);
+            Destroy(toDestroy.gameObject);
+        }
+        timesTargeted--;
     }
 }

@@ -133,6 +133,7 @@ MonoBehaviour:
   useButton: 2
   UI: {fileID: 6080537749760470095}
   offsetUI: {x: 0, y: 0, z: 0}
+  reticle: {fileID: 0}
 --- !u!1 &3272566836108318627
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +182,8 @@ MonoBehaviour:
   useButton: 1
   UI: {fileID: 6080537750642236423}
   offsetUI: {x: 0, y: 0, z: 0}
+  hitParticle: {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9,
+    type: 3}
   startColour: {r: 0.39215687, g: 0.85882354, b: 0.8509804, a: 1}
   focusedColour: {r: 1, g: 0.48235294, b: 0.6392157, a: 1}
 --- !u!114 &3272566834916682686
@@ -213,6 +216,10 @@ MonoBehaviour:
   turnSpeed: 0.1
   moveSpeedModifier: 0
   turnSpeedModifier: 0
+  maxDashTime: 1
+  dashSpeed: 10
+  dashStoppingSpeed: 0.1
+  dashing: 0
 --- !u!1001 &3272566834663133214
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -282,6 +289,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187405865991132778, guid: 0ecfde3b445e1d6439d74c584438b7d9,
         type: 3}
+      propertyPath: maxLength
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187405865991132778, guid: 0ecfde3b445e1d6439d74c584438b7d9,
+        type: 3}
       propertyPath: maxIdleTime
       value: 200
       objectReference: {fileID: 0}
@@ -299,11 +311,6 @@ PrefabInstance:
         type: 3}
       propertyPath: attachedToOffset.z
       value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8187405865991132778, guid: 0ecfde3b445e1d6439d74c584438b7d9,
-        type: 3}
-      propertyPath: maxLength
-      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ecfde3b445e1d6439d74c584438b7d9, type: 3}
@@ -377,7 +384,7 @@ PrefabInstance:
     - target: {fileID: 8721245884750325977, guid: 75186084a1ae9ce4a92647a24f84c25d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -4
+      value: -24.9
       objectReference: {fileID: 0}
     - target: {fileID: 8721245884750325977, guid: 75186084a1ae9ce4a92647a24f84c25d,
         type: 3}
@@ -427,18 +434,36 @@ PrefabInstance:
     - target: {fileID: 8721245884750325977, guid: 75186084a1ae9ce4a92647a24f84c25d,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.01
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 8721245884750325977, guid: 75186084a1ae9ce4a92647a24f84c25d,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.01
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 8721245884750325977, guid: 75186084a1ae9ce4a92647a24f84c25d,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.01
+      value: 0.025
       objectReference: {fileID: 0}
+    - target: {fileID: 8721245884750325974, guid: 75186084a1ae9ce4a92647a24f84c25d,
+        type: 3}
+      propertyPath: fullAmmoContainer
+      value: 
+      objectReference: {fileID: 21300000, guid: 75da9ca256be0f44a841811da7d84035,
+        type: 3}
+    - target: {fileID: 8721245884750325974, guid: 75186084a1ae9ce4a92647a24f84c25d,
+        type: 3}
+      propertyPath: emptyAmmoContainer
+      value: 
+      objectReference: {fileID: 21300000, guid: 3f15f96eec4e1cc4baa41e491cc6cacb,
+        type: 3}
+    - target: {fileID: 8721245884750325974, guid: 75186084a1ae9ce4a92647a24f84c25d,
+        type: 3}
+      propertyPath: imageToSet
+      value: 
+      objectReference: {fileID: 21300000, guid: dd568b6998709304dbdd4bd583719312,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75186084a1ae9ce4a92647a24f84c25d, type: 3}
 --- !u!224 &6080537751305543815 stripped
@@ -460,6 +485,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3272566835731115064}
     m_Modifications:
+    - target: {fileID: 7253371942412690115, guid: a5b1c49a18ad7074ebc3d8253786785c,
+        type: 3}
+      propertyPath: m_Name
+      value: Scanner
+      objectReference: {fileID: 0}
     - target: {fileID: 3257683339434440070, guid: a5b1c49a18ad7074ebc3d8253786785c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -529,11 +559,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7253371942412690115, guid: a5b1c49a18ad7074ebc3d8253786785c,
-        type: 3}
-      propertyPath: m_Name
-      value: Scanner
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5b1c49a18ad7074ebc3d8253786785c, type: 3}
@@ -613,12 +638,12 @@ PrefabInstance:
     - target: {fileID: 8721245884750325977, guid: 75186084a1ae9ce4a92647a24f84c25d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -24.9
       objectReference: {fileID: 0}
     - target: {fileID: 8721245884750325977, guid: 75186084a1ae9ce4a92647a24f84c25d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 15
+      value: 26.4
       objectReference: {fileID: 0}
     - target: {fileID: 8721245884750325977, guid: 75186084a1ae9ce4a92647a24f84c25d,
         type: 3}
@@ -663,18 +688,36 @@ PrefabInstance:
     - target: {fileID: 8721245884750325977, guid: 75186084a1ae9ce4a92647a24f84c25d,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.01
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 8721245884750325977, guid: 75186084a1ae9ce4a92647a24f84c25d,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.01
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 8721245884750325977, guid: 75186084a1ae9ce4a92647a24f84c25d,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.01
+      value: 0.025
       objectReference: {fileID: 0}
+    - target: {fileID: 8721245884750325974, guid: 75186084a1ae9ce4a92647a24f84c25d,
+        type: 3}
+      propertyPath: fullAmmoContainer
+      value: 
+      objectReference: {fileID: 21300000, guid: 087f2d99308f8e3419f1d49a50c40e8a,
+        type: 3}
+    - target: {fileID: 8721245884750325974, guid: 75186084a1ae9ce4a92647a24f84c25d,
+        type: 3}
+      propertyPath: emptyAmmoContainer
+      value: 
+      objectReference: {fileID: 21300000, guid: e69b14a0394e9c144b06290fead53083,
+        type: 3}
+    - target: {fileID: 8721245884750325974, guid: 75186084a1ae9ce4a92647a24f84c25d,
+        type: 3}
+      propertyPath: imageToSet
+      value: 
+      objectReference: {fileID: 21300000, guid: 3ac51ea61bf01f64f90ea2bbf735a393,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75186084a1ae9ce4a92647a24f84c25d, type: 3}
 --- !u!224 &6080537749760470094 stripped
@@ -856,12 +899,12 @@ PrefabInstance:
     - target: {fileID: 8721245884750325977, guid: 75186084a1ae9ce4a92647a24f84c25d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 4
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 8721245884750325977, guid: 75186084a1ae9ce4a92647a24f84c25d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 10
+      value: 10.3
       objectReference: {fileID: 0}
     - target: {fileID: 8721245884750325977, guid: 75186084a1ae9ce4a92647a24f84c25d,
         type: 3}
@@ -906,18 +949,36 @@ PrefabInstance:
     - target: {fileID: 8721245884750325977, guid: 75186084a1ae9ce4a92647a24f84c25d,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.01
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 8721245884750325977, guid: 75186084a1ae9ce4a92647a24f84c25d,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.01
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 8721245884750325977, guid: 75186084a1ae9ce4a92647a24f84c25d,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.01
+      value: 0.025
       objectReference: {fileID: 0}
+    - target: {fileID: 8721245884750325974, guid: 75186084a1ae9ce4a92647a24f84c25d,
+        type: 3}
+      propertyPath: fullAmmoContainer
+      value: 
+      objectReference: {fileID: 21300000, guid: 75da9ca256be0f44a841811da7d84035,
+        type: 3}
+    - target: {fileID: 8721245884750325974, guid: 75186084a1ae9ce4a92647a24f84c25d,
+        type: 3}
+      propertyPath: emptyAmmoContainer
+      value: 
+      objectReference: {fileID: 21300000, guid: 3f15f96eec4e1cc4baa41e491cc6cacb,
+        type: 3}
+    - target: {fileID: 8721245884750325974, guid: 75186084a1ae9ce4a92647a24f84c25d,
+        type: 3}
+      propertyPath: imageToSet
+      value: 
+      objectReference: {fileID: 21300000, guid: 3ac51ea61bf01f64f90ea2bbf735a393,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75186084a1ae9ce4a92647a24f84c25d, type: 3}
 --- !u!224 &6080537750642236422 stripped

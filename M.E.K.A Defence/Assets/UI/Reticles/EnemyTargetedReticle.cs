@@ -16,11 +16,23 @@ public class EnemyTargetedReticle : MonoBehaviour
         // ----- Audio ----- //
         source = GetComponent<AudioSource>();
         if (source) source.Play();
+        StartCoroutine(Death());
     }
 
     private void Update()
     {
+        if (following == null)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
         Vector3 targetPosition = following.transform.position;
         transform.position = Vector3.Lerp(transform.position, targetPosition, 0.8f);
+    }
+
+    IEnumerator Death()
+    {
+        yield return new WaitForSeconds(10f);
+        Destroy(this.gameObject);
     }
 }

@@ -15,12 +15,12 @@ MonoBehaviour:
   ammoCapacityBase: 3
   replenishRateBase: 2
   replenishAmount: 1
-  fireRate: 1
+  fireRate: 0.5
   chargeTime: 2
   rangeBase: 400
   accurracy: 1
   bullet: {fileID: 8683430740575012204, guid: 1e25b29ec6efd90499e11c2f11577caa, type: 3}
   bulletDamageBase: 10
   bulletDamageRadius: 0
-  bulletSpeed: 20
+  bulletSpeed: 100
   sounds: {fileID: 11400000, guid: a21d600c95c535248826429c9da84d38, type: 2}

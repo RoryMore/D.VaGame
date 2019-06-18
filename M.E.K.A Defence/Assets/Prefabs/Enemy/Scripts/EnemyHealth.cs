@@ -54,6 +54,8 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             GetComponent<Gwishin>().Die();
+            dead = true;
+            GetComponent<EnemyLaserWeapon>().Dead = true;
         }
     }
 

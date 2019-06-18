@@ -27,10 +27,6 @@ public class PlayerMovement : MonoBehaviour
 
     public bool dashing = false;
 
-
-
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -43,10 +39,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        
-
-
     }
 
     private void FixedUpdate()
@@ -78,13 +70,13 @@ public class PlayerMovement : MonoBehaviour
 
     void GetInput()
     {
-        horizontalInput.x = Input.GetAxisRaw("Horizontal");
-        horizontalInput.y = Input.GetAxisRaw("Vertical");
+        horizontalInput.x = -Input.GetAxisRaw("Horizontal");
+        horizontalInput.y = -Input.GetAxisRaw("Vertical");
     }
 
     void Move()
     {
-        transform.position += transform.forward * (moveSpeed * moveSpeedModifier) * Time.deltaTime;
+        transform.parent.transform.position += transform.forward * (moveSpeed * moveSpeedModifier) * Time.deltaTime;
     }
 
     void CalculateDirection()
@@ -119,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
                 moveDirection = Vector3.zero;
                 dashing = false;
             }
-            transform.position += moveDirection * Time.deltaTime;
+            transform.parent.transform.position += moveDirection * Time.deltaTime;
         }
     }
 

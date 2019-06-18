@@ -5,7 +5,7 @@ public class EnemyManager : MonoBehaviour
 {
     PlayerHealth playerHealth;
     [SerializeField] GameObject enemy = null;
-    public float spawnTime = 3f;
+    public float spawnTime = 10.0f;
     public float killCount = 0.0f;
     Collider strafeArea;
     Collider spawnArea;
@@ -36,6 +36,7 @@ public class EnemyManager : MonoBehaviour
         //A magic number equation that ramps up the number of required kills between eah wave
         if (killCount > (10.0f + (PlayerModifierManager.Instance.GetWaveCount() * 10)))
         {
+            ///Broadcast to the enemies to begin their retreat
             SceneManager.LoadScene("BuildPhaseScene");
         }
         //This spawns an enemy at one of the spawn points randomly every spawn time seconds that pass

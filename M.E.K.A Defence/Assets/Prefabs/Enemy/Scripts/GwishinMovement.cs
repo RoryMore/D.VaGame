@@ -2,18 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-enum EnemyState
-{
-    APPROACH,
-    HALT,
-    STRAFE,
-    DEAD
-}
-
 public class GwishinMovement : MonoBehaviour
 {
+    [SerializeField] GameObject targetedReticle = null;
+    List<GameObject> reticles = new List<GameObject>();
+
     //-----State
     EnemyState state = EnemyState.APPROACH;
+
 
     //-----Movement
     //Velocity
@@ -42,13 +38,20 @@ public class GwishinMovement : MonoBehaviour
 
 
     //-----References
-    GameObject player;
-    EnemyHealth myHealth;
-    Animator anim;
+    GameObject player    = null;
+    EnemyHealth myHealth = null;
+    Animator anim        = null;
+    Rigidbody body       = null;
+
+    float distanceFromPlayer = 0;
+    int timesTargeted = 0;
 
     //Strafe area
-    public Collider strafeArea = null;
+    Collider strafeArea = null;
 
+    public float DistanceFromPlayer { get => distanceFromPlayer; set => distanceFromPlayer = value; }
+    public int TimesTargeted { get => timesTargeted; set => timesTargeted = value; }
+    public Collider StrafeArea { get => strafeArea; set => strafeArea = value; }
 
     private void Awake()
     {
@@ -61,9 +64,12 @@ public class GwishinMovement : MonoBehaviour
     }
     private void Update()
     {
-        if (transform.position.y < -20) Destroy(this);
+        if (transform.position.y < -20) Destroy(this.gameObject);
         ProcessMovement();
+
+        //TODO if the player has won the round, target position equals escape position
         targetPosition = player.transform.position;
+        distanceFromPlayer = Vector3.Distance(transform.position, player.transform.position);
     }
 
 //-----------------------------------------------------------------------//
@@ -133,7 +139,6 @@ public class GwishinMovement : MonoBehaviour
         Quaternion lookAtDirection = Quaternion.LookRotation(desiredDirection);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookAtDirection, turnSpeed * Time.deltaTime);
     }
-
     private void FaceTarget()
     {
         Vector3 desiredDirection = targetPosition - transform.position;
@@ -141,7 +146,6 @@ public class GwishinMovement : MonoBehaviour
         Quaternion lookAtDirection = Quaternion.LookRotation(desiredDirection);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookAtDirection, turnSpeed * 10 * Time.deltaTime);
     }
-
     private void Deviate()
     {
         if (deviateChance > Random.value || deviatePosition == Vector3.zero || Vector3.Distance(targetPosition, transform.position) < Vector3.Distance(deviatePosition, targetPosition))
@@ -163,8 +167,6 @@ public class GwishinMovement : MonoBehaviour
         deviatePosition.y = Random.Range(strafeArea.bounds.min.y, strafeArea.bounds.max.y);
         deviatePosition.z = Random.Range(strafeArea.bounds.min.z, strafeArea.bounds.max.z);
     }
-
-
     void Halt()
     {
         if (velocity.x != 0)
@@ -195,17 +197,15 @@ public class GwishinMovement : MonoBehaviour
         }
             deviatePosition = player.transform.position;
     }
-
     private void Randomize()
     {
         maxVelocity         *= 1 + Random.Range(-maxVelocityModifierMax, maxVelocityModifierMax);
         accelerationRate    *= 1 + Random.Range(-accelerationRateModifierMax, accelerationRateModifierMax);
         turnSpeed           *= 1 + Random.Range(-turnSpeedModifierMax, turnSpeedModifierMax);
     }
-
     void UpdateState()
     {
-        if (myHealth.isDead && state != EnemyState.DEAD)
+        if (myHealth.dead && state != EnemyState.DEAD)
         {
             state = EnemyState.DEAD;
             deviatePosition = transform.position + Random.onUnitSphere * 5;
@@ -238,32 +238,45 @@ public class GwishinMovement : MonoBehaviour
             GetRandomStrafePosition();
         }
     }
-
     void Strafe()
     {
         AccelerateToPoint();
     }
-
     void Fall()
     {
         acceleration = accelerationRate * (deviatePosition - transform.position).normalized;
         velocity.y += acceleration.y;
-        
     }
-
     void Spin()
     {
         transform.Rotate(rotationVector * Time.deltaTime);
     }
-
     private void OnTriggerEnter(Collider other)
     {
-
-
         if (other.gameObject.tag == "Enemy")
         {
             velocity += (transform.position - other.transform.position) * accelerationRate;
             
         }
+    }
+    public void AddTargetedReticle()
+    {
+        GameObject reticle = Instantiate(targetedReticle, transform.position, transform.rotation);
+        reticle.transform.localScale *= 2;
+        reticle.GetComponent<EnemyTargetedReticle>().Following = this.gameObject;
+        //reticle.transform.position = Camera.main.WorldToScreenPoint(transform.position);
+        reticles.Add(reticle);
+
+    }
+    public void RemoveTargeted()
+    {
+        print(reticles.Count);
+            if (reticles.Count > 0)
+            {
+                GameObject toDestroy = reticles[reticles.Count - 1];
+                reticles.RemoveAt(reticles.Count -1);
+                Destroy(toDestroy.gameObject);
+            }
+            timesTargeted--;
     }
 }

@@ -65,3 +65,12 @@ Update Mode: updateDependencies
 
 The following packages were updated:
   com.unity.textmeshpro from version 2.0.0 to 2.0.1
+
+=== Tue Jun 11 23:32:40 2019
+
+Packages were changed.
+Update Mode: mergeDefaultDependencies
+
+The following packages were added:
+  com.unity.postprocessing@2.1.4
+  com.unity.progrids@3.0.3-preview.4

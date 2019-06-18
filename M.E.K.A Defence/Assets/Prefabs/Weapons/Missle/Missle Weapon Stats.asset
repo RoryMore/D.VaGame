@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9640371234f0642aaccc9344dfc290, type: 3}
+  m_Name: Missle Weapon Stats
+  m_EditorClassIdentifier: 
+  ammoCapacityBase: 100
+  replenishRateBase: 1
+  replenishAmount: 2
+  fireRate: 0.35
+  chargeTime: 0
+  rangeBase: 30
+  accurracy: 1
+  bullet: {fileID: 2658880717568808885, guid: 2ec63bd5d512b524c862d0d4d7d936dd, type: 3}
+  bulletDamageBase: 100
+  bulletDamageRadius: 10
+  bulletSpeed: 30
+  sounds: {fileID: 11400000, guid: 5d80b7e37d9c3d9459b19978f216b35e, type: 2}

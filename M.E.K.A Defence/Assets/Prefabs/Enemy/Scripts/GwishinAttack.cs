@@ -9,7 +9,7 @@ public class GwishinAttack : MonoBehaviour
     float range = 50.0f;
     float FireChance = 0.01f;
     GameObject player;
-    [SerializeField] GameObject bullet;
+    [SerializeField] GameObject bullet = null;
 
     float bulletSpeedModifier = 1.0f;
     float bulletDamageModifier = 1.0f;

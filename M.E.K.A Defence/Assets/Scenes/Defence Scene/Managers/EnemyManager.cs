@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class EnemyManager : MonoBehaviour
 {
     PlayerHealth playerHealth;
-    [SerializeField] GameObject enemy;
+    [SerializeField] GameObject enemy = null;
     public float spawnTime = 3f;
     public float killCount = 0.0f;
     Collider strafeArea;
@@ -50,7 +50,7 @@ public class EnemyManager : MonoBehaviour
             Quaternion spawnRotation = Random.rotation;
 
             GameObject newEnemy = Instantiate(enemy, spawnPosition, spawnRotation);
-            newEnemy.GetComponent<GwishinMovement>().strafeArea = strafeArea;
+            newEnemy.GetComponent<GwishinMovement>().StrafeArea = strafeArea;
             newEnemy.GetComponent<GwishinMovement>().heightTarget = strafeArea.bounds.center.y;
         }
         

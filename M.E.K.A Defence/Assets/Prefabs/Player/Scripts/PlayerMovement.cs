@@ -17,6 +17,18 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rB;
     Animator anim;
 
+    //Dash Variables
+    public float maxDashTime = 1.0f;
+    public float dashSpeed = 10.0f;
+    public float dashStoppingSpeed = 0.1f;
+
+    private float currentDashTime;
+    private Vector3 moveDirection;
+
+    public bool dashing = false;
+
+
+
 
 
     // Start is called before the first frame update
@@ -24,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
     {
         rB = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+
+        currentDashTime = maxDashTime;
     }
 
     // Update is called once per frame
@@ -53,6 +67,10 @@ public class PlayerMovement : MonoBehaviour
         Rotate();
         Move();
 
+     
+        Dash();
+        
+
         moveSpeedModifier = PlayerModifierManager.Instance.GetMoveSpeed();
         turnSpeedModifier = PlayerModifierManager.Instance.GetTurnSpeed();
         //-----
@@ -80,4 +98,30 @@ public class PlayerMovement : MonoBehaviour
         targetRotation = Quaternion.Euler(0, angle, 0);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, (turnSpeed * turnSpeedModifier));
     }
+
+
+    void Dash()
+    {
+        if (PlayerModifierManager.Instance.GetHasDash() == true)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                currentDashTime = 0.0f;
+            }
+            if (currentDashTime < maxDashTime)
+            {
+                moveDirection = transform.forward * dashSpeed;
+                currentDashTime += dashStoppingSpeed;
+                dashing = true;
+            }
+            else
+            {
+                moveDirection = Vector3.zero;
+                dashing = false;
+            }
+            transform.position += moveDirection * Time.deltaTime;
+        }
+    }
+
+       
 }

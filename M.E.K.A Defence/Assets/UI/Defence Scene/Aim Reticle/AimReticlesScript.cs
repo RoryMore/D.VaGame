@@ -12,14 +12,14 @@ enum State
 
 public class AimReticlesScript : MonoBehaviour
 {
-    [SerializeField] Sprite reticleSprite;
+    [SerializeField] Sprite reticleSprite = null;
     [SerializeField] float maxLength = 5;
     [SerializeField] float activatingAccelerationRate = 0.005f;
     [SerializeField] float SmoothRate = 0.0001f;
     [SerializeField] float numberReticles = 5;
     [SerializeField] float maxIdleTime = 2f;
-    [SerializeField] GameObject attachedTo;
-    [SerializeField] Vector3 attachedToOffset;
+    [SerializeField] GameObject attachedTo = null;
+    [SerializeField] Vector3 attachedToOffset = Vector3.zero;
     [SerializeField] Color highlightColor = Color.red;
 
     Vector3 aimDirection;
@@ -65,8 +65,9 @@ public class AimReticlesScript : MonoBehaviour
 
         if (Physics.Raycast(mouseRay, out mouseHit, float.PositiveInfinity, LayerMask.GetMask("Shootable")))
         {
-           
-            aimDirection = Vector3.Normalize(mouseHit.point - transform.position);
+
+            //aimDirection = Vector3.Normalize(mouseHit.point - transform.position);
+
             aimLength = Vector3.Distance(transform.position, mouseHit.point);
             if (mouseHit.transform.tag == "Enemy")
             {
@@ -79,11 +80,13 @@ public class AimReticlesScript : MonoBehaviour
             }
             else if (targetedEnemy)
             {
-                    targetedEnemy.GetComponent<EnemyHealth>().Highlighted = false;
-                    targetedEnemy = null;
-                
+                targetedEnemy.GetComponent<EnemyHealth>().Highlighted = false;
+                targetedEnemy = null;
             }
         }
+        else aimLength = maxLength;
+
+        aimDirection = mouseRay.direction;
     }
 
     void CreateReticleParts()
@@ -117,7 +120,7 @@ public class AimReticlesScript : MonoBehaviour
 
             reticles[i - 1].transform.position = smoothedPosition;
             reticles[i - 1].transform.rotation = reticles[0].transform.rotation;
-            reticles[i - 1].transform.localScale = Vector3.one * (float)(numberReticles - i)/(float)numberReticles * Mathf.Clamp(percentActive * (reticles.Count - i), 0 , 1);
+            reticles[i - 1].transform.localScale = Vector3.one * 5 * (float)(numberReticles - i)/(float)numberReticles * Mathf.Clamp(percentActive * (reticles.Count - i), 0 , 1);
         }
     }
 

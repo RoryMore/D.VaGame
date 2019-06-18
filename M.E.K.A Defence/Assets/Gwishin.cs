@@ -87,11 +87,6 @@ public class Gwishin : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown("a"))
-        {
-            print("meow");
-            Die();
-        }
 
         if (firingLaser && currentState != EnemyState.DEAD) return;
         UpdateState();

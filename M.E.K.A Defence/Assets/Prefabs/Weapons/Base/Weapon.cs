@@ -48,7 +48,7 @@ public class Weapon : MonoBehaviour
     {
         SetupUI();
         source = gameObject.AddComponent<AudioSource>();
-        stats.CurrentAmmo = stats.AmmoCapacity;
+        Stats.Setup();
 
         StartCoroutine(WeaponCooldown());
         StartCoroutine(AmmoReplenish());
@@ -91,7 +91,7 @@ public class Weapon : MonoBehaviour
                 {
                     stats.CurrentAmmo = stats.AmmoCapacityBase;
                 }
-                weaponUI.UpdateUICounter(stats.CurrentAmmo);
+                if(UI) weaponUI.UpdateUICounter(stats.CurrentAmmo);
                 yield return new WaitForSeconds(stats.ReplenishRateBase);
             }
             yield return new WaitForEndOfFrame();
@@ -101,7 +101,7 @@ public class Weapon : MonoBehaviour
     protected IEnumerator WeaponCharge(float chargeTime)
     {
         charging = true;
-        if (stats.Sounds.ChargingClip)
+        if (stats.Sounds.ChargingClip != null)
         {
             float clipLength = stats.Sounds.ChargingClip.length;
             
@@ -160,7 +160,7 @@ public class Weapon : MonoBehaviour
     protected void ReduceCurrentAmmo(int ammoRemoved)
     {
         stats.CurrentAmmo -= ammoRemoved;
-        weaponUI.UpdateUICounter(stats.CurrentAmmo);
+        if(UI) weaponUI.UpdateUICounter(stats.CurrentAmmo);
     }
 
     //----- Player Inputs -----//

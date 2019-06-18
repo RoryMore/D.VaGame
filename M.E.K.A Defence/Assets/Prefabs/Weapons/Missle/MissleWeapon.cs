@@ -16,7 +16,6 @@ public class MissleWeapon : Weapon
     {
         scanner = GetComponentInChildren<Scanner>();
         scanner.SetupScanner("Enemy", Stats.Range);
-        //this.Stats = PlayerModifierManager.Instance.MissleWeaponStats;
     }
 
     private void Update()

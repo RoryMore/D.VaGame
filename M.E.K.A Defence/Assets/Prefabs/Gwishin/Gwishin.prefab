@@ -628,7 +628,7 @@ GameObject:
   - component: {fileID: 4875329695110187977}
   - component: {fileID: 4875329695110187979}
   - component: {fileID: 4875329695110187976}
-  - component: {fileID: 1982882523423743204}
+  - component: {fileID: 498134316431219722}
   m_Layer: 0
   m_Name: Gwishin
   m_TagString: Enemy
@@ -730,24 +730,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1dc977950161894c9d7dec8e94cdac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1982882523423743204
+--- !u!114 &498134316431219722
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3497409670476342166}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Script: {fileID: 11500000, guid: ea09e330aefd35b4ba8bdbd9af16ada7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 2
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
+  stats: {fileID: 11400000, guid: 03e12f79477ee7b45b7a681b2bfd88cc, type: 2}
+  useKey: 0
+  useButton: -1
+  UI: {fileID: 0}
+  offsetUI: {x: 0, y: 0, z: 0}
 --- !u!1 &3832321943090037801
 GameObject:
   m_ObjectHideFlags: 0

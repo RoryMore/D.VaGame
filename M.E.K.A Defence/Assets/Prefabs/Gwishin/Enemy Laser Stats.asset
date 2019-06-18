@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a9640371234f0642aaccc9344dfc290, type: 3}
   m_Name: Enemy Laser Stats
   m_EditorClassIdentifier: 
-  ammoCapacityBase: 10
-  replenishRateBase: 3
-  replenishAmount: 2
-  fireRate: 2
-  chargeTime: 0
-  rangeBase: 30
+  ammoCapacityBase: 3
+  replenishRateBase: 2
+  replenishAmount: 1
+  fireRate: 1
+  chargeTime: 2
+  rangeBase: 400
   accurracy: 1
-  bullet: {fileID: 0}
+  bullet: {fileID: 8683430740575012204, guid: 1e25b29ec6efd90499e11c2f11577caa, type: 3}
   bulletDamageBase: 10
   bulletDamageRadius: 0
-  bulletSpeed: 0
-  sounds: {fileID: 0}
+  bulletSpeed: 20
+  sounds: {fileID: 11400000, guid: a21d600c95c535248826429c9da84d38, type: 2}

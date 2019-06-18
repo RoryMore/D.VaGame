@@ -21,4 +21,10 @@ public class EnemyLaserBall : MonoBehaviour
         line.LineWidth = lineWidthBase + (lineWidthBase/10f) * Mathf.Sin(Time.time  * 5);
         transform.position += transform.forward * speed * Time.deltaTime;
     }
+
+    public void Setup(float speed, float damage)
+    {
+        this.speed = speed;
+        this.damage = damage;
+    }
 }

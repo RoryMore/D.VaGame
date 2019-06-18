@@ -95,9 +95,10 @@ public class WeaponStats : ScriptableObject
     public float BulletDamageRadius { get => bulletDamageRadius; set => bulletDamageRadius = value; }
     public float Accurracy { get => accurracy; set => accurracy = value; }
 
-    private void Awake()
+    public void Setup()
     {
         currentAmmo = AmmoCapacityBase;
         AmmoCapacity = AmmoCapacityBase;
+        Range = rangeBase;
     }
 }

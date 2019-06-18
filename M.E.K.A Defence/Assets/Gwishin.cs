@@ -63,12 +63,15 @@ public class Gwishin : MonoBehaviour
     Vector3 targetPosition = Vector3.zero;
     GameObject player = null;
     EnemyHealth health = null;
+    bool firingLaser = false;
 
     List<TrailRenderer> trails = new List<TrailRenderer>();
 
     //distances
     float strafeDistance = 200.0f;
     float approachDistance = 500.0f;
+
+    public bool FiringLaser { get => firingLaser; set => firingLaser = value; }
 
     private void Awake()
     {
@@ -88,7 +91,9 @@ public class Gwishin : MonoBehaviour
         {
             print("meow");
             Die();
-        } 
+        }
+
+        if (firingLaser && currentState != EnemyState.DEAD) return;
         UpdateState();
         ProcessState();
     }

@@ -45,10 +45,13 @@ public class BuildPhaseManager : MonoBehaviour
         //Missile Values
         missileHealthSlider = GameObject.Find("MissilePodHealthSlider").GetComponent<Slider>();
         float startingMissileHealth = PlayerModifierManager.Instance.GetMissileHealth();
+     
 
         //Movement Values
         movementHealthSlider = GameObject.Find("MovementHealthSlider").GetComponent<Slider>();
         float startingMovementHealth = PlayerModifierManager.Instance.GetMovementHealth();
+
+
 
         //Time left Text
         timeLeftText = GameObject.Find("TimeLeftText").GetComponent<Text>();
@@ -204,7 +207,7 @@ public class BuildPhaseManager : MonoBehaviour
 
     public void GetDashUpgrade()
     {
-        if (timeLeft == 4 && PlayerModifierManager.Instance.GetMovementHealth() == 1.0f)
+        if (timeLeft == 4 && PlayerModifierManager.Instance.GetMovementHealth() == 0.2f)
         {
             PlayerModifierManager.Instance.UpgradeDash();
             timeLeft -= 4.0f;

@@ -25,6 +25,7 @@ public class Weapon : MonoBehaviour
     bool canFire = true;
     bool charging = false;
     bool firing = false;
+    bool aquiring = false;
 
     // ----- Sound ----- //
     AudioSource source;
@@ -41,12 +42,13 @@ public class Weapon : MonoBehaviour
     public AudioSource Source { get => source; set => source = value; }
     public bool Charging { get => charging; set => charging = value; }
     public bool Firing { get => firing; set => firing = value; }
+    public bool Aquiring { get => aquiring; set => aquiring = value; }
 
     private void Start()
     {
         SetupUI();
         source = gameObject.AddComponent<AudioSource>();
-        stats.CurrentAmmo = stats.AmmoCapacity;
+        Stats.Setup();
 
         StartCoroutine(WeaponCooldown());
         StartCoroutine(AmmoReplenish());
@@ -55,6 +57,12 @@ public class Weapon : MonoBehaviour
     private void FixedUpdate()
     {
         UpdateUI();
+
+        if (PlayerActivatesInput())
+        {
+            weaponUI.Activated = true;
+
+        }
     }
 
 
@@ -63,7 +71,7 @@ public class Weapon : MonoBehaviour
     {
         while (true)
         {
-            if (canFire == false && stats.CurrentAmmo > 0 && !charging && !firing)
+            if (stats.CurrentAmmo > 0 && !charging && !firing && !aquiring && !canFire)
             {
                 canFire = true;
                 yield return new WaitForSeconds(stats.FireRate);
@@ -76,15 +84,15 @@ public class Weapon : MonoBehaviour
     {
         while (true)
         {
-            if (stats.CurrentAmmo < stats.AmmoCapacity && canFire)
+            if (stats.CurrentAmmo < stats.AmmoCapacityBase && !charging && !firing && !aquiring)
             {
                 stats.CurrentAmmo += stats.ReplenishAmount;
-                if (stats.CurrentAmmo > stats.AmmoCapacity)
+                if (stats.CurrentAmmo > stats.AmmoCapacityBase)
                 {
-                    stats.CurrentAmmo = stats.AmmoCapacity;
+                    stats.CurrentAmmo = stats.AmmoCapacityBase;
                 }
-                weaponUI.UpdateUICounter(stats.CurrentAmmo);
-                yield return new WaitForSeconds(stats.ReplenishRate);
+                if(UI) weaponUI.UpdateUICounter(stats.CurrentAmmo);
+                yield return new WaitForSeconds(stats.ReplenishRateBase);
             }
             yield return new WaitForEndOfFrame();
         }
@@ -93,8 +101,7 @@ public class Weapon : MonoBehaviour
     protected IEnumerator WeaponCharge(float chargeTime)
     {
         charging = true;
-        canFire = false;
-        if (stats.Sounds.ChargingClip)
+        if (stats.Sounds.ChargingClip != null)
         {
             float clipLength = stats.Sounds.ChargingClip.length;
             
@@ -111,8 +118,6 @@ public class Weapon : MonoBehaviour
             yield return new WaitForSeconds(chargeTime);
         }
         charging = false;
-        canFire = true;
-
     }
 
     void SetupUI()
@@ -155,7 +160,7 @@ public class Weapon : MonoBehaviour
     protected void ReduceCurrentAmmo(int ammoRemoved)
     {
         stats.CurrentAmmo -= ammoRemoved;
-        weaponUI.UpdateUICounter(stats.CurrentAmmo);
+        if(UI) weaponUI.UpdateUICounter(stats.CurrentAmmo);
     }
 
     //----- Player Inputs -----//

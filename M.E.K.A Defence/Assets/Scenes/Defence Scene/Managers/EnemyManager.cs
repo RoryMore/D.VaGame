@@ -50,7 +50,7 @@ public class EnemyManager : MonoBehaviour
             Quaternion spawnRotation = Random.rotation;
 
             GameObject newEnemy = Instantiate(enemy, spawnPosition, spawnRotation);
-            newEnemy.GetComponent<GwishinMovement>().strafeArea = strafeArea;
+            newEnemy.GetComponent<GwishinMovement>().StrafeArea = strafeArea;
             newEnemy.GetComponent<GwishinMovement>().heightTarget = strafeArea.bounds.center.y;
         }
         

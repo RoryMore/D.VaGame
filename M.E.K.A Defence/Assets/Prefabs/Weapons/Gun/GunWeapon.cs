@@ -28,7 +28,6 @@ public class GunWeapon : Weapon
     IEnumerator StartFiring(float frequency, int numberOfShots)
     {
         Firing = true;
-        CanFire = false;
         for (int i = 0; i < numberOfShots; i++)
         {
             GunBullet newBullet = Instantiate(Stats.Bullet, transform.position, transform.rotation).GetComponent<GunBullet>();
@@ -37,9 +36,7 @@ public class GunWeapon : Weapon
             ReduceCurrentAmmo(1);
             yield return new WaitForSeconds(frequency);
         }
-        print("WOW");
         Firing = false;
-        CanFire = true;
     }
 
     void UpdateTarget()
@@ -50,13 +47,10 @@ public class GunWeapon : Weapon
         if (Physics.Raycast(mouseRay, out hitInfo, Stats.Range, LayerMask.GetMask("Shootable")))
         {
             targetPosition = hitInfo.point;
-            Debug.DrawLine(transform.position, hitInfo.point);
         }
         else
         {
             targetPosition = transform.position + mouseRay.direction.normalized * Stats.Range;
-            Debug.DrawLine(transform.position, transform.position + mouseRay.direction.normalized * Stats.Range);
-
         }
     }
 }

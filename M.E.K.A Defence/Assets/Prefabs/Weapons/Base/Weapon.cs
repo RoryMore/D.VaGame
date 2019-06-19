@@ -90,7 +90,7 @@ public class Weapon : MonoBehaviour
                     stats.CurrentAmmo = stats.AmmoCapacityBase;
                 }
                 if(UI) weaponUI.UpdateUICounter(stats.CurrentAmmo);
-                yield return new WaitForSeconds(stats.ReplenishRateBase);
+                yield return new WaitForSeconds(stats.ReplenishRateBase );
             }
             yield return new WaitForEndOfFrame();
         }

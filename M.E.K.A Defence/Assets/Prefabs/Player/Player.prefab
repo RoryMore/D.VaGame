@@ -485,11 +485,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3272566835731115064}
     m_Modifications:
-    - target: {fileID: 7253371942412690115, guid: a5b1c49a18ad7074ebc3d8253786785c,
-        type: 3}
-      propertyPath: m_Name
-      value: Scanner
-      objectReference: {fileID: 0}
     - target: {fileID: 3257683339434440070, guid: a5b1c49a18ad7074ebc3d8253786785c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -559,6 +554,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7253371942412690115, guid: a5b1c49a18ad7074ebc3d8253786785c,
+        type: 3}
+      propertyPath: m_Name
+      value: Scanner
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5b1c49a18ad7074ebc3d8253786785c, type: 3}

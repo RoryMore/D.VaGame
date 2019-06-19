@@ -11,8 +11,19 @@ public class GunBullet : MonoBehaviour
 
     public void SetupBullet(float speed, float damage)
     {
-        this.speed = speed;
-        this.damage = damage;
+        if (PlayerModifierManager.Instance.GetHasMachine() == true)
+        {
+            this.speed = speed;
+            this.damage = damage * 2;
+        }
+        else
+        {
+            this.speed = speed;
+            this.damage = damage;
+        }
+
+
+
     }
 
     void Update()

@@ -9,12 +9,15 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
 {
     WeaponStats missleWeaponStats = null;
     WeaponStats laserWeaponStats = null;
-    WeaponStats machineWeaponStats = null;
+    WeaponStats gunWeaponStats = null;
 
 
     public WeaponStats MissleWeaponStats { get => missleWeaponStats; set => missleWeaponStats = value; }
     public WeaponStats LaserWeaponStats { get => laserWeaponStats; set => laserWeaponStats = value; }
-    public WeaponStats MachineWeaponStats { get => machineWeaponStats; set => machineWeaponStats = value; }
+    public WeaponStats GunWeaponStats { get => gunWeaponStats; set => gunWeaponStats = value; }
+
+    
+    
 
 
     //Global Values
@@ -51,7 +54,9 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
 
     //Upgrade Variables. Bools and ints to determine if you have certain upgrades and what level, if applicable
     bool hasDash = false;
-
+    bool hasLaser = false;
+    bool hasMissile = false;
+    bool hasMachine = false;
 
 
     public void Start()
@@ -92,6 +97,9 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
         machineHealth = 0.5f;
 
         hasDash = false;
+        hasMissile = false;
+        hasLaser = false;
+        hasMachine = false;
 
     }
 
@@ -104,9 +112,9 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
         LaserWeaponStats.BulletDamage = 10 * laserDamageModifier;
 
         ////Machine Gun (we really need to do this....)
-        //MachineWeaponStats.ReplenishRate = MachineWeaponStats.ReplenishRateBase * machineTimeModifier;
-        //MachineWeaponStats.AmmoCapacity = (int)(MachineWeaponStats.AmmoCapacityBase * missileTimeModifier);
-        //MachineWeaponStats.BulletDamage = MachineWeaponStats.BulletDamageBase * machineDamageModifer;
+        //GunWeaponStats.ReplenishRate = GunWeaponStats.ReplenishRateBase * machineTimeModifier;
+        //GunWeaponStats.AmmoCapacity = (int)(GunWeaponStats.AmmoCapacityBase * machineTimeModifier);
+        //GunWeaponStats.BulletDamage = GunWeaponStats.BulletDamageBase * machineDamageModifer;
 
 
         // Missile
@@ -191,10 +199,25 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
         hasDash = true;
     }
 
+    public void UpgradeLaser()
+    {
+        hasLaser = true;
+    }
+
+    public void UpgradeMissile()
+    {
+        hasMissile = true;
+    }
+
+    public void UpgradeMachine()
+    {
+        hasMachine = true;
+    }
+
 
     //GETTERS
 
-     public float GetWaveCount()
+    public float GetWaveCount()
     {
         return waveCount;
     }
@@ -274,10 +297,24 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
         return missileHealth;
     }
 
-
     public bool GetHasDash()
     {
         return hasDash;
+    }
+
+    public bool GetHasLaser()
+    {
+        return hasLaser;
+    }
+
+    public bool GetHasMissile()
+    {
+        return hasMissile;
+    }
+
+    public bool GetHasMachine()
+    {
+        return hasMachine;
     }
 
 

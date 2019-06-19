@@ -65,7 +65,16 @@ public class MissleWeapon : Weapon
             nextMissle.MaxVelocity = Stats.BulletSpeed;
             nextMissle.Damage = Stats.BulletDamage;
             nextMissle.targetObject = targetForNextMissle;
-            nextMissle.DamageRadius = Stats.BulletDamageRadius;
+            if (PlayerModifierManager.Instance.GetHasMissile() == true)
+            {
+                nextMissle.DamageRadius = Stats.BulletDamageRadius * 5;
+            }
+            else
+            {
+                nextMissle.DamageRadius = Stats.BulletDamageRadius;
+            }
+            
+
             confirmedTargets.RemoveAt(0);
             yield return new WaitForSeconds(0.125f);
         }

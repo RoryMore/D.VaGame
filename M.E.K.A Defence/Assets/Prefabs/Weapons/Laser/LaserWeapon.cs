@@ -34,42 +34,85 @@ public class LaserWeapon : Weapon
         currentLaser.StartPos = Vector3.zero;
         currentLaser.EndPos = Vector3.zero;
         currentLaser.LineColor = startColour;
+        currentLaser.LineColor = startColour;
     }
 
     void UpdateLaser()
     {
-        if (currentLaser == null) return;
-
-        ReduceCurrentAmmo(1);
-
-        Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(mouseRay, out laserHit, Stats.Range, LayerMask.GetMask("Shootable")))
+        //If we do have the upgrade
+        if (PlayerModifierManager.Instance.GetHasLaser() == true)
         {
-            targetPosition = laserHit.point - transform.position;
-            if (CanFire)
+            if (currentLaser == null) return;
+
+            ReduceCurrentAmmo(1);
+
+            Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(mouseRay, out laserHit, Stats.Range * 2, LayerMask.GetMask("Shootable")))
             {
-                if(laserHit.collider.tag == "Enemy") laserHit.collider.GetComponent<EnemyHealth>().TakeDamage(Stats.BulletDamage, laserHit.point);
-                Instantiate(hitParticle, laserHit.point, Random.rotation);
-                CanFire = false;
+                targetPosition = laserHit.point - transform.position;
+                if (CanFire)
+                {
+                    if (laserHit.collider.tag == "Enemy") laserHit.collider.GetComponent<EnemyHealth>().TakeDamage(Stats.BulletDamage, laserHit.point);
+                    Instantiate(hitParticle, laserHit.point, Random.rotation);
+                    CanFire = false;
+                }
+            }
+            else targetPosition = mouseRay.origin + mouseRay.direction.normalized * Stats.Range * 2;
+
+            currentLaser.EndPos = Vector3.Lerp(currentLaser.EndPos, targetPosition, aimSpeed);
+            currentLaser.StartPos = Vector3.zero;
+            currentLaser.transform.position = transform.position;
+            transform.rotation = Quaternion.identity;
+
+
+            if (Input.GetAxis("Mouse X") != 0 && Input.GetAxis("Mouse Y") != 0)
+            {
+                currentLaser.LineColor = Color.Lerp(currentLaser.LineColor, startColour, 0.1f);
+            }
+            else
+            {
+                currentLaser.LineColor = Color.Lerp(currentLaser.LineColor, focusedColour, 0.05f);
             }
         }
-        else targetPosition = mouseRay.origin + mouseRay.direction.normalized * Stats.Range;
-
-        currentLaser.EndPos = Vector3.Lerp(currentLaser.EndPos, targetPosition, aimSpeed);
-        currentLaser.StartPos = Vector3.zero;
-        currentLaser.transform.position = transform.position;
-        transform.rotation = Quaternion.identity;
-
-        
-        if (Input.GetAxis("Mouse X") != 0 && Input.GetAxis("Mouse Y") != 0)
-        {
-            currentLaser.LineColor = Color.Lerp(currentLaser.LineColor, startColour, 0.1f);
-        }
+        //If we dont have the upgrade
         else
         {
-            currentLaser.LineColor = Color.Lerp(currentLaser.LineColor, focusedColour, 0.05f);
+            if (currentLaser == null) return;
+
+            ReduceCurrentAmmo(1);
+
+            Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(mouseRay, out laserHit, Stats.Range, LayerMask.GetMask("Shootable")))
+            {
+                targetPosition = laserHit.point - transform.position;
+                if (CanFire)
+                {
+                    if (laserHit.collider.tag == "Enemy") laserHit.collider.GetComponent<EnemyHealth>().TakeDamage(Stats.BulletDamage, laserHit.point);
+                    Instantiate(hitParticle, laserHit.point, Random.rotation);
+                    CanFire = false;
+                }
+            }
+            else targetPosition = mouseRay.origin + mouseRay.direction.normalized * Stats.Range;
+
+            currentLaser.EndPos = Vector3.Lerp(currentLaser.EndPos, targetPosition, aimSpeed);
+            currentLaser.StartPos = Vector3.zero;
+            currentLaser.transform.position = transform.position;
+            transform.rotation = Quaternion.identity;
+
+
+            if (Input.GetAxis("Mouse X") != 0 && Input.GetAxis("Mouse Y") != 0)
+            {
+                currentLaser.LineColor = Color.Lerp(currentLaser.LineColor, startColour, 0.1f);
+            }
+            else
+            {
+                currentLaser.LineColor = Color.Lerp(currentLaser.LineColor, focusedColour, 0.05f);
+            }
         }
+
+        
     }
 
     void Awake()

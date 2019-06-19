@@ -102,4 +102,6 @@ public class WeaponStats : ScriptableObject
         Range = rangeBase;
         bulletDamage = BulletDamageBase;
     }
+
+
 }

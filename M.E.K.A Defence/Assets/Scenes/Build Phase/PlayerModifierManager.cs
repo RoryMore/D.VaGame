@@ -9,10 +9,12 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
 {
     WeaponStats missleWeaponStats = null;
     WeaponStats laserWeaponStats = null;
+    WeaponStats machineWeaponStats = null;
 
 
     public WeaponStats MissleWeaponStats { get => missleWeaponStats; set => missleWeaponStats = value; }
     public WeaponStats LaserWeaponStats { get => laserWeaponStats; set => laserWeaponStats = value; }
+    public WeaponStats MachineWeaponStats { get => machineWeaponStats; set => machineWeaponStats = value; }
 
 
     //Global Values
@@ -41,6 +43,11 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
     //Visual Modifier for slider
     float missileHealth = 0.3f;
 
+    public float machineTimeModifier = 0.5f;
+    public float machineAmmoModifier = 0.5f;
+    public float machineDamageModifer = 0.5f;
+
+    float machineHealth = 0.5f;
 
     //Upgrade Variables. Bools and ints to determine if you have certain upgrades and what level, if applicable
     bool hasDash = false;
@@ -78,7 +85,13 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
 
         missileHealth = 0.3f;
 
-        bool hasDash = false;
+        machineTimeModifier = 0.5f;
+        machineAmmoModifier = 0.5f;
+        machineDamageModifer = 0.5f;
+
+        machineHealth = 0.5f;
+
+        hasDash = false;
 
     }
 
@@ -89,12 +102,19 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
         LaserWeaponStats.ReplenishRate = LaserWeaponStats.ReplenishRateBase * laserTimeModifier;
         LaserWeaponStats.Range = 30 * laserRangeModifier;
         LaserWeaponStats.BulletDamage = 10 * laserDamageModifier;
-        //Machine Gun (we really need to do this....)
+
+        ////Machine Gun (we really need to do this....)
+        //MachineWeaponStats.ReplenishRate = MachineWeaponStats.ReplenishRateBase * machineTimeModifier;
+        //MachineWeaponStats.AmmoCapacity = (int)(MachineWeaponStats.AmmoCapacityBase * missileTimeModifier);
+        //MachineWeaponStats.BulletDamage = MachineWeaponStats.BulletDamageBase * machineDamageModifer;
+
 
         // Missile
         MissleWeaponStats.AmmoCapacity = (int)(MissleWeaponStats.AmmoCapacityBase * missileAmmoModifier);
         MissleWeaponStats.ReplenishRate = MissleWeaponStats.ReplenishRateBase * missileTimeModifier;
         MissleWeaponStats.BulletDamage = MissleWeaponStats.BulletDamageBase * missileDamageModifer;
+
+
 
 
     }
@@ -134,6 +154,18 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
         {
             missileDamageModifer += value;
         }
+        else if (modifier == "machineTime")
+        {
+            machineTimeModifier += value;
+        }
+        else if (modifier == "machineAmmo")
+        {
+            machineAmmoModifier += value;
+        }
+        else if (modifier == "machineDamage")
+        {
+            machineDamageModifer += value;
+        }
         //Visual values. Used Exclusivley for the sliders
         else if (modifier == "movementHealth")
         {
@@ -146,6 +178,10 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
         else if (modifier == "missileHealth")
         {
             missileHealth += value;
+        }
+        else if (modifier == "machineHealth")
+        {
+            machineHealth += value;
         }
 
     }
@@ -203,6 +239,21 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
         return missileTimeModifier;
     }
 
+    public float GetMachineDamage()
+    {
+        return machineDamageModifer;
+    }
+
+    public float GetMachineAmmoCapacity()
+    {
+        return machineAmmoModifier;
+    }
+
+    public float GetMachineReplenishRate()
+    {
+        return machineTimeModifier;
+    }
+
     public float GetMovementHealth()
     {
         return movementHealth;
@@ -213,10 +264,16 @@ public class PlayerModifierManager : Singleton<PlayerModifierManager>
         return laserGunHealth;
     }
 
+    public float GetMachineHealth()
+    {
+        return machineHealth;
+    }
+
     public float GetMissileHealth()
     {
         return missileHealth;
     }
+
 
     public bool GetHasDash()
     {

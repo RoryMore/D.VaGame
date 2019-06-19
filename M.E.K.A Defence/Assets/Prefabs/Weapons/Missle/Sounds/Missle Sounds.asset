@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4245f343a63c3348b55edebcc136b44, type: 3}
   m_Name: Missle Sounds
   m_EditorClassIdentifier: 
-  chargingClip: {fileID: 8300000, guid: ed11b6717825d694b92cdad1c7ee1c4c, type: 3}
+  chargingClip: {fileID: 0}

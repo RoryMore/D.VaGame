@@ -63,6 +63,7 @@ public class Gwishin : MonoBehaviour
     Vector3 targetPosition = Vector3.zero;
     GameObject player = null;
     EnemyHealth health = null;
+    EnemyManager manager = null;
     bool firingLaser = false;
 
     List<TrailRenderer> trails = new List<TrailRenderer>();
@@ -74,86 +75,6 @@ public class Gwishin : MonoBehaviour
 
     //distances
     float strafeDistance = 200.0f;
-    float approachDistance = 500.0f;
-
-    public bool FiringLaser { get => firingLaser; set => firingLaser = value; }
-
-    private void Awake()
-    {
-        approachStats.Setup(2.5f, 25f, 30f);
-        warpStats.Setup(1000f, 2000f, 0);
-        modifier.Randomize();
-        currentStats = approachStats;
-        transform.rotation = Random.rotation;
-        trails.Add(transform.Find("Left Trail").GetComponent<TrailRenderer>());
-        trails.Add(transform.Find("Right Trail").GetComponent<TrailRenderer>());
-        player = GameObject.Find("Player");
-        health = GetComponent<EnemyHealth>();
-    }
-    private void Update()
-    {
-        if (Input.GetKeyDown("a"))
-        {
-            print("meow");
-            Die();
-        }
-
-        if (firingLaser && currentState != EnemyState.DEAD) return;
-        UpdateState();
-        ProcessState();
-    }
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.tag == "Enemy")
-        {
-            this.transform.position += (transform.position - other.transform.position).normalized * Time.deltaTime * 4;
-        }
-    }
-    private void Move()
-    {
-        transform.position += velocity * Time.deltaTime;
-    }
-    private void Rotate(Vector3 target)
-    {
-        Vector3 desiredDirection = target - transform.position;
-        Quaternion lookAtDirection = Quaternion.LookRotation(desiredDirection);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, lookAtDirection, currentStats.TurnSpeed * modifier.Turnspeed * Time.deltaTime);
-    }
-    private void Accelerate(Vector3 direction)
-    {
-        acceleration = currentStats.AccelerationRate * modifier.Acceleration * direction;
-        velocity += acceleration;
-        velocity = Vector3.ClampMagnitude(velocity, currentStats.MaxVelocity * modifier.Velocity);
-        if ((transform.position + velocity * Time.deltaTime).y <= 0) velocity.y = currentStats.MaxVelocity;
-    }
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.tag == "Enemy")
-        {
-            this.transform.position += (transform.position - other.transform.position).normalized * Time.deltaTime * 4;
-        }
-    }
-    private void Move()
-    {
-        transform.position += velocity * Time.deltaTime;
-    }
-    private void Rotate(Vector3 target)
-    {
-        Vector3 desiredDirection = target - transform.position;
-        Quaternion lookAtDirection = Quaternion.LookRotation(desiredDirection);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, lookAtDirection, currentStats.TurnSpeed * modifier.Turnspeed * Time.deltaTime);
-    }
-    private void Accelerate(Vector3 direction)
-    {
-        acceleration = currentStats.AccelerationRate * modifier.Acceleration * direction;
-        velocity += acceleration;
-        velocity = Vector3.ClampMagnitude(velocity, currentStats.MaxVelocity * modifier.Velocity);
-        if ((transform.position + velocity * Time.deltaTime).y <= 0) velocity.y = currentStats.MaxVelocity;
-    }
-}
-
-    EnemyHealth health = null;
-    EnemyManager manager = null;
     float approachDistance = 500.0f;
 
     public bool FiringLaser { get => firingLaser; set => firingLaser = value; }
@@ -174,6 +95,7 @@ public class Gwishin : MonoBehaviour
         trails.Add(transform.Find("Right Trail").GetComponent<TrailRenderer>());
         player = GameObject.Find("Player");
         health = GetComponent<EnemyHealth>();
+    }
     private void Update()
     {
         distanceFromPlayer = Vector3.Distance(transform.position, player.transform.position);
@@ -182,6 +104,31 @@ public class Gwishin : MonoBehaviour
         ProcessState();
 
 
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            this.transform.position += (transform.position - other.transform.position).normalized * Time.deltaTime * 4;
+        }
+    }
+    private void Move()
+    {
+        transform.position += velocity * Time.deltaTime;
+    }
+    private void Rotate(Vector3 target)
+    {
+        Vector3 desiredDirection = target - transform.position;
+        Quaternion lookAtDirection = Quaternion.LookRotation(desiredDirection);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, lookAtDirection, currentStats.TurnSpeed * modifier.Turnspeed * Time.deltaTime);
+    }
+    private void Accelerate(Vector3 direction)
+    {
+        acceleration = currentStats.AccelerationRate * modifier.Acceleration * direction;
+        velocity += acceleration;
+        velocity = Vector3.ClampMagnitude(velocity, currentStats.MaxVelocity * modifier.Velocity);
+        if ((transform.position + velocity * Time.deltaTime).y <= 0) velocity.y = currentStats.MaxVelocity;
+    }
     private void Halt()
     {
         velocity = Vector3.Lerp(velocity, Vector3.zero, 0.5f);
@@ -363,3 +310,4 @@ public class Gwishin : MonoBehaviour
         }
         timesTargeted--;
     }
+}

@@ -73,7 +73,7 @@ public class Scanner : MonoBehaviour
         return closestObject;
     }
 
-    private void RemoveInvalidObjects()
+    public void RemoveInvalidObjects()
     {
         // Find the objects that need to be deleted
         foreach (GameObject objectInRange in objectsInRange)

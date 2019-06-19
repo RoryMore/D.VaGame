@@ -27,10 +27,6 @@ public class PlayerMovement : MonoBehaviour
 
     public bool dashing = false;
 
-
-
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -43,10 +39,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        
-
-
     }
 
     private void FixedUpdate()
@@ -55,12 +47,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (Mathf.Abs(horizontalInput.x) < 1 && Mathf.Abs(horizontalInput.y) < 1)
         {
-            anim.SetBool("Walking", false);
+            //anim.SetBool("Walking", false);
             return;
         }
         else
         {
-            anim.SetBool("Walking", true);
+            //anim.SetBool("Walking", true);
         }
         //-----movement
         CalculateDirection();
@@ -84,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        transform.position += transform.forward * (moveSpeed * moveSpeedModifier) * Time.deltaTime;
+        transform.parent.transform.position += transform.forward * (moveSpeed * moveSpeedModifier) * Time.deltaTime;
     }
 
     void CalculateDirection()
@@ -119,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
                 moveDirection = Vector3.zero;
                 dashing = false;
             }
-            transform.position += moveDirection * Time.deltaTime;
+            transform.parent.transform.position += moveDirection * Time.deltaTime;
         }
     }
 

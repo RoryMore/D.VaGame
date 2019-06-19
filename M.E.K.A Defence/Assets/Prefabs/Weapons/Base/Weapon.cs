@@ -31,7 +31,6 @@ public class Weapon : MonoBehaviour
     AudioSource source;
 
     //-----UI - -
-    Vector3 originalUIDirection;
     TextMeshProUGUI ammoText;
 
     protected WeaponStats Stats { get => stats; set => stats = value; }
@@ -60,8 +59,7 @@ public class Weapon : MonoBehaviour
 
         if (PlayerActivatesInput())
         {
-            weaponUI.Activated = true;
-
+            weaponUI.TimeSinceInput = 0;
         }
     }
 
@@ -126,7 +124,6 @@ public class Weapon : MonoBehaviour
 
         weaponUI = UI.GetComponent<WeaponUI>();
         weaponUI.SetupUI(stats);
-        originalUIDirection = -UI.transform.forward;
         offsetUI = UI.transform.position - transform.position;
         ammoText = UI.GetComponentInChildren<TextMeshProUGUI>();
     }
@@ -143,13 +140,15 @@ public class Weapon : MonoBehaviour
 
     void MoveUI()
     {
-        Vector3 smoothedPosition = Vector3.Lerp(UI.transform.position, transform.position + offsetUI, smoothRate);
-        UI.transform.position = smoothedPosition;
+        Vector3 smoothedPosition = Vector3.Lerp(transform.parent.transform.position, Camera.main.transform.position, 0.5f);
+        UI.transform.position = smoothedPosition + offsetUI * 1.5f;
     }
 
     void RotateUI()
     {
-        UI.transform.LookAt(transform.position);
+        Vector3 direction = UI.transform.position - Camera.main.transform.position;
+
+        UI.transform.LookAt(direction);
     }
 
     void UpdateUIText()

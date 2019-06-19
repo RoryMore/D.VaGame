@@ -9,6 +9,7 @@ public class LaserWeapon : Weapon
     Vector3 targetPosition;
     RaycastHit laserHit;
     float aimSpeed = 0.4f;
+    [SerializeField] GameObject hitParticle = null;
     [SerializeField] Color startColour = Color.green;
     [SerializeField] Color focusedColour = Color.red;
 
@@ -46,13 +47,14 @@ public class LaserWeapon : Weapon
         if (Physics.Raycast(mouseRay, out laserHit, Stats.Range, LayerMask.GetMask("Shootable")))
         {
             targetPosition = laserHit.point - transform.position;
-            if (laserHit.collider.tag == "Enemy" && CanFire)
+            if (CanFire)
             {
-                laserHit.collider.GetComponent<EnemyHealth>().TakeDamage(Stats.BulletDamage, laserHit.point);
+                if(laserHit.collider.tag == "Enemy") laserHit.collider.GetComponent<EnemyHealth>().TakeDamage(Stats.BulletDamage, laserHit.point);
+                Instantiate(hitParticle, laserHit.point, Random.rotation);
                 CanFire = false;
             }
         }
-        else targetPosition = mouseRay.direction.normalized * Stats.Range;
+        else targetPosition = mouseRay.origin + mouseRay.direction.normalized * Stats.Range;
 
         currentLaser.EndPos = Vector3.Lerp(currentLaser.EndPos, targetPosition, aimSpeed);
         currentLaser.StartPos = Vector3.zero;
@@ -72,6 +74,5 @@ public class LaserWeapon : Weapon
 
     void Awake()
     {
-        //this.Stats = PlayerModifierManager.Instance.LaserWeaponStats ;
     }
 }

@@ -7,10 +7,12 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] GameObject enemy = null;
     public float spawnTime = 10.0f;
     public float killCount = 0.0f;
-    Collider strafeArea;
     Collider spawnArea;
+    int enemiesFiring = 0;
+    int maxEnemiesFiring = 1;
 
-    
+    public int EnemiesFiring { get => enemiesFiring; set => enemiesFiring = value; }
+    public int MaxEnemiesFiring { get => maxEnemiesFiring;}
 
     void Start()
     {
@@ -20,8 +22,8 @@ public class EnemyManager : MonoBehaviour
     private void Awake()
     {
         playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
-        strafeArea = GameObject.Find("StrafeArea").GetComponent<Collider>();
         spawnArea = GetComponent<Collider>();
+
     }
 
     void Spawn()
@@ -51,15 +53,10 @@ public class EnemyManager : MonoBehaviour
             Quaternion spawnRotation = Random.rotation;
 
             GameObject newEnemy = Instantiate(enemy, spawnPosition, spawnRotation);
-            newEnemy.GetComponent<GwishinMovement>().StrafeArea = strafeArea;
-            newEnemy.GetComponent<GwishinMovement>().heightTarget = strafeArea.bounds.center.y;
         }
-        
     }
 
     public void Update()
     {
-        
-        
     }
 }

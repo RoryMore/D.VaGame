@@ -94,7 +94,7 @@ public class Missle : MonoBehaviour
 
 
             //Create Explosion
-            GameObject explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
+            GameObject explosion = Instantiate(explosionEffect, transform.position, Random.rotation);
 
             //PlaySound
             int n = Random.Range(0, explodeClips.Length);

@@ -23,4 +23,4 @@ MonoBehaviour:
   bulletDamageBase: 10
   bulletDamageRadius: 0
   bulletSpeed: 125
-  sounds: {fileID: 0}
+  sounds: {fileID: 11400000, guid: 4f03f63bbfdba3c448c0f82b8a92e4b5, type: 2}

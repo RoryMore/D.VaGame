@@ -27,13 +27,19 @@ public class PlayerMovement : MonoBehaviour
 
     public bool dashing = false;
 
+    [SerializeField] AudioClip ambientEngineClip = null;
+    AudioSource source;
+
     // Start is called before the first frame update
     void Start()
     {
         rB = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
-
+        source = GetComponent<AudioSource>();
         currentDashTime = maxDashTime;
+
+        source.clip = ambientEngineClip;
+        source.Play();
     }
 
     // Update is called once per frame

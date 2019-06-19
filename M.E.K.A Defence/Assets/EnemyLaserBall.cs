@@ -10,19 +10,35 @@ public class EnemyLaserBall : MonoBehaviour
     VolumetricLineBehavior line;
     float lineWidthBase = 50f;
 
+    [SerializeField] AudioClip fireClip = null;
+    [SerializeField] AudioClip collideClip = null;
+    AudioSource source = null;
+    bool dead = false;
+
     private void Awake()
     {
         line = GetComponent<VolumetricLineBehavior>();
         lineWidthBase = line.LineWidth;
         StartCoroutine(Death());
+
+        source = GetComponent<AudioSource>();
+        source.clip = fireClip;
+        source.Play();
+
     }
 
     void Update()
     {
+        if (dead)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, 0.1f);
+            if(!source.isPlaying) Destroy(this.gameObject);
+            return;
+        }
+
         line.LineWidth = lineWidthBase + (lineWidthBase/10f) * Mathf.Sin(Time.time  * 5);
         transform.position += transform.forward * speed * Time.deltaTime;
     }
-
     public void Setup(float speed, float damage)
     {
         this.speed = speed;
@@ -42,6 +58,14 @@ public class EnemyLaserBall : MonoBehaviour
             other.GetComponent<PlayerHealth>().TakeDamage(damage);
         }
 
-        if(other.tag != "Enemy") Destroy(this.gameObject);
+        if (other.tag != "Enemy")
+        {
+            source.clip = collideClip;
+            source.volume = 0.1f;
+            source.Play();
+            dead = true;
+            GetComponent<VolumetricLineBehavior>().LineColor = Color.red;
+            Destroy(GetComponent<Collider>());
+        }
     }
 }

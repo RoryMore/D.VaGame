@@ -59,17 +59,15 @@ public class Weapon : MonoBehaviour
 
         if (PlayerActivatesInput())
         {
-            weaponUI.TimeSinceInput = 0;
+            weaponUI.TimeSinceInput = -1;
         }
     }
-
-
 
     IEnumerator WeaponCooldown()
     {
         while (true)
         {
-            if (stats.CurrentAmmo > 0 && !charging && !firing && !aquiring && !canFire)
+            if (!charging && !firing && !aquiring && !canFire)
             {
                 canFire = true;
                 yield return new WaitForSeconds(stats.FireRate);
@@ -82,7 +80,7 @@ public class Weapon : MonoBehaviour
     {
         while (true)
         {
-            if (stats.CurrentAmmo < stats.AmmoCapacityBase && !charging && !firing && !aquiring)
+            if (stats.CurrentAmmo < stats.AmmoCapacityBase && !charging && !firing && !aquiring && canFire)
             {
                 stats.CurrentAmmo += stats.ReplenishAmount;
                 if (stats.CurrentAmmo > stats.AmmoCapacityBase)
@@ -90,6 +88,12 @@ public class Weapon : MonoBehaviour
                     stats.CurrentAmmo = stats.AmmoCapacityBase;
                 }
                 if(UI) weaponUI.UpdateUICounter(stats.CurrentAmmo);
+                if (Stats.Sounds.AmmoIncrease && !source.isPlaying)
+                {
+                    source.clip = stats.Sounds.AmmoIncrease;
+                    source.volume = 0.25f;
+                    source.Play();
+                }
                 yield return new WaitForSeconds(stats.ReplenishRateBase);
             }
             yield return new WaitForEndOfFrame();
@@ -126,6 +130,8 @@ public class Weapon : MonoBehaviour
         weaponUI.SetupUI(stats);
         offsetUI = UI.transform.position - transform.position;
         ammoText = UI.GetComponentInChildren<TextMeshProUGUI>();
+
+
     }
 
     void UpdateUI()
@@ -140,8 +146,18 @@ public class Weapon : MonoBehaviour
 
     void MoveUI()
     {
-        Vector3 smoothedPosition = Vector3.Lerp(transform.parent.transform.position, Camera.main.transform.position, 0.5f);
-        UI.transform.position = smoothedPosition + offsetUI * 1.5f;
+        if (UI.GetComponent<WeaponUI>().Anim.GetBool("online"))
+        {
+            Vector3 targePosition = Vector3.Lerp(transform.parent.transform.position, Camera.main.transform.position, 0.5f);
+            Vector3 smoothedPosition = Vector3.Lerp(UI.transform.position, targePosition + offsetUI * 1.5f, 0.1f);
+            UI.transform.position = smoothedPosition;
+        }
+        else
+        {
+            Vector3 smoothedPosition = Vector3.Lerp(UI.transform.position, transform.parent.position, 0.1f);
+            UI.transform.position = smoothedPosition;
+        }
+
     }
 
     void RotateUI()

@@ -11,10 +11,15 @@ public class WeaponUI : MonoBehaviour
     [SerializeField] GameObject ammoCounter = null;
     [SerializeField] Sprite imageToSet = null;
     [SerializeField] GameObject image = null;
+    [SerializeField] AudioClip activateClip = null;
+    [SerializeField] AudioClip deactivateClip = null;
 
     Animator anim = null;
     List<Image> ammoCounters = new List<Image>();
     WeaponStats stats;
+    AudioSource source;
+
+
 
     bool setup = false;
     int currentAmmo;
@@ -25,29 +30,35 @@ public class WeaponUI : MonoBehaviour
     Vector3 originalPosition;
 
     public float TimeSinceInput { get => timeSinceInput; set => timeSinceInput = value; }
+    public Animator Anim { get => anim; set => anim = value; }
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
         image.GetComponent<Image>().sprite = imageToSet;
+        source = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
         CalculateTimeSinceInput();
-        if (timeSinceInput > maxIdleTime && stats.CurrentAmmo >= stats.AmmoCapacity)
+        if (timeSinceInput > maxIdleTime && stats.CurrentAmmo >= stats.AmmoCapacity && anim.GetBool("online"))
         {
             anim.SetBool("online", false);
+            source.clip = deactivateClip;
+            source.Play();
         }
-        else anim.SetBool("online", true);
+        else if(timeSinceInput <= 0 && !anim.GetBool("online"))
+        {
+            anim.SetBool("online", true);
+            source.clip = activateClip;
+            source.Play();
+        }
     }
 
     void CalculateTimeSinceInput()
     {
-        {
             timeSinceInput += Time.deltaTime;
-            
-        }
     }
 
     public void UpdateUICounter(int newCurrentAmmo)

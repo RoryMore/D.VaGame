@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammoCapacityBase: 5
   replenishRateBase: 2
-  replenishAmount: 2
+  replenishAmount: 1
   fireRate: 0.35
   chargeTime: 0
   rangeBase: 500

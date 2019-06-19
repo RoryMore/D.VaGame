@@ -53,7 +53,9 @@ public class EnemyLaserWeapon : Weapon
 
         for (int i = 0; i < numberOfShots; i++)
         {
-            Vector3 shotPosition = player.transform.position + Random.onUnitSphere * Stats.Accurracy;
+            Vector3 playerPos = player.transform.position;
+            playerPos.y += 10;
+            Vector3 shotPosition = playerPos + Random.insideUnitSphere * Stats.Accurracy;
 
             EnemyLaserBall newlaser = Instantiate(Stats.Bullet, transform.position, transform.rotation).GetComponent<EnemyLaserBall>();
             newlaser.transform.LookAt(shotPosition);

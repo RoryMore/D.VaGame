@@ -141,9 +141,9 @@ public class Gwishin : MonoBehaviour
                 {
                     bool outsideApproachRange = Vector3.Distance(transform.position, targetPosition) > approachDistance;
                     bool lookingAtTarget = Quaternion.Angle(transform.rotation, Quaternion.LookRotation(targetPosition - transform.position)) < 2f;
-                    bool notAimingAtGround = (transform.position + transform.forward * (Vector3.Distance(transform.position, targetPosition) - approachDistance)).y > targetPosition.y - 10;
+                    bool notAimingAtGround = (transform.position + transform.forward * (Vector3.Distance(transform.position, targetPosition) - approachDistance)).y > targetPosition.y;
                     bool notAimingToHigh = (transform.position + transform.forward * (Vector3.Distance(transform.position, targetPosition) - approachDistance)).y < targetPosition.y + 150;
-                    bool randomness = Random.value < 0.2f;
+                    bool randomness = Random.value < 0.5f;
                     //bool lookingAtTarget = transform.rotation == Quaternion.LookRotation(targetPosition.position - transform.position);
 
                     if (outsideApproachRange && lookingAtTarget && notAimingAtGround && notAimingToHigh && randomness)

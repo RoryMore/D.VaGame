@@ -70,6 +70,7 @@ public class MissleWeapon : Weapon
             yield return new WaitForSeconds(0.125f);
         }
         Firing = false;
+        CanFire = false;
     }
 
     IEnumerator AquiringTargets(float frequency)

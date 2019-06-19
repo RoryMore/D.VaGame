@@ -9,5 +9,15 @@ public class WeaponSounds : ScriptableObject
     [Tooltip("Plays before the weapon fires")]
     AudioClip chargingClip = null;
 
+    [SerializeField]
+    [Tooltip("Plays when Weapon Gains Ammo")]
+    AudioClip ammoIncrease = null;
+
+    [SerializeField]
+    [Tooltip("Plays when a bullet is created")]
+    AudioClip bulletFire = null;
+
     public AudioClip ChargingClip { get => chargingClip; set => chargingClip = value; }
+    public AudioClip AmmoIncrease { get => ammoIncrease; set => ammoIncrease = value; }
+    public AudioClip BulletFire { get => bulletFire; set => bulletFire = value; }
 }

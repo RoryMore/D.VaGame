@@ -70,12 +70,10 @@ public class PlayerHealth : MonoBehaviour
         //If the hit is above our current health, deal damage to a system
         if (critHit > currentHealth)
         {
-            print("critical hit!");
             float choice = (Mathf.Round(Random.Range(0.0f, 3.0f)));
 
             if (choice == 0)
             {
-                print("Move and Turn speed Reduced");
                 //Updated singleton
                 PlayerModifierManager.Instance.CalculateModifier("moveSpeed", -0.1f);
                 PlayerModifierManager.Instance.CalculateModifier("turnSpeed", -0.1f);
@@ -87,7 +85,6 @@ public class PlayerHealth : MonoBehaviour
             }
             else if (choice == 1)
             {
-                print("LaserGun Damage, Range reduced and Recharge time increased");
                 PlayerModifierManager.Instance.CalculateModifier("laserTime", -0.1f);
                 PlayerModifierManager.Instance.CalculateModifier("laserRange", -0.1f);
                 PlayerModifierManager.Instance.CalculateModifier("laserDamage", -0.1f);
@@ -102,18 +99,15 @@ public class PlayerHealth : MonoBehaviour
             }
             else if (choice == 2)
             {
-                print("Missile amount, damage and refresh rate increased");
                 PlayerModifierManager.Instance.CalculateModifier("missileDamage", -0.1f);
                 
             }
             else if (choice == 6)
             {
-                print("Missile Ammo reduced");
                 PlayerModifierManager.Instance.CalculateModifier("missileAmmo", -0.1f);
             }
             else if (choice == 3)
             {
-                print("Missile rate reduced");
                 PlayerModifierManager.Instance.CalculateModifier("missileTime", -0.1f);
             }
         }

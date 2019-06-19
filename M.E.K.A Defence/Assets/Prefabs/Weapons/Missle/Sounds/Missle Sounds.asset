@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Missle Sounds
   m_EditorClassIdentifier: 
   chargingClip: {fileID: 0}
+  ammoIncrease: {fileID: 8300000, guid: dd103ed95ffd14c4795c3cfd3cdd6f63, type: 3}
+  bulletFire: {fileID: 0}

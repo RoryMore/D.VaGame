@@ -140,7 +140,7 @@ public class Gwishin : MonoBehaviour
             case EnemyState.APPROACH:
                 {
                     bool outsideApproachRange = Vector3.Distance(transform.position, targetPosition) > approachDistance;
-                    bool lookingAtTarget = Quaternion.Angle(transform.rotation, Quaternion.LookRotation(targetPosition - transform.position)) < 7f;
+                    bool lookingAtTarget = Quaternion.Angle(transform.rotation, Quaternion.LookRotation(targetPosition - transform.position)) < 2f;
                     bool notAimingAtGround = (transform.position + transform.forward * (Vector3.Distance(transform.position, targetPosition) - approachDistance)).y > targetPosition.y - 10;
                     bool notAimingToHigh = (transform.position + transform.forward * (Vector3.Distance(transform.position, targetPosition) - approachDistance)).y < targetPosition.y + 150;
                     bool randomness = Random.value < 0.2f;

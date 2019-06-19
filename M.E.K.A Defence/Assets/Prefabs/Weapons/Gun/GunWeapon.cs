@@ -16,7 +16,6 @@ public class GunWeapon : Weapon
     {
         if (PlayerActivatesInput() && !Firing)
         {
-            print("fwoop");
             StopCoroutine(startFiring);
             startFiring = StartFiring(Stats.FireRate, Stats.CurrentAmmo);
             StartCoroutine(startFiring);
@@ -50,7 +49,8 @@ public class GunWeapon : Weapon
         }
         else
         {
-            targetPosition = transform.position + mouseRay.direction.normalized * Stats.Range;
+            targetPosition = mouseRay.origin + mouseRay.direction.normalized * Stats.Range;
+            
         }
     }
 }

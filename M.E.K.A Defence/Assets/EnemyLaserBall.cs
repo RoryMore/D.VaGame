@@ -14,6 +14,7 @@ public class EnemyLaserBall : MonoBehaviour
     {
         line = GetComponent<VolumetricLineBehavior>();
         lineWidthBase = line.LineWidth;
+        StartCoroutine(Death());
     }
 
     void Update()
@@ -26,5 +27,21 @@ public class EnemyLaserBall : MonoBehaviour
     {
         this.speed = speed;
         this.damage = damage;
+    }
+
+    IEnumerator Death()
+    {
+        yield return new WaitForSeconds(15);
+        Destroy(this.gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            other.GetComponent<PlayerHealth>().TakeDamage(damage);
+        }
+
+        if(other.tag != "Enemy") Destroy(this.gameObject);
     }
 }

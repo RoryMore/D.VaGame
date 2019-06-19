@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3012926785601970174}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TopGun_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1769973750132983725}
   - component: {fileID: 639254747071674144}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 832d7e481b74dbb4baec3eef0f2c141e, type: 3}
+  - {fileID: 2100000, guid: 69323e0100186864ebf6ed4b1c33cc43, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -150,7 +150,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2201271569066841995}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tail06_M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 163712446157377250}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tail02_M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6475549186684987093}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tail03_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4678308365205932425}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tail01_M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,7 +273,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4774830197409796829}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: DownBody_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,7 +306,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8155308448379574751}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ear01_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,7 +337,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8965629727768327489}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ' Core'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -374,7 +374,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2674782998926127491}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tail06_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,7 +404,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3972459357009601426}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -434,7 +434,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5978395769297267060}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tail05_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -465,7 +465,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 867539985219280210}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mesh_Cleanup_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -501,7 +501,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7382577366058172849}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SideGun02_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -522,6 +522,97 @@ Transform:
   m_Father: {fileID: 4774830197409796829}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3069752267984275211
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 381687206339750949}
+  - component: {fileID: 600844058387575074}
+  m_Layer: 11
+  m_Name: Area Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &381687206339750949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069752267984275211}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 12.31, z: 10.57}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 491475411349590405}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!108 &600844058387575074
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069752267984275211}
+  m_Enabled: 1
+  serializedVersion: 9
+  m_Type: 3
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Intensity: 10
+  m_Range: 10
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 2
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: -0.08474807, y: 0, z: -17.857733, w: 15.668622}
+  m_UseBoundingSphereOverride: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!1 &3167502901942983261
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,7 +622,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1843287934187874323}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ear02_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -561,7 +652,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3017536602756711509}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ear01_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -592,7 +683,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5650900821654736073}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tail04_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -629,7 +720,8 @@ GameObject:
   - component: {fileID: 4875329695110187979}
   - component: {fileID: 4875329695110187976}
   - component: {fileID: 498134316431219722}
-  m_Layer: 0
+  - component: {fileID: 3854967380915135113}
+  m_Layer: 11
   m_Name: Gwishin
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -643,18 +735,19 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3497409670476342166}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 2058.7, y: 294.01, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 8965629727768327489}
   - {fileID: 1769973750132983725}
   - {fileID: 867539985219280210}
   - {fileID: 7915664872304132408}
   - {fileID: 2086839793715388685}
+  - {fileID: 381687206339750949}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7518778862084324607
 Animator:
   serializedVersion: 3
@@ -665,7 +758,7 @@ Animator:
   m_GameObject: {fileID: 3497409670476342166}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 832d7e481b74dbb4baec3eef0f2c141e, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d3ebce19a7ddf7a4ca6b7cc377acdd1f, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -730,6 +823,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1dc977950161894c9d7dec8e94cdac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetedReticle: {fileID: 895080929954462907, guid: 5ff5c8109f14dae4f8ed815713260ad5,
+    type: 3}
 --- !u!114 &498134316431219722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -747,6 +842,22 @@ MonoBehaviour:
   useButton: -1
   UI: {fileID: 0}
   offsetUI: {x: 0, y: 0, z: 0}
+--- !u!114 &3854967380915135113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3497409670476342166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 496a2bf4bc467a4489a7c37609cece2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 100
+  currentHealth: 0
+  dead: 0
+  killedByMissle: 0
 --- !u!1 &3832321943090037801
 GameObject:
   m_ObjectHideFlags: 0
@@ -756,7 +867,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5452809994097054117}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tail01_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -787,7 +898,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1905543917639670604}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -820,7 +931,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8262354639261731304}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -850,7 +961,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8354452533332879596}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: UpperBody_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -881,7 +992,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7915664872304132408}
   - component: {fileID: 5836244582362122442}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Left Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1006,7 +1117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3103243879176381275}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tail05_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1037,7 +1148,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5974372830151186229}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1067,7 +1178,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3225314859004241237}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ear02_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1097,7 +1208,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1854153213685223727}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tail04_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1128,7 +1239,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 353223021050007407}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tail01_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1159,7 +1270,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1208514038041366863}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: thruster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1189,7 +1300,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8512347974587381787}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tail03_M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1220,7 +1331,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 747807383406887920}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1250,7 +1361,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7764040029343191703}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SideGun02_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1280,7 +1391,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3411123837955967321}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: DownBody_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1313,7 +1424,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1501633736224975358}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TopGun_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1343,7 +1454,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9092491013391862354}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: UpperBody_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1373,7 +1484,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6559123434311613334}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tail02_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1404,7 +1515,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 254319610397561109}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tail02_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1435,7 +1546,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2243637851353020473}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tail05_M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1467,7 +1578,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2086839793715388685}
   - component: {fileID: 4318813232746178490}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Right Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1592,7 +1703,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 459839468290280098}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1622,7 +1733,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5434298442481065718}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: side_gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1652,7 +1763,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1256220487572069373}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tail03_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1683,7 +1794,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4238132297200089994}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tail04_M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1714,7 +1825,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7749906184265910242}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: under_gun_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1744,7 +1855,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5500335637086066574}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tail06_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}

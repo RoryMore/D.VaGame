@@ -10,12 +10,8 @@ public class BuildPhaseManager : MonoBehaviour
     Slider laserHealthSlider; 
     Slider missileHealthSlider;
     Slider movementHealthSlider;
-    Slider machineHealthSlider;
 
     public Text laserDescription;
-    public Text machineDescription;
-    public Text missileDescription;
-    public Text movementDescription;
 
     float startingLaserHealth;
     float startingMissileHealth;
@@ -49,18 +45,11 @@ public class BuildPhaseManager : MonoBehaviour
         //Missile Values
         missileHealthSlider = GameObject.Find("MissilePodHealthSlider").GetComponent<Slider>();
         float startingMissileHealth = PlayerModifierManager.Instance.GetMissileHealth();
-        missileDescription = GameObject.Find("MissileDescription").GetComponent<Text>();
-
+     
 
         //Movement Values
         movementHealthSlider = GameObject.Find("MovementHealthSlider").GetComponent<Slider>();
         float startingMovementHealth = PlayerModifierManager.Instance.GetMovementHealth();
-        movementDescription = GameObject.Find("MovementDescription").GetComponent<Text>();
-
-        //MachineGun Values
-        machineHealthSlider = GameObject.Find("MachineGunHealthSlider").GetComponent<Slider>();
-        float startingMachineHealth = PlayerModifierManager.Instance.GetMachineHealth();
-        machineDescription = GameObject.Find("MachineDescription").GetComponent<Text>();
 
 
 
@@ -71,11 +60,9 @@ public class BuildPhaseManager : MonoBehaviour
         repairCanvas = GameObject.Find("RepairsCanvas");
         upgradeCanvas = GameObject.Find("UpgradesCanvas");
 
-        UpdateAllVariables();
-
         //Start the player in Repairs menu unless they have no damage to any system, in which case, automatically send them to the upgrade screen, as its the only thing they
         //May wish to do
-        if (PlayerModifierManager.Instance.GetLaserGunHealth() == 1.0f && PlayerModifierManager.Instance.GetMissileHealth() == 1.0f && PlayerModifierManager.Instance.GetMovementHealth() == 1.0f && PlayerModifierManager.Instance.GetMachineHealth() == 1.0f)
+        if (PlayerModifierManager.Instance.GetLaserGunHealth() == 1.0f && PlayerModifierManager.Instance.GetMissileHealth() == 1.0f && PlayerModifierManager.Instance.GetMovementHealth() == 1.0f)
         {
             GoToUpgrades();
         }
@@ -86,17 +73,19 @@ public class BuildPhaseManager : MonoBehaviour
         
 
 
-       
+        UpdateAllVariables();
 
     }
     public void StartWave()
     {
         //Won't let you leave the repair bay unless all your time is spent, or you have fully repaired all parts of your Meka
-        if (timeLeft == 0 || PlayerModifierManager.Instance.GetLaserGunHealth() == 1.0f && PlayerModifierManager.Instance.GetMissileHealth() == 1.0f && PlayerModifierManager.Instance.GetMovementHealth() == 1.0f && PlayerModifierManager.Instance.GetMachineHealth() == 1.0f)
+        if (timeLeft == 0 || PlayerModifierManager.Instance.GetLaserGunHealth() == 1.0f && PlayerModifierManager.Instance.GetMissileHealth() == 1.0f && PlayerModifierManager.Instance.GetMovementHealth() == 1.0f)
         {
             //Play Game function
+
             PlayerModifierManager.Instance.UpdateWeaponStats();
-            SceneManager.LoadScene("Final Scene");
+
+            SceneManager.LoadScene("Defence Scene");
         }
 
     }
@@ -111,20 +100,11 @@ public class BuildPhaseManager : MonoBehaviour
 
         movementHealthSlider.value = PlayerModifierManager.Instance.GetMovementHealth();
 
-        machineHealthSlider.value = PlayerModifierManager.Instance.GetMachineHealth();
-
         //Update Time
         timeLeftText.text = "Weeks remaining until next wave: " + timeLeft.ToString();
 
         //Update Descriptions
         laserDescription.text = "A ramshackle laser cannon made by strapping 8 unstable prototypes in a single housing and focusing them with an impure crystal. Currently opperating at " + (PlayerModifierManager.Instance.GetLaserGunHealth() * 100).ToString() + "% efficiency, reducing your recharge time, range and damage output by " + (100 - (PlayerModifierManager.Instance.GetLaserGunHealth() * 100)).ToString() + "%";
-
-        machineDescription.text = "A series of PVC pipes connected with bubblegum and chicken-wire, filled with gunpowdeer. Currently opperating at " + (PlayerModifierManager.Instance.GetMachineHealth() * 100).ToString() + "% efficiency, reducing your recharge time, range and damage output by " + (100 - (PlayerModifierManager.Instance.GetMachineHealth() * 100)).ToString() + "%";
-
-        missileDescription.text = "Old power cores attached to fire extinguishers and sent of with divine fury. Currently opperating at " + (PlayerModifierManager.Instance.GetMissileHealth() * 100).ToString() + "% efficiency, reducing your recharge time, range and damage output by " + (100 - (PlayerModifierManager.Instance.GetMissileHealth() * 100)).ToString() + "%";
-
-        movementDescription.text = "Two feet from different mechs, two legs from different mechs and a torso from a merry-go-round. Currently opperating at " + (PlayerModifierManager.Instance.GetMissileHealth() * 100).ToString() + "% efficiency, reducing your recharge time, range and damage output by " + (100 - (PlayerModifierManager.Instance.GetMissileHealth() * 100)).ToString() + "%";
-
     }
 
     //SETTERS
@@ -170,24 +150,6 @@ public class BuildPhaseManager : MonoBehaviour
             PlayerModifierManager.Instance.CalculateModifier("missileTime", 0.1f);
 
             PlayerModifierManager.Instance.CalculateModifier("missileHealth", 0.1f);
-            timeLeft -= 1.0f;
-            UpdateAllVariables();
-
-        }
-    }
-
-    public void MachineGunRepair()
-    {
-        if (timeLeft > 0 && PlayerModifierManager.Instance.GetMachineHealth() != 1.0f)
-        {
-            //Damage
-            PlayerModifierManager.Instance.CalculateModifier("machineDamage", 0.1f);
-            //Ammo Capacity
-            PlayerModifierManager.Instance.CalculateModifier("machineAmmo", 0.1f);
-            //Reload time
-            PlayerModifierManager.Instance.CalculateModifier("machineTime", 0.1f);
-
-            PlayerModifierManager.Instance.CalculateModifier("machineHealth", 0.1f);
             timeLeft -= 1.0f;
             UpdateAllVariables();
 
@@ -243,27 +205,9 @@ public class BuildPhaseManager : MonoBehaviour
 
     }
 
-    public void MachineUndoRepair()
-    {
-        if (timeLeft != 4 && PlayerModifierManager.Instance.GetMachineHealth() > startingMissileHealth && PlayerModifierManager.Instance.GetMachineHealth() != 0.0f)
-        {
-            //Damage
-            PlayerModifierManager.Instance.CalculateModifier("machineDamage", -0.1f);
-            //Ammo Capacity
-            PlayerModifierManager.Instance.CalculateModifier("machineAmmo", -0.1f);
-            //Reload time
-            PlayerModifierManager.Instance.CalculateModifier("machineTime", -0.1f);
-
-            PlayerModifierManager.Instance.CalculateModifier("machineHealth", -0.1f);
-            timeLeft += 1.0f;
-            UpdateAllVariables();
-        }
-
-    }
-
     public void GetDashUpgrade()
     {
-        if (timeLeft == 2 && PlayerModifierManager.Instance.GetMovementHealth() == 1.0f)
+        if (timeLeft == 4 && PlayerModifierManager.Instance.GetMovementHealth() == 0.2f)
         {
             PlayerModifierManager.Instance.UpgradeDash();
             timeLeft -= 4.0f;

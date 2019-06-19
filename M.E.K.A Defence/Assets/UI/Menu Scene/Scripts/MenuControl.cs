@@ -33,7 +33,9 @@ public class MenuControl : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("Final Scene");
+        SceneManager.LoadScene("Defence Scene");
+        //FOR TESTING
+        //SceneManager.LoadScene("EnemyTest");
 
     }
 
